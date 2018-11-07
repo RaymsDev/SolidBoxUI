@@ -20,6 +20,15 @@ module.exports = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
+                enforce: 'pre',
+                use: [
+                    {
+                        loader: 'tslint-loader',
+                    }
+                ]
+            },
+            {
+                test: /\.(ts|tsx)$/,
                 loader: 'ts-loader'
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
