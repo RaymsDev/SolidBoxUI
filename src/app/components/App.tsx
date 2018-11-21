@@ -1,13 +1,19 @@
 import * as React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { HomePage } from './pages/HomePages';
 
 interface IProps {
-    compiler: string;
-    framework: string;
-    bundler: string;
+  compiler: string;
+  framework: string;
+  bundler: string;
 }
 
 export class App extends React.Component<IProps, {}> {
-    public render(): JSX.Element {
-        return <h1>This is a {this.props.framework} application using    {this.props.compiler} with {this.props.bundler}</h1>;
-    }
+  public render(): JSX.Element {
+    return (
+      <Switch>
+        <Route path="/" component={HomePage} exact={true} />
+      </Switch>
+    );
+  }
 }
