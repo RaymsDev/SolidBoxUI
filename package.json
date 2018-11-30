@@ -20,9 +20,9 @@
   "author": "rayms.dev@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RaymsDev/SolidBoxUI/issues"
+    "url": "https://github.com/RaymsDev/TeamWork/issues"
   },
-  "homepage": "https://github.com/RaymsDev/SolidBoxUI#readme",
+  "homepage": "https://github.com/RaymsDev/TeamWork#readme",
   "dependencies": {
     "@types/react-router": "^4.4.1",
     "@types/react-router-dom": "^4.3.1",
