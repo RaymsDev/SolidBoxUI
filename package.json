@@ -4,10 +4,13 @@
   "description": "Projet développé dans le cadre des YDays",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && npm run serve",
+    "start": "npm run build-dev && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/webpack",
-    "serve": "node server.js"
+    "build": "npx webpack",
+    "serve": "node server.js",
+    "build-dev": "npx webpack --config ./webpack.config.dev.js",
+    "docker-build": "docker build -t teamwork .",
+    "docker-run": "docker run --name=teamwork -it -p 8080:80 --rm teamwork"
   },
   "repository": {
     "type": "git",

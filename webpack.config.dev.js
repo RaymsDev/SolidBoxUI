@@ -3,9 +3,9 @@ const path = require('path'),
   HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: {
-    app: ['./src/app/index.tsx'],
+    app: ['./src/app/index.tsx', 'webpack-hot-middleware/client'],
     vendor: ['react', 'react-dom']
   },
   output: {
@@ -36,5 +36,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'index.html') }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }
