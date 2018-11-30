@@ -1,4 +1,4 @@
-# SolidBoxUI
+# TeamWork
 Projet développé dans le cadre des YDays
 
 ## Seed
