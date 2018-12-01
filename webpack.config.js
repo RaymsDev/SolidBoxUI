@@ -5,14 +5,13 @@ const path = require('path'),
 module.exports = {
   mode: 'production',
   entry: {
-    app: ['./src/app/index.tsx'],
+    app: ['./src/app/App.tsx'],
     vendor: ['react', 'react-dom']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app/[name].bundle.js'
   },
-  devtool: 'source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
   },
@@ -29,9 +28,8 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        loader: 'ts-loader'
-      },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+        loader: 'awesome-typescript-loader'
+      }
     ]
   },
   plugins: [

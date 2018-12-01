@@ -4,13 +4,11 @@
   "description": "Projet développé dans le cadre des YDays",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build-dev && npm run serve",
+    "start": "npx webpack-dev-server --config ./webpack.config.dev.js --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx webpack",
-    "serve": "node server.js",
-    "build-dev": "npx webpack --config ./webpack.config.dev.js",
-    "docker-build": "docker build -t teamwork .",
-    "docker-run": "docker run --name=teamwork -it -p 8080:80 --rm teamwork"
+    "docker:build": "docker build -t teamwork .",
+    "docker:run": "docker run --name=teamwork -it -p 8080:80 --rm teamwork"
   },
   "repository": {
     "type": "git",
@@ -27,28 +25,28 @@
   },
   "homepage": "https://github.com/RaymsDev/TeamWork#readme",
   "dependencies": {
+    "@types/react": "^16.7.10",
+    "@types/react-dom": "^16.0.11",
     "@types/react-router": "^4.4.1",
     "@types/react-router-dom": "^4.3.1",
-    "express": "^4.16.4",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "typescript": "^3.1.6"
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
-    "@types/react": "^16.4.18",
-    "@types/react-dom": "^16.0.9",
+    "awesome-typescript-loader": "^5.2.1",
     "html-webpack-plugin": "^3.2.0",
+    "react-hot-loader": "^4.3.12",
     "source-map-loader": "^0.2.4",
-    "ts-loader": "^5.3.0",
     "tslint": "^5.11.0",
     "tslint-loader": "^3.5.4",
     "tslint-microsoft-contrib": "^5.2.1",
     "tslint-react": "^3.6.0",
-    "webpack": "^4.25.1",
+    "typescript": "^3.2.1",
+    "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-middleware": "^3.4.0",
+    "webpack-dev-server": "^3.1.10",
     "webpack-hot-middleware": "^2.24.3"
   }
 }

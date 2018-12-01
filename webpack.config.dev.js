@@ -1,11 +1,13 @@
 const path = require('path'),
   webpack = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const sourcePath = path.join(__dirname, './src');
+const port = 3000;
 module.exports = {
+  context: sourcePath,
   mode: 'development',
   entry: {
-    app: ['./src/app/index.tsx', 'webpack-hot-middleware/client'],
+    app: ['./app/App.tsx',],
     vendor: ['react', 'react-dom']
   },
   output: {
@@ -13,6 +15,21 @@ module.exports = {
     filename: 'app/[name].bundle.js'
   },
   devtool: 'source-map',
+
+  devServer: {
+    contentBase: sourcePath,
+    hot: true,
+    port: port,
+    historyApiFallback: true,
+    open: true
+  },
+  node: {
+    // workaround for webpack-dev-server issue
+    // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
+    fs: 'empty',
+    net: 'empty'
+  },
+
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
   },
@@ -29,13 +46,12 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        loader: 'ts-loader'
+        loader: 'awesome-typescript-loader'
       },
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'index.html') }),
-    new webpack.HotModuleReplacementPlugin()
   ]
 }
