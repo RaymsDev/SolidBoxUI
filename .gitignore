@@ -64,3 +64,6 @@ typings/
 /dist
 
 package-lock.json
+
+#ignore *module.scss.d.ts
+/src/**/*.scss.d.ts

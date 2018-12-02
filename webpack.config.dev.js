@@ -36,6 +36,27 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.scss$/,
+        use: [
+
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "typings-for-css-modules-loader",
+            options: {
+              camelcase: true,
+              modules: true,
+              namedExport: true,
+              sourceMap: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
+          },
+          {
+            loader: "sass-loader",
+          }]
+      },
+      {
         test: /\.(ts|tsx)$/,
         enforce: 'pre',
         use: [
@@ -53,5 +74,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'index.html') }),
+    new webpack.WatchIgnorePlugin([
+      /scss\.d\.ts$/
+    ]),
   ]
 }

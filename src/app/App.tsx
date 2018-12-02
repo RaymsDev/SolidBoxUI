@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { HomePage } from './components/pages/homePage/HomePage';
 import { NotFoundPage } from './components/pages/notFoundPage/NotFoundPage';
 import { ProjectPage } from './components/pages/projectPage/ProjectPage';
+import './styles.scss';
 
 const rootElement = document.getElementById('root');
 
