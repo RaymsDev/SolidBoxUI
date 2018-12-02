@@ -1,0 +1,35 @@
+@import "./../../../palette.scss";
+$space:16px;
+.container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: $primary;
+  min-height: 56px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.16), 0 1px 1px rgba(0,0,0,.24);
+  width: 100%;
+  color: $primary-text;
+
+  .title{
+    margin-left: $space;
+    font-size: 20px;
+    color: $primary-text;
+    text-decoration: none;
+  }
+
+  .emptyFill{
+    flex-grow: 1;
+  }
+
+  .linkButtons{
+    display: flex;
+    height: 100%;
+    .link{
+      margin:0 $space 0 0;
+      a{
+        text-decoration: none;
+        color:$primary-text;
+      }
+    }
+  }
+}

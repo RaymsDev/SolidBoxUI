@@ -2,10 +2,10 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import { ProjectPage } from './ProjectPage';
 test('Display project page text', () => {
-  const div = shallow(<ProjectPage>ProjectPage</ProjectPage>);
+  const div = shallow(<ProjectPage />);
 
   // Interaction demo
   const textValue = div.text();
-  expect(textValue).toBe('ProjectPage');
+  expect(textValue).toBe('Project Page');
 
 });
