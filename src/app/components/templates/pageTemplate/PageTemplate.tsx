@@ -4,8 +4,11 @@ export class PageTemplate extends React.Component {
     const children = this.props.children;
     return (
       <>
-        Content:
-        {children}
+        <head>header</head>
+        <div className="container">
+          {children}
+        </div>
+        <footer>footer</footer>
       </>
     );
   }

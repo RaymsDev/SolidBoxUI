@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { HomePage } from './components/pages/HomePage';
-import { NotFoundPage } from './components/pages/NotFoundPage';
-import { ProjectPage } from './components/pages/ProjectPage';
+import { HomePage } from './components/pages/homePage/HomePage';
+import { NotFoundPage } from './components/pages/notFoundPage/NotFoundPage';
+import { ProjectPage } from './components/pages/projectPage/ProjectPage';
 
 const rootElement = document.getElementById('root');
 
