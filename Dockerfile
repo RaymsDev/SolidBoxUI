@@ -9,6 +9,7 @@ COPY package.json /usr/src/app/package.json
 RUN npm install --silent
 
 COPY . /usr/src/app
+RUN npm test
 
 RUN npm run build
 
