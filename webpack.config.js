@@ -1,12 +1,12 @@
 const path = require('path'),
   webpack = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const sourcePath = path.join(__dirname, './src');
 module.exports = {
+  context: sourcePath,
   mode: 'production',
   entry: {
-    app: ['./src/app/App.tsx'],
+    app: ['./app/App.tsx',],
     vendor: ['react', 'react-dom']
   },
   output: {
@@ -19,12 +19,25 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
-        ],
+
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "typings-for-css-modules-loader",
+            options: {
+              camelcase: true,
+              modules: true,
+              namedExport: true,
+              sourceMap: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
+          },
+          {
+            loader: "sass-loader",
+          }]
       },
       {
         test: /\.(ts|tsx)$/,
@@ -41,14 +54,10 @@ module.exports = {
       }
     ]
   },
-  optimization: { minimizer: [new OptimizeCSSAssetsPlugin({})] },
   plugins: [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'index.html') }),
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: "[name].[hash].css",
-      chunkFilename: "[id].[hash].css"
-    })
+    new webpack.WatchIgnorePlugin([
+      /scss\.d\.ts$/
+    ]),
   ]
 }
