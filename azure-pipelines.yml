@@ -14,5 +14,10 @@ steps:
 
 - script: |
     npm install
-    npm run build
+    npm test:ci
   displayName: 'npm install and build'
+
+- task: PublishTestResults@1
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: ./junit.xml

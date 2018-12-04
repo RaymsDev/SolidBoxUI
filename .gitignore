@@ -65,5 +65,8 @@ jspm_packages/
 
 package-lock.json
 
+#test report file
+junit.xml
+
 #ignore *module.scss.d.ts
 /src/**/*.scss.d.ts
