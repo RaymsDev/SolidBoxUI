@@ -21,3 +21,10 @@ steps:
   inputs:
     testRunner: JUnit
     testResultsFiles: ./junit.xml
+  displayName: 'Publish Test Results'
+
+- script: |
+    docker build -t $(dockerId).azurecr.io/$(system.teamProject) .
+    docker login -u $(acr-service-principal-id) -p $(acr-service-principal-password) $(dockerId).azurecr.io
+    docker push $(dockerId).azurecr.io/$(system.teamProject)
+  displayName: 'Build Docker image and publish on ACR'
