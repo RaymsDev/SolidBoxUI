@@ -19,4 +19,10 @@ module.exports = {
   ],
   "snapshotSerializers": ["enzyme-to-json/serializer"],
   "setupTestFrameworkScriptFile": "<rootDir>/src/config/setupEnzyme.ts",
+  "collectCoverage": false,
+  "collectCoverageFrom": [
+    "**/*.{ts,tsx}",
+    "!**/node_modules/**",
+    "!**/*.{d.ts}"
+  ],
 }
