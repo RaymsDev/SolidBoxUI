@@ -33,6 +33,6 @@ steps:
 
 - script: |
     docker build -t $(dockerId).azurecr.io/$(imageName) .
-    docker login -u $(acrServicePrincipalId) --password-stdin $(acrServicePrincipalPassword) $(dockerId).azurecr.io
+    docker login -u $(acrServicePrincipalId) -p $(acrServicePrincipalPassword) $(dockerId).azurecr.io
     docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'Build Docker image and publish on ACR'

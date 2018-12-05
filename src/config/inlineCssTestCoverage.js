@@ -12,7 +12,7 @@ files.forEach(filePath => {
   let options = {
     url: "file://" + path.resolve(filePath),
     extraCss:
-      ".wrapper {height: initial;} .clearfix { display: inline-block; } table {width: 1px;} .cline-any, .line-count {font-size: 12px;line-height: 16px;}"
+      ".wrapper {height: 100vh;} .clearfix { display: inline-block; } table {width: 1px;} .cline-any, .line-count {font-size: 12px;line-height: 16px;}"
   };
 
   const data = fs.read(path.resolve(filePath));
@@ -20,7 +20,6 @@ files.forEach(filePath => {
     .then(html => {
       let outputFile = path.resolve(filePath);
       fs.write(outputFile, html);
-      console.log(html)
     })
     .catch(err => {
       console.log(err);
