@@ -20,6 +20,10 @@ module.exports = {
   "snapshotSerializers": ["enzyme-to-json/serializer"],
   "setupTestFrameworkScriptFile": "<rootDir>/src/config/setupEnzyme.ts",
   "collectCoverage": false,
+  "coverageReporters": [
+    "cobertura",
+    "text"
+  ],
   "collectCoverageFrom": [
     "**/*.{ts,tsx}",
     "!**/node_modules/**",
