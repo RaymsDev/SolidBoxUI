@@ -12,7 +12,7 @@ files.forEach(filePath => {
   let options = {
     url: "file://" + path.resolve(filePath),
     extraCss:
-      ".wrapper {height: 100vh; background-color: #f5f5f6;} .clearfix { display: inline-block; } table {width: 1px;} .cline-any, .line-count {font-size: 12px;line-height: 16px;}"
+      ".wrapper {height: initial; background-color: #f5f5f6;} .clearfix { display: inline-block; } table {width: 1px;} .cline-any, .line-count {font-size: 12px;line-height: 16px;}"
   };
 
   const data = fs.read(path.resolve(filePath));
