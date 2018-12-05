@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "test": "jest",
+    "test:inline-css": "node ./src/config/inlineCssTestCoverage.js",
     "test:ci": "jest --ci --coverage  --reporters=default --reporters=jest-junit",
     "dev": "npx webpack-dev-server --config ./webpack.config.dev.js --hot",
     "build": "npx webpack",
@@ -42,8 +43,10 @@
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "enzyme-to-json": "^3.3.4",
+    "fs-jetpack": "^2.2.0",
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
+    "inline-css": "^2.4.1",
     "jest": "^23.6.0",
     "jest-junit": "^5.2.0",
     "mini-css-extract-plugin": "^0.4.5",
