@@ -27,14 +27,16 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
+    failIfCoverageEmpty: true
 
 - script: |
     docker build -t $(dockerId).azurecr.io/$(imageName) .
     docker login -u $(acrServicePrincipalId) -p $(acrServicePrincipalPassword) $(dockerId).azurecr.io
     docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'Build Docker image and publish on ACR'
+  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/coverage'
