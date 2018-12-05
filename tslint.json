@@ -61,6 +61,7 @@
       "parameter",
       "property-declaration",
       "member-variable-declaration"
-    ]
+    ],
+    "object-literal-sort-keys": false
   }
 }

@@ -22,7 +22,7 @@ module.exports = {
   "collectCoverage": false,
   "coverageReporters": [
     "cobertura",
-    "text"
+    "html"
   ],
   "collectCoverageFrom": [
     "**/*.{ts,tsx}",

@@ -35,8 +35,3 @@ steps:
     docker login -u $(acrServicePrincipalId) -p $(acrServicePrincipalPassword) $(dockerId).azurecr.io
     docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'Build Docker image and publish on ACR'
-  condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/coverage'
