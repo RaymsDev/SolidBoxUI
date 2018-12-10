@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  teamwork:
+    image: neoscontainerregistry.azurecr.io/teamwork:latest
+    ports:
+      - "8080:80"
