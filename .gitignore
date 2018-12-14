@@ -70,3 +70,6 @@ junit.xml
 
 #ignore *module.scss.d.ts
 /src/**/*.scss.d.ts
+
+.sonarlint/
+.scannerwork/
