@@ -9,15 +9,11 @@ import { TodoActions } from './../../../store/todo/action';
 import { ITodoPageProps } from './ITodoPageProps';
 
 export class TodoPage extends React.Component<ITodoPageProps> {
-  constructor(props: ITodoPageProps) {
-    super(props);
-  }
 
   public render(): JSX.Element {
-    const { todos, onTodoClick, onTodoCreate } = this.props;
     return (
       <PageTemplate>
-        <TodoList todos={todos} onTodoCreate={onTodoCreate} onTodoClick={onTodoClick} />
+        <TodoList {...this.props} />
       </PageTemplate>
     );
   }

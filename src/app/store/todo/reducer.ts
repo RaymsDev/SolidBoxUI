@@ -1,13 +1,14 @@
 
 import { ITodo } from "../../models/Todo";
-import { ITodosState, TodoActionTypes, TodoTypes } from "./types";
+import { ISetVisibilityAction, ITodosState, TodoActionTypes, TodoTypes, VisibilityFilter } from "./types";
 
 const todosStateInit: ITodosState = {
   todos: [{
     id: 0,
     text: '1st Todo',
     isFinished: true
-  }]
+  }],
+  visibleTodos: []
 };
 
 export const todosReducer = (state: ITodosState = todosStateInit, action: TodoActionTypes): ITodosState => {
@@ -15,13 +16,18 @@ export const todosReducer = (state: ITodosState = todosStateInit, action: TodoAc
 
     case TodoTypes.ADD_TODO:
     case TodoTypes.TOGGLE_TODO:
+      const todos = todoReducer(state.todos, action);
       return {
         ...state,
-        todos: todoReducer(state.todos, action)
+        todos,
+        visibleTodos: todos
       };
-
+    case TodoTypes.SET_VISIBILITY_FILTER:
     default:
-      return state;
+      return {
+        ...state,
+        visibleTodos: getVisibleTodo(state.todos, action)
+      };
   }
 };
 
@@ -52,6 +58,18 @@ export const todoReducer = (state: ITodo[] = new Array<ITodo>(), action: TodoAct
 
       });
 
+    default:
+      return state;
+  }
+};
+
+export const getVisibleTodo = (state: ITodo[] = new Array<ITodo>(), action: ISetVisibilityAction): ITodo[] => {
+  switch (action.filter) {
+    case VisibilityFilter.SHOW_ACTIVE:
+      return state.filter((todo) => !todo.isFinished);
+    case VisibilityFilter.SHOW_COMPLETE:
+      return state.filter((todo) => todo.isFinished);
+    case VisibilityFilter.SHOW_ALL:
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import { ITodo } from "../../models/Todo";
-import { IAddTodoAction, IToggleAction, TodoTypes } from "./types";
+import { IAddTodoAction, ISetVisibilityAction, IToggleAction, TodoTypes, VisibilityFilter } from "./types";
 
 export class TodoActions {
   public static addTodo(todoText: string): IAddTodoAction {
@@ -13,6 +13,13 @@ export class TodoActions {
     return {
       type: TodoTypes.TOGGLE_TODO,
       todoId
+    };
+  }
+
+  public static setVisibility(filter: string): ISetVisibilityAction {
+    return {
+      type: TodoTypes.SET_VISIBILITY_FILTER,
+      filter
     };
   }
 }

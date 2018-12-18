@@ -1,145 +1,181 @@
 import * as deepFreeze from "deep-freeze";
 import { ITodo } from "../../models/Todo";
-import { getHigherId, todoReducer, todosReducer } from "./reducer";
-import { IAddTodoAction, ITodosState, IToggleAction, TodoTypes } from "./types";
+import { TodoActions } from "./action";
+import { getHigherId, getVisibleTodo, todoReducer, todosReducer } from "./reducer";
+import { IAddTodoAction, ITodosState, IToggleAction, TodoTypes, VisibilityFilter } from "./types";
+
+const mixedTodoList: ITodo[] = [{
+  id: 1,
+  text: 'finished todo',
+  isFinished: true
+}, {
+  id: 2,
+  text: 'todo 2',
+  isFinished: false
+}];
+
+const initialTodoState: ITodosState = {
+  todos: mixedTodoList,
+  visibleTodos: []
+};
 
 describe('Todo Reducer', () => {
 
   test('Get Higher Id', () => {
-    const todoList = [{
-      id: 0,
-      text: 'todo should finish',
-      isFinished: true
-    }, {
-      id: 1,
-      text: 'todo 2',
-      isFinished: false
-    }];
+    const todoList = mixedTodoList;
 
     const result = getHigherId(todoList);
-    const expectedId = 1;
+    const expectedId = 2;
     expect(result).toBe(expectedId);
   });
 
   test('Add Todo', () => {
 
-    const stateBefore = new Array<ITodo>();
+    const stateBefore = initialTodoState;
 
     const action: IAddTodoAction = {
       type: TodoTypes.ADD_TODO,
-      todoText: 'Learn Redux'
+      todoText: 'todo 3'
     };
 
-    const stateAfter = [{
-      id: 1,
-      text: 'Learn Redux',
-      isFinished: false
-    }];
+    const stateAfter: ITodosState = {
+      todos: [
+        {
+          id: 1,
+          text: 'finished todo',
+          isFinished: true
+        }, {
+          id: 2,
+          text: 'todo 2',
+          isFinished: false
+        }, {
+          id: 3,
+          text: 'todo 3',
+          isFinished: false
+        }],
+      visibleTodos: [
+        {
+          id: 1,
+          text: 'finished todo',
+          isFinished: true
+        }, {
+          id: 2,
+          text: 'todo 2',
+          isFinished: false
+        }, {
+          id: 3,
+          text: 'todo 3',
+          isFinished: false
+        },
+      ]
+    };
 
     deepFreeze(stateBefore);
     deepFreeze(action);
 
-    const result = todoReducer(stateBefore, action);
+    const result = todosReducer(stateBefore, action);
     expect(result).toEqual(stateAfter);
   });
 
   test('Toggle todo', () => {
-    const stateBefore: ITodo[] = [{
-      id: 1,
-      text: 'todo should finish',
-      isFinished: false
-    }, {
-      id: 2,
-      text: 'todo 2',
-      isFinished: false
-    }];
+    const stateBefore: ITodosState = initialTodoState;
 
     const action: IToggleAction = {
       type: TodoTypes.TOGGLE_TODO,
-      todoId: 1
+      todoId: 2
     };
 
-    const stateAfter = [{
-      id: 1,
-      text: 'todo should finish',
-      isFinished: true
-    }, {
-      id: 2,
-      text: 'todo 2',
-      isFinished: false
-    }];
+    const stateAfter: ITodosState = {
+      todos: [
+        {
+          id: 1,
+          text: 'finished todo',
+          isFinished: true
+        }, {
+          id: 2,
+          text: 'todo 2',
+          isFinished: true
+        }],
+      visibleTodos: [
+        {
+          id: 1,
+          text: 'finished todo',
+          isFinished: true
+        }, {
+          id: 2,
+          text: 'todo 2',
+          isFinished: true
+        }
+      ]
+    };
 
     deepFreeze(stateBefore);
     deepFreeze(action);
 
-    const result = todoReducer(stateBefore, action);
+    const result = todosReducer(stateBefore, action);
 
     expect(result).toEqual(stateAfter);
   });
 });
 
-describe('Todos Reducer', () => {
-  test('Add Todo', () => {
+describe('Todos Visibility', () => {
 
+  test('Filter All Todo', () => {
     const stateBefore: ITodosState = {
-      todos: new Array<ITodo>()
+      todos: mixedTodoList,
+      visibleTodos: []
     };
-
-    const action: IAddTodoAction = {
-      type: TodoTypes.ADD_TODO,
-      todoText: 'Learn Redux'
-    };
-
+    const action = TodoActions.setVisibility(VisibilityFilter.SHOW_ALL);
     const stateAfter: ITodosState = {
-      todos: [{
-        id: 1,
-        text: 'Learn Redux',
-        isFinished: false
-      }]
+      todos: mixedTodoList,
+      visibleTodos: mixedTodoList
     };
-
     deepFreeze(stateBefore);
     deepFreeze(action);
+    deepFreeze(stateAfter);
 
-    const result = todosReducer(stateBefore, action);
-    expect(result).toEqual(stateAfter);
+    expect(stateAfter).toEqual(todosReducer(stateBefore, action));
   });
 
-  test('Toggle todo', () => {
+  test('Filter Active Todo', () => {
     const stateBefore: ITodosState = {
-      todos: [{
-        id: 1,
-        text: 'todo should finish',
-        isFinished: false
-      }, {
-        id: 2,
-        text: 'todo 2',
-        isFinished: false
-      }]
+      todos: mixedTodoList,
+      visibleTodos: new Array<ITodo>()
     };
-
-    const action: IToggleAction = {
-      type: TodoTypes.TOGGLE_TODO,
-      todoId: 1
-    };
-
+    const action = TodoActions.setVisibility(VisibilityFilter.SHOW_ACTIVE);
     const stateAfter: ITodosState = {
-      todos: [{
-        id: 1,
-        text: 'todo should finish',
-        isFinished: true
-      }, {
+      todos: mixedTodoList,
+      visibleTodos: [{
         id: 2,
         text: 'todo 2',
         isFinished: false
       }]
     };
-
     deepFreeze(stateBefore);
     deepFreeze(action);
+    deepFreeze(stateAfter);
 
-    const result = todosReducer(stateBefore, action);
+    expect(stateAfter).toEqual(todosReducer(stateBefore, action));
+  });
 
-    expect(result).toEqual(stateAfter);
+  test('Filter Complete Todo', () => {
+    const stateBefore: ITodosState = {
+      todos: mixedTodoList,
+      visibleTodos: new Array<ITodo>()
+    };
+    const action = TodoActions.setVisibility(VisibilityFilter.SHOW_COMPLETE);
+    const stateAfter: ITodosState = {
+      todos: mixedTodoList,
+      visibleTodos: [{
+        id: 1,
+        text: 'finished todo',
+        isFinished: true
+      }]
+    };
+    deepFreeze(stateBefore);
+    deepFreeze(action);
+    deepFreeze(stateAfter);
+
+    expect(stateAfter).toEqual(todosReducer(stateBefore, action));
   });
 });
