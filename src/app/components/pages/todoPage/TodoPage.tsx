@@ -14,10 +14,10 @@ export class TodoPage extends React.Component<ITodoPageProps> {
   }
 
   public render(): JSX.Element {
-    const { todos } = this.props;
+    const { todos, onTodoClick, onTodoCreate } = this.props;
     return (
       <PageTemplate>
-        <TodoList todos={todos} onTodoClick={this.props.onTodoClick} />
+        <TodoList todos={todos} onTodoCreate={onTodoCreate} onTodoClick={onTodoClick} />
       </PageTemplate>
     );
   }

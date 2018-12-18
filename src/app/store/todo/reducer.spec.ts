@@ -1,24 +1,37 @@
 import * as deepFreeze from "deep-freeze";
 import { ITodo } from "../../models/Todo";
-import { todoReducer, todosReducer } from "./reducer";
+import { getHigherId, todoReducer, todosReducer } from "./reducer";
 import { IAddTodoAction, ITodosState, IToggleAction, TodoTypes } from "./types";
 
 describe('Todo Reducer', () => {
+
+  test('Get Higher Id', () => {
+    const todoList = [{
+      id: 0,
+      text: 'todo should finish',
+      isFinished: true
+    }, {
+      id: 1,
+      text: 'todo 2',
+      isFinished: false
+    }];
+
+    const result = getHigherId(todoList);
+    const expectedId = 1;
+    expect(result).toBe(expectedId);
+  });
+
   test('Add Todo', () => {
 
     const stateBefore = new Array<ITodo>();
 
     const action: IAddTodoAction = {
       type: TodoTypes.ADD_TODO,
-      todo: {
-        id: 0,
-        text: 'Learn Redux',
-        isFinished: false
-      }
+      todoText: 'Learn Redux'
     };
 
     const stateAfter = [{
-      id: 0,
+      id: 1,
       text: 'Learn Redux',
       isFinished: false
     }];
@@ -32,26 +45,26 @@ describe('Todo Reducer', () => {
 
   test('Toggle todo', () => {
     const stateBefore: ITodo[] = [{
-      id: 0,
+      id: 1,
       text: 'todo should finish',
       isFinished: false
     }, {
-      id: 1,
+      id: 2,
       text: 'todo 2',
       isFinished: false
     }];
 
     const action: IToggleAction = {
       type: TodoTypes.TOGGLE_TODO,
-      todoId: 0
+      todoId: 1
     };
 
     const stateAfter = [{
-      id: 0,
+      id: 1,
       text: 'todo should finish',
       isFinished: true
     }, {
-      id: 1,
+      id: 2,
       text: 'todo 2',
       isFinished: false
     }];
@@ -74,16 +87,12 @@ describe('Todos Reducer', () => {
 
     const action: IAddTodoAction = {
       type: TodoTypes.ADD_TODO,
-      todo: {
-        id: 0,
-        text: 'Learn Redux',
-        isFinished: false
-      }
+      todoText: 'Learn Redux'
     };
 
     const stateAfter: ITodosState = {
       todos: [{
-        id: 0,
+        id: 1,
         text: 'Learn Redux',
         isFinished: false
       }]
@@ -99,11 +108,11 @@ describe('Todos Reducer', () => {
   test('Toggle todo', () => {
     const stateBefore: ITodosState = {
       todos: [{
-        id: 0,
+        id: 1,
         text: 'todo should finish',
         isFinished: false
       }, {
-        id: 1,
+        id: 2,
         text: 'todo 2',
         isFinished: false
       }]
@@ -111,16 +120,16 @@ describe('Todos Reducer', () => {
 
     const action: IToggleAction = {
       type: TodoTypes.TOGGLE_TODO,
-      todoId: 0
+      todoId: 1
     };
 
     const stateAfter: ITodosState = {
       todos: [{
-        id: 0,
+        id: 1,
         text: 'todo should finish',
         isFinished: true
       }, {
-        id: 1,
+        id: 2,
         text: 'todo 2',
         isFinished: false
       }]

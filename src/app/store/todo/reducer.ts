@@ -32,8 +32,8 @@ export const todoReducer = (state: ITodo[] = new Array<ITodo>(), action: TodoAct
       return [
         ...state,
         {
-          id: action.todo.id,
-          text: action.todo.text,
+          id: getHigherId(state) + 1,
+          text: action.todoText,
           isFinished: false
         }
       ];
@@ -55,4 +55,14 @@ export const todoReducer = (state: ITodo[] = new Array<ITodo>(), action: TodoAct
     default:
       return state;
   }
+};
+
+export const getHigherId = (todos: ITodo[]): number => {
+  const initial = 0;
+  return todos.reduce<number>((acc, todo) => {
+    if (todo.id > acc) {
+      acc = todo.id;
+    }
+    return acc;
+  }, initial);
 };

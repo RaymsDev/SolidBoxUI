@@ -2,10 +2,10 @@ import { ITodo } from "../../models/Todo";
 import { IAddTodoAction, IToggleAction, TodoTypes } from "./types";
 
 export class TodoActions {
-  public static addTodo(todo: ITodo): IAddTodoAction {
+  public static addTodo(todoText: string): IAddTodoAction {
     return {
       type: TodoTypes.ADD_TODO,
-      todo
+      todoText
     };
   }
 

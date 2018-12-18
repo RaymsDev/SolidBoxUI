@@ -61,7 +61,7 @@ jspm_packages/
 .next
 
 #build
-/dist
+dist/
 
 package-lock.json
 
@@ -71,5 +71,6 @@ junit.xml
 #ignore *module.scss.d.ts
 /src/**/*.scss.d.ts
 
+#ignore sonar files
 .sonarlint/
 .scannerwork/

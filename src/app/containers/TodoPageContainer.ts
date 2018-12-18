@@ -15,7 +15,8 @@ const mapStateToProps = (state: IRootState): Partial<ITodoPageProps> => {
 
 const mapDispatchToProps = (dispatch: Dispatch<TodoActionTypes>): Partial<ITodoPageProps> => {
   return {
-    onTodoClick: (todoId: number) => dispatch(TodoActions.toggleTodo(todoId))
+    onTodoClick: (todoId: number) => dispatch(TodoActions.toggleTodo(todoId)),
+    onTodoCreate: (todoText: string) => dispatch(TodoActions.addTodo(todoText))
   };
 };
 

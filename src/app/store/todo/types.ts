@@ -12,7 +12,7 @@ export interface ITodosState {
 
 export interface IAddTodoAction extends Action {
   type: TodoTypes.ADD_TODO;
-  todo: ITodo;
+  todoText: string;
 }
 
 export interface IToggleAction extends Action {
