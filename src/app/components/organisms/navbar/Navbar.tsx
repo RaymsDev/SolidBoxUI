@@ -13,7 +13,7 @@ export class Navbar extends React.Component<INavbarProps> {
         <div className={s.emptyFill} />
         <ul className={s.linkButtons}>
           <li className={s.link}><Link to="/project">Projet</Link></li>
-          <li className={s.link}><Link to="/planing">Planning</Link></li>
+          <li className={s.link}><Link to="/planning">Planning</Link></li>
         </ul>
       </nav>
     );
