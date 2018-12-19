@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { HomePage } from './components/pages/homePage/HomePage';
 import { NotFoundPage } from './components/pages/notFoundPage/NotFoundPage';
 import { ProjectPage } from './components/pages/projectPage/ProjectPage';
-import TodoPage from './components/pages/todoPage/TodoPage';
+import TodoPageContainer from './containers/TodoPageContainer';
 import store from './store/store';
 import './styles.scss';
 
@@ -17,7 +17,7 @@ const Root = () => (
       <Switch>
         <Route path="/" exact={true} component={HomePage} />
         <Route path="/project" exact={true} component={ProjectPage} />
-        <Route path="/todo" exact={true} component={TodoPage} />
+        <Route path="/todo" exact={true} component={TodoPageContainer} />
         <Route component={NotFoundPage} />
       </Switch>
     </Router>

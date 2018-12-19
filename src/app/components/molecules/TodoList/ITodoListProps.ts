@@ -1,7 +1,7 @@
 import { IFilter } from "../../../models/Filter";
 import { ITodo } from "../../../models/Todo";
 
-export interface ITodoPageProps {
+export interface ITodoListProps {
   todos: ITodo[];
   filters: IFilter[];
   onTodoClick: (todoId: number) => void;
