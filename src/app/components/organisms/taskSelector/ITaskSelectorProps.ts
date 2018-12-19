@@ -1,6 +1,6 @@
 import { IClient } from "../../../models/Client";
 
-export interface IPlanningPageProps {
+export interface ITaskSelectorProps {
   clientList: IClient[];
   onClientSelected: (id: number) => void;
 }

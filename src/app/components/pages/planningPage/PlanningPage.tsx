@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { IClient } from '../../../models/Client';
+import { TaskSelector } from '../../organisms/taskSelector/TaskSelector';
 import { PageTemplate } from '../../templates/pageTemplate/PageTemplate';
 import { IPlanningPageProps } from './IPlanningPageProps';
 export class PlanningPage extends React.Component<IPlanningPageProps> {
@@ -7,9 +9,10 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
   }
 
   public render(): JSX.Element {
+    const { clientList, onClientSelected } = this.props;
     return (
       <PageTemplate>
-        <div>PLanning</div>
+        <TaskSelector clientList={clientList} onClientSelected={onClientSelected} />
       </PageTemplate>
     );
   }

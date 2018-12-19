@@ -5,8 +5,9 @@ export class SelectBox extends React.Component<ISelectBoxProps, ISelectBoxState>
   constructor(props: ISelectBoxProps) {
     super(props);
 
+    const { list } = props;
     this.state = {
-      selected: props.selected
+      selected: list.length > 0 ? list[0].id : null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -16,18 +17,18 @@ export class SelectBox extends React.Component<ISelectBoxProps, ISelectBoxState>
     const { list, name, label } = this.props;
     const { selected } = this.state;
     return (
-      <div>
+      <>
         <label htmlFor={name}>{label}</label>
         <select name={name} onChange={this.handleChange}>
-          {list.map((item) => (<option key={item.id} value={item.id} selected={selected === item.id}>{item.value}</option>))}
+          {list.map((item) => (<option key={item.id} value={item.id} defaultValue={selected.toString()}>{item.value}</option>))}
         </select>
-      </div>
+      </>
     );
   }
 
   private handleChange(e: React.ChangeEvent<HTMLSelectElement>): void {
     e.preventDefault();
-    const id: number = Number(e.target.value);
+    const id = Number(e.target.value);
     this.setState({
       selected: id
     });
