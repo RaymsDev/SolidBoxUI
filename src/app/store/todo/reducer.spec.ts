@@ -1,7 +1,7 @@
 import * as deepFreeze from "deep-freeze";
 import { ITodo } from "../../models/Todo";
 import { TodoActions } from "./action";
-import { getHigherId, getVisibleTodo, todoReducer, todosReducer } from "./reducer";
+import { getHigherId, todosReducer } from "./reducer";
 import { IAddTodoAction, ITodosState, IToggleAction, TodoTypes, VisibilityFilter } from "./types";
 
 const mixedTodoList: ITodo[] = [{

@@ -1,6 +1,7 @@
 import { Action } from "redux";
 import { ITodo } from "../../models/Todo";
 
+// Action Types Definition
 export enum TodoTypes {
   ADD_TODO = 'ADD_TODO',
   TOGGLE_TODO = 'TOGGLE_TODO',
@@ -18,6 +19,7 @@ export interface ITodosState {
   visibleTodos: ITodo[];
 }
 
+// Actions Definition
 export interface IAddTodoAction extends Action {
   type: TodoTypes.ADD_TODO;
   todoText: string;
