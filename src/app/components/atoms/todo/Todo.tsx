@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ITodo } from '../../../models/Todo';
 import { ITodoProps } from './ITodoProps';
 import * as s from './Todo.scss';
 export class Todo extends React.Component<ITodoProps> {
