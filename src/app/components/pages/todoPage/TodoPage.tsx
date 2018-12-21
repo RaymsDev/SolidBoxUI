@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TodoList } from '../../molecules/TodoList/TodoList';
+import { TodoList } from '../../molecules/todoList/TodoList';
 import { PageTemplate } from '../../templates/pageTemplate/PageTemplate';
 import { ITodoPageProps } from './ITodoPageProps';
 
