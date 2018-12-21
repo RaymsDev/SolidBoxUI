@@ -2,10 +2,10 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { IPlanningPageProps } from "../components/pages/planningPage/IPlanningPageProps";
 import { PlanningPage } from "../components/pages/planningPage/PlanningPage";
-import clientFakeService from "../services/client/clientFake.service";
+import clientService from "../services/client/client.service";
 import { ClientActions } from "../store/client/action";
 import store, { IRootState } from "../store/store";
-const actions = new ClientActions(store, clientFakeService);
+const actions = new ClientActions(store, clientService);
 
 const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
   const { clients } = state.clientsState;
