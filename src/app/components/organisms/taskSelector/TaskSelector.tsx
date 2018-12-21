@@ -27,6 +27,12 @@ export class TaskSelector extends React.Component<ITaskSelectorProps, ITaskSelec
     );
   }
 
+  public componentWillReceiveProps(nextProps: ITaskSelectorProps) {
+    if (nextProps.clientList !== this.props.clientList) {
+      this.setState({ clientDictionary: this.clientsToDictionary(nextProps.clientList) });
+    }
+  }
+
   private clientsToDictionary(clients: IClient[]): Array<IDictionaryItem<number>> {
     return clients.map((c) => {
       return ({

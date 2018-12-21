@@ -1,14 +1,18 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { clientsReducer } from "./client/reducer";
-import { IClientsState } from "./client/types";
+import { ClientsActionTypes, IClientsState } from "./client/types";
 import { todosReducer } from "./todo/reducer";
-import { ITodosState } from "./todo/types";
+import { ITodosState, TodoActionTypes } from "./todo/types";
 
 export interface IRootState {
   todosState: ITodosState;
   clientsState: IClientsState;
 }
+
+export type IRootAction =
+  | ClientsActionTypes
+  | TodoActionTypes;
 
 const reducers = combineReducers<IRootState>({
   todosState: todosReducer,
@@ -16,5 +20,5 @@ const reducers = combineReducers<IRootState>({
 });
 
 const store = createStore(reducers,
-  applyMiddleware(thunk as ThunkMiddleware<IRootState>));
+  applyMiddleware(thunk as ThunkMiddleware<IRootState, IRootAction>));
 export default store;

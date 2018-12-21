@@ -20,7 +20,7 @@ export class SelectBox extends React.Component<ISelectBoxProps, ISelectBoxState>
       <>
         <label htmlFor={name}>{label}</label>
         <select name={name} onChange={this.handleChange}>
-          {list.map((item) => (<option key={item.id} value={item.id} defaultValue={selected.toString()}>{item.value}</option>))}
+          {list.map((item) => (<option key={item.id} value={item.id} defaultValue={selected ? selected.toString() : "0"}>{item.value}</option>))}
         </select>
       </>
     );

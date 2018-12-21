@@ -1,8 +1,7 @@
-import { Action, ActionCreator, Dispatch, Store } from "redux";
-import { ThunkAction } from "redux-thunk";
+import { Action, Dispatch, Store } from "redux";
 import { IClient } from "../../models/Client";
 import { IClientService } from "../../services/client/IClient.service";
-import { ClientsActionTypes, ClientTypes, IClientsState, IFetchClientsAction, IReceiveClientsAction, IReceiveErrorAction, ThunkResult } from "./types";
+import { ClientTypes, IFetchClientsAction, IReceiveClientsAction, IReceiveErrorAction } from "./types";
 
 export class ClientActions {
   private store: Store;

@@ -1,7 +1,5 @@
-import { AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
 import { IClient } from "../../models/Client";
-import { ClientsActionTypes, ClientTypes, IClientsState, ThunkResult } from "./types";
+import { ClientsActionTypes, ClientTypes, IClientsState } from "./types";
 
 const initialState: IClientsState = {
   clients: new Array<IClient>(),
