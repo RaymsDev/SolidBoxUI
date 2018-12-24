@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/raymsdev/TeamWork/_apis/build/status/Build%20app)](https://dev.azure.com/raymsdev/TeamWork/_build/latest?definitionId=4)
+[![Build Status](https://dev.azure.com/raymsdev/TeamWork/_apis/build/status/Build%20app?branchName=develop)](https://dev.azure.com/raymsdev/TeamWork/_build/latest?definitionId=4?branchName=develop)
 # TeamWork
 Projet développé dans le cadre des YDays
 

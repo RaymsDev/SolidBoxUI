@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { apiUrl } from '../../../config/env';
 import { IClient } from "../../models/Client";
 import { IClientService } from "./IClient.service";
 
-const url = 'https://solidboxapiintegration.azurewebsites.net/api/Clients';
+const url = `${apiUrl}/Clients`;
 
 class ClientService implements IClientService {
   public getClients(): Promise<IClient[]> {

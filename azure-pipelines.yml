@@ -36,3 +36,4 @@ steps:
     docker login -u $(acrServicePrincipalId) -p $(acrServicePrincipalPassword) $(dockerId).azurecr.io
     docker push $(dockerId).azurecr.io/$(imageName)
   displayName: 'Build Docker image and publish on ACR'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
