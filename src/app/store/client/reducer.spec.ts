@@ -11,7 +11,7 @@ const initialState: IClientsState = {
 };
 
 describe('Client reducer', () => {
-  test('Fetch Clients', async () => {
+  test('Fetch Clients', () => {
     const beforeState = initialState;
     DeepFreeze(beforeState);
     const action: IFetchClientsAction = {
@@ -25,7 +25,7 @@ describe('Client reducer', () => {
     expect(clientsReducer(beforeState, action)).toEqual(afterState);
 
   });
-  test('Receive Clients', async () => {
+  test('Receive Clients', () => {
     const beforeState = {
       ...initialState,
       isFetching: true
@@ -43,7 +43,7 @@ describe('Client reducer', () => {
     expect(clientsReducer(beforeState, action)).toEqual(afterState);
 
   });
-  test('Receive Error', async () => {
+  test('Receive Error', () => {
     const beforeState: IClientsState = {
       ...initialState,
       isFetching: true,

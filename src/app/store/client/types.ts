@@ -2,6 +2,13 @@ import { Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { IClient } from "../../models/Client";
 
+export interface IClientsState {
+  clients: IClient[];
+  isFetching: boolean;
+  isError: boolean;
+  errorMessage: string;
+}
+
 export enum ClientTypes {
   FETCH_CLIENTS = 'FETCH_CLIENTS',
   RECEIVE_CLIENTS = 'RECEIVE_CLIENTS',
@@ -22,16 +29,9 @@ export interface IReceiveErrorAction extends Action {
   errorMessage: string;
 }
 
-export type ThunkResult<R> = ThunkAction<R, IClientsState, undefined, Action>;
+export type ClientThunkResult<R> = ThunkAction<R, IClientsState, undefined, Action>;
 
 export type ClientsActionTypes =
   | IFetchClientsAction
   | IReceiveClientsAction
   | IReceiveErrorAction;
-
-export interface IClientsState {
-  clients: IClient[];
-  isFetching: boolean;
-  isError: boolean;
-  errorMessage: string;
-}
