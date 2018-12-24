@@ -1,5 +1,6 @@
 import { IClient } from "../../models/Client";
-import { ClientsActionTypes, ClientTypes, IClientsState } from "./types";
+import { ClientsActionTypes, ClientTypes } from "./action";
+import { IClientsState } from "./types";
 
 const initialState: IClientsState = {
   clients: new Array<IClient>(),

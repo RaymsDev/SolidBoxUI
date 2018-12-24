@@ -1,6 +1,14 @@
-import { IProjectsState, ProjectsActionTypes, ProjectTypes } from "./type";
+import { ProjectsActionTypes, ProjectTypes } from "./action";
+import { IProjectsState } from "./type";
 
-export const ProjectReducer = (state: IProjectsState, action: ProjectsActionTypes): IProjectsState => {
+const initialState: IProjectsState = {
+  projects: [],
+  isFetching: false,
+  isError: false,
+  errorMessage: ''
+};
+
+export const projectReducer = (state: IProjectsState = initialState, action: ProjectsActionTypes): IProjectsState => {
   switch (action.type) {
     case ProjectTypes.FETCH_PROJECTS:
       return {

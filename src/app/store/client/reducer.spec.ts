@@ -1,7 +1,8 @@
 import * as DeepFreeze from 'deep-freeze';
 import { clientsListMock } from "../../services/client/clientFake.service";
+import { ClientTypes, IFetchClientsAction, IReceiveClientsAction, IReceiveErrorAction } from './action';
 import { clientsReducer } from "./reducer";
-import { ClientTypes, IClientsState, IFetchClientsAction, IReceiveClientsAction, IReceiveErrorAction } from "./types";
+import { IClientsState } from './types';
 
 const initialState: IClientsState = {
   clients: [],

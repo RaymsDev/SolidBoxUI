@@ -1,7 +1,8 @@
 import * as DeepFreeze from 'deep-freeze';
-import { Project } from '../../models/Project';
-import { ProjectReducer } from './reducer';
-import { IFetchProjectsAction, IProjectsState, IReceiveErrorAction, IReceiveProjectsAction, ProjectTypes } from "./type";
+import { projectListMock } from './../../services/project/projectFake.service';
+import { IFetchProjectsAction, IReceiveErrorAction, IReceiveProjectsAction, ProjectTypes } from './action';
+import { projectReducer } from './reducer';
+import { IProjectsState } from './type';
 
 const initialState: IProjectsState = {
   projects: [],
@@ -9,65 +10,6 @@ const initialState: IProjectsState = {
   isError: false,
   isFetching: false
 };
-
-const projectList: Project[] = [
-  {
-    id: 1,
-    name: "Solid Box API",
-    startDate: null,
-    endDate: null,
-    projectStatutId: 1,
-    projectModeId: 1,
-    clientId: null,
-    parentProjectId: null,
-    sortOrder: null,
-    comment: null,
-    enableOverRun: null,
-    updateDate: null,
-    amount: null,
-    teamId: 1,
-    branchId: 1,
-    agencyId: 1,
-    ownerUserId: 2,
-    consumedLoad: 0,
-    plannedLoad: 0,
-    totalLoad: 0,
-    links: [
-      {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 1",
-        method: "GET"
-      },
-      {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 1",
-        method: "GET"
-      }
-    ]
-  },
-  {
-    id: 6,
-    name: "Solid Box Front React",
-    startDate: null,
-    endDate: null,
-    projectStatutId: 1,
-    projectModeId: 1,
-    clientId: null,
-    parentProjectId: null,
-    sortOrder: null,
-    comment: null,
-    enableOverRun: null,
-    updateDate: null,
-    amount: null,
-    teamId: 1,
-    branchId: 1,
-    agencyId: 1,
-    ownerUserId: 3,
-    consumedLoad: 0,
-    plannedLoad: 0,
-    totalLoad: 0,
-    links: []
-  },];
 
 const errorMessage = 'Error Message';
 
@@ -85,23 +27,23 @@ describe('Project Reducer', () => {
     };
     DeepFreeze(stateAfter);
 
-    expect(stateAfter).toEqual(ProjectReducer(stateBefore, action));
+    expect(stateAfter).toEqual(projectReducer(stateBefore, action));
   });
   test('Receive Projects', () => {
     const stateBefore = initialState;
     DeepFreeze(stateBefore);
     const action: IReceiveProjectsAction = {
       type: ProjectTypes.RECEIVE_PROJECTS,
-      projects: projectList
+      projects: projectListMock
     };
     DeepFreeze(action);
     const stateAfter: IProjectsState = {
       ...initialState,
-      projects: projectList
+      projects: projectListMock
     };
     DeepFreeze(stateAfter);
 
-    expect(stateAfter).toEqual(ProjectReducer(stateBefore, action));
+    expect(stateAfter).toEqual(projectReducer(stateBefore, action));
   });
   test('Receive Error', () => {
     const stateBefore = initialState;
@@ -118,6 +60,6 @@ describe('Project Reducer', () => {
     };
     DeepFreeze(stateAfter);
 
-    expect(stateAfter).toEqual(ProjectReducer(stateBefore, action));
+    expect(stateAfter).toEqual(projectReducer(stateBefore, action));
   });
 });
