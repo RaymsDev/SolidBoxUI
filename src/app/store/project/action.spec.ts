@@ -1,7 +1,7 @@
 import * as DeepFreeze from 'deep-freeze';
 import configureMockStore from 'redux-mock-store';
 import thunk from "redux-thunk";
-import projectFakeService, { projectListMock } from '../../services/project/projectFake.service';
+import projectFakeService, { linksMock, projectListMock } from '../../services/project/projectFake.service';
 import ProjectActions, { ProjectsActionTypes } from './action';
 import { IProjectsState } from "./type";
 
@@ -35,6 +35,25 @@ describe('Project Action', async () => {
       });
   });
 
+  test('Fetch Client Project Async', () => {
+    const store = mockStore(initialState);
+    const projectActions = new ProjectActions(store, projectFakeService);
+    const expectedActions: ProjectsActionTypes[] = [
+      projectActions.receiveProjects(projectListMock)
+    ];
+
+    DeepFreeze(expectedActions);
+
+    const action = projectActions.fetchClientProjectsAsync(linksMock);
+
+    DeepFreeze(action);
+
+    return store.dispatch<any>(action)
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+
   test('Fetch Projects ', () => {
     const store = mockStore(initialState);
     const projectActions = new ProjectActions(store, projectFakeService);
@@ -45,6 +64,23 @@ describe('Project Action', async () => {
     DeepFreeze(expectedActions);
 
     const action = projectActions.fetchProjects();
+    DeepFreeze(action);
+
+    store.dispatch(action);
+    const actualActions = store.getActions();
+    expect(actualActions).toEqual(expectedActions);
+  });
+
+  test('Fetch Client Projects ', () => {
+    const store = mockStore(initialState);
+    const projectActions = new ProjectActions(store, projectFakeService);
+
+    const expectedActions: any = [
+      projectActions.fetchClientProjects(linksMock)
+    ];
+    DeepFreeze(expectedActions);
+
+    const action = projectActions.fetchClientProjects(linksMock);
     DeepFreeze(action);
 
     store.dispatch(action);

@@ -1,4 +1,4 @@
-import { VisibilityFilter } from "../store/todo/types";
+import { VisibilityFilter } from "../store/todo/action";
 
 export interface IFilter {
   label: string;

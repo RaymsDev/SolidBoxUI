@@ -1,8 +1,9 @@
 import { IDictionaryItem } from "../../../models/DictionaryItem";
 
 export interface ISelectBoxProps {
-  list: Array<IDictionaryItem<number>>;
+  isFetching: boolean;
+  list: Array<IDictionaryItem<number, string, any>>;
   label: string;
   name: string;
-  onChangeHandler: (id: number) => void;
+  onChangeHandler: (obj: any) => void;
 }

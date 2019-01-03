@@ -1,17 +1,22 @@
 import { Action, Dispatch, Store } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { Link } from "../../models/Link";
 import { Project } from "../../models/Project";
 import { IProjectService } from "../../services/project/IProject.service";
 import { IProjectsState } from "./type";
 
 export enum ProjectTypes {
   FETCH_PROJECTS = 'FETCH_PROJECTS',
+  FETCH_CLIENT_PROJECTS = 'FETCH_CLIENT_PROJECTS',
   RECEIVE_PROJECTS = 'RECEIVE_PROJECTS',
   RECEIVE_ERROR = 'RECEIVE_ERROR'
 }
 
 export interface IFetchProjectsAction extends Action {
   type: ProjectTypes.FETCH_PROJECTS;
+}
+export interface IFetchClientProjectsAction extends Action {
+  type: ProjectTypes.FETCH_CLIENT_PROJECTS;
 }
 
 export interface IReceiveProjectsAction extends Action {
@@ -27,7 +32,8 @@ export interface IReceiveErrorAction extends Action {
 export type ProjectThunkResult<R> = ThunkAction<R, IProjectsState, undefined, Action>;
 
 export type ProjectsActionTypes =
-  |IFetchProjectsAction
+  | IFetchProjectsAction
+  | IFetchClientProjectsAction
   | IReceiveProjectsAction
   | IReceiveErrorAction;
 
@@ -43,6 +49,12 @@ export default class ProjectActions {
     this.store.dispatch<any>(this.fetchProjectsAsync());
     return {
       type: ProjectTypes.FETCH_PROJECTS
+    };
+  }
+  public fetchClientProjects(links: Link[]): IFetchClientProjectsAction {
+    this.store.dispatch<any>(this.fetchClientProjectsAsync(links));
+    return {
+      type: ProjectTypes.FETCH_CLIENT_PROJECTS
     };
   }
 
@@ -63,6 +75,18 @@ export default class ProjectActions {
   public fetchProjectsAsync() {
     return (dispatch: Dispatch<Action>) => {
       return this.projectService.getProjects()
+        .then((projects) => {
+          dispatch(this.receiveProjects(projects));
+        })
+        .catch((error) => {
+          dispatch(this.receiveError(error));
+        });
+    };
+  }
+
+  public fetchClientProjectsAsync(links: Link[]) {
+    return (dispatch: Dispatch<Action>) => {
+      return this.projectService.get(links)
         .then((projects) => {
           dispatch(this.receiveProjects(projects));
         })

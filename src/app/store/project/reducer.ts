@@ -11,6 +11,7 @@ const initialState: IProjectsState = {
 export const projectReducer = (state: IProjectsState = initialState, action: ProjectsActionTypes): IProjectsState => {
   switch (action.type) {
     case ProjectTypes.FETCH_PROJECTS:
+    case ProjectTypes.FETCH_CLIENT_PROJECTS:
       return {
         ...state,
         isFetching: true,

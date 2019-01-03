@@ -5,5 +5,3 @@ export interface ITodosState {
   todos: ITodo[];
   visibleTodos: ITodo[];
 }
-
-// Actions Definition

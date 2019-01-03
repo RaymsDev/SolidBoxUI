@@ -1,6 +1,11 @@
 import { IClient } from "../../../models/Client";
+import { Project } from "../../../models/Project";
 
 export interface ITaskSelectorProps {
   clientList: IClient[];
-  onClientSelected: (id: number) => void;
+  clientsIsFetching: boolean;
+  onClientSelected: (client: IClient) => void;
+  projectList: Project[];
+  projectsIsFetching: boolean;
+  onProjectSelected: (project: Project) => void;
 }

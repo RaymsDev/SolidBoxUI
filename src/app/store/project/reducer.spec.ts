@@ -1,6 +1,6 @@
 import * as DeepFreeze from 'deep-freeze';
 import { projectListMock } from './../../services/project/projectFake.service';
-import { IFetchProjectsAction, IReceiveErrorAction, IReceiveProjectsAction, ProjectTypes } from './action';
+import { IFetchClientProjectsAction, IFetchProjectsAction, IReceiveErrorAction, IReceiveProjectsAction, ProjectTypes } from './action';
 import { projectReducer } from './reducer';
 import { IProjectsState } from './type';
 
@@ -19,6 +19,21 @@ describe('Project Reducer', () => {
     DeepFreeze(stateBefore);
     const action: IFetchProjectsAction = {
       type: ProjectTypes.FETCH_PROJECTS
+    };
+    DeepFreeze(action);
+    const stateAfter: IProjectsState = {
+      ...initialState,
+      isFetching: true
+    };
+    DeepFreeze(stateAfter);
+
+    expect(stateAfter).toEqual(projectReducer(stateBefore, action));
+  });
+  test('Fetch Client Projects', () => {
+    const stateBefore = initialState;
+    DeepFreeze(stateBefore);
+    const action: IFetchClientProjectsAction = {
+      type: ProjectTypes.FETCH_CLIENT_PROJECTS
     };
     DeepFreeze(action);
     const stateAfter: IProjectsState = {

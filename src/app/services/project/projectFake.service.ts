@@ -1,3 +1,4 @@
+import { Link } from "../../models/Link";
 import { Project } from "../../models/Project";
 import { IProjectService } from "./IProject.service";
 
@@ -60,14 +61,24 @@ export const projectListMock: Project[] = [
     links: []
   },];
 
+export const linksMock: Link[] = [{
+  rel: "ClientProjects",
+  url: "/API/Projects?$filter=ClientId eq 3",
+  method: "GET"
+}];
+
 const asyncDelay = 20;
+
+const projectsPromise = new Promise<Project[]>((resolve, reject) => {
+  setTimeout(() => resolve(projectListMock), asyncDelay);
+});
 
 class ProjectFakeService implements IProjectService {
   public getProjects(): Promise<Project[]> {
-    const promise = new Promise<Project[]>((resolve, reject) => {
-      setTimeout(() => resolve(projectListMock), asyncDelay);
-    });
-    return promise;
+    return projectsPromise;
+  }
+  public get(link: Link[]): Promise<Project[]> {
+    return projectsPromise;
   }
 }
 export default new ProjectFakeService();
