@@ -9,10 +9,9 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
   }
 
   public render(): JSX.Element {
-    const { clientList, onClientSelected } = this.props;
     return (
       <PageTemplate>
-        <TaskSelector clientList={clientList} onClientSelected={onClientSelected} />
+        <TaskSelector {...this.props} />
       </PageTemplate>
     );
   }

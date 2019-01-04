@@ -3,7 +3,7 @@ import { apiUrl } from '../../../config/env';
 import { IClient } from "../../models/Client";
 import { IClientService } from "./IClient.service";
 
-const url = `${apiUrl}/Clients`;
+const url = `${apiUrl}/API/Clients`;
 
 class ClientService implements IClientService {
   public getClients(): Promise<IClient[]> {

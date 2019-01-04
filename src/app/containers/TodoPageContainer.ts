@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { ITodoPageProps } from "../components/pages/todoPage/ITodoPageProps";
 import { TodoPage } from "../components/pages/todoPage/TodoPage";
 import { IRootState } from "../store/store";
-import { TodoActions } from "../store/todo/action";
-import { TodoActionTypes, VisibilityFilter } from "../store/todo/types";
+import { TodoActions, TodoActionTypes, VisibilityFilter } from "../store/todo/action";
 
 const mapStateToProps = (state: IRootState): Partial<ITodoPageProps> => {
   const { visibleTodos } = state.todosState;

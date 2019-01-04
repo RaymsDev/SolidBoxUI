@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IDictionaryItem } from '../../../models/DictionaryItem';
 import { ISelectBoxProps } from './ISelectBoxProps';
 import { ISelectBoxState } from './ISelectBoxState';
 export class SelectBox extends React.Component<ISelectBoxProps, ISelectBoxState> {
@@ -7,32 +8,67 @@ export class SelectBox extends React.Component<ISelectBoxProps, ISelectBoxState>
 
     const { list } = props;
     this.state = {
-      selected: list.length > 0 ? list[0].id : null
+      selected: list.length > 0 ? list[0].id : undefined
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   public render(): JSX.Element {
-    const { list, name, label } = this.props;
+    const { list, name, label, isFetching } = this.props;
     const { selected } = this.state;
+
     return (
       <>
         <label htmlFor={name}>{label}</label>
-        <select name={name} onChange={this.handleChange}>
-          {list.map((item) => (<option key={item.id} value={item.id} defaultValue={selected ? selected.toString() : "0"}>{item.value}</option>))}
+        <select name={name} onChange={this.handleChange} defaultValue={this.getDefaultValue()} value={selected}>
+          {list.map((item) => (<option key={item.id} value={item.id} >{item.value}</option>))}
         </select>
       </>
     );
   }
 
-  private handleChange(e: React.ChangeEvent<HTMLSelectElement>): void {
-    e.preventDefault();
-    const id = Number(e.target.value);
+  public componentDidUpdate(prevProps: ISelectBoxProps) {
+    if (this.state.selected === undefined && prevProps.isFetching && this.props.list.length > 0) {
+      this.selectItem(this.props.list[0].id);
+    }
+  }
+
+  private getDefaultValue(): string {
+
+    const { isFetching, list } = this.props;
+
+    if (isFetching || list.length < 1) {
+      return "0";
+    }
+
+    const defaultValue = list[0].id;
+    return defaultValue.toString();
+  }
+
+  private selectItem(id: number) {
     this.setState({
       selected: id
     });
 
-    this.props.onChangeHandler(id);
+    const { onChangeHandler, list } = this.props;
+
+    const selectedItem = this.getSelectedObject(list, id);
+
+    if (selectedItem) {
+      onChangeHandler(selectedItem.object);
+    }
+  }
+
+  private handleChange(e: React.ChangeEvent<HTMLSelectElement>): void {
+    e.preventDefault();
+    const id = Number(e.target.value);
+    this.selectItem(id);
+  }
+
+  private getSelectedObject(list: Array<IDictionaryItem<number>>, id: number): IDictionaryItem<number> {
+    return list.find((i) => {
+      return i.id === id;
+    });
   }
 }

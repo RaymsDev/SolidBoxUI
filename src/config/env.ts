@@ -1,1 +1,1 @@
-export const apiUrl = 'https://solidboxapiintegration.azurewebsites.net/api';
+export const apiUrl = 'https://solidboxapiintegration.azurewebsites.net';

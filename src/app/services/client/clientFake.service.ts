@@ -13,10 +13,12 @@ export const clientsListMock: IClient[] = [{
   userId: 1
 }];
 
+const asyncDelay = 20;
+
 class ClientFakeService implements IClientService {
   public getClients(): Promise<IClient[]> {
     const promise = new Promise<IClient[]>((resolve, reject) => {
-      resolve(clientsListMock);
+      setTimeout(() => resolve(clientsListMock), asyncDelay);
     });
     return promise;
   }

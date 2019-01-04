@@ -1,6 +1,7 @@
 
 import { ITodo } from "../../models/Todo";
-import { ISetVisibilityAction, ITodosState, TodoActionTypes, TodoTypes, VisibilityFilter } from "./types";
+import { ISetVisibilityAction, TodoActionTypes, TodoTypes, VisibilityFilter } from "./action";
+import { ITodosState } from "./types";
 
 const todosStateInit: ITodosState = {
   todos: [{
