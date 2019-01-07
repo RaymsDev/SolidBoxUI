@@ -1,7 +1,9 @@
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { CallbackPage } from './components/pages/callbackPage/CallbackPage';
 import { HomePage } from './components/pages/homePage/HomePage';
 import { NotFoundPage } from './components/pages/notFoundPage/NotFoundPage';
 import { ProjectPage } from './components/pages/projectPage/ProjectPage';
@@ -11,12 +13,12 @@ import store from './store/store';
 import './styles.scss';
 
 const rootElement = document.getElementById('root');
-
 const Root = () => (
   <Provider store={store}>
-    <Router>
+    <Router >
       <Switch>
         <Route path="/" exact={true} component={HomePage} />
+        <Route path="/callback" exact={true} component={CallbackPage} />
         <Route path="/project" exact={true} component={ProjectPage} />
         <Route path="/planning" exact={true} component={PlanningContainer} />
         <Route path="/todo" exact={true} component={TodoPageContainer} />
@@ -24,7 +26,6 @@ const Root = () => (
       </Switch>
     </Router>
   </Provider>
-
 );
 
 ReactDOM.render(<Root />, rootElement);
