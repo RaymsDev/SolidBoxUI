@@ -1,4 +1,6 @@
 import { User, UserManager, UserManagerSettings } from 'oidc-client';
+import { AuthUser } from '../../models/AuthUser';
+import { IAuthService } from './IAuth.Service';
 
 const authConfig = {
   authority: "https://solididentityintegration.azurewebsites.net",
@@ -16,7 +18,7 @@ enum localStorageName {
 
 const homeUrl = "/";
 
-class AuthService {
+class AuthService implements IAuthService {
 
   public get AccessToken() {
     return this.accessToken;
@@ -93,11 +95,11 @@ class AuthService {
   }
 
   public HandleCallback() {
-    const promise = new Promise<void>((resolve, reject) => {
+    const promise = new Promise<AuthUser>((resolve, reject) => {
       this.authProvider.signinRedirectCallback()
         .then((authResult: User) => {
           this.setSession(authResult);
-          resolve();
+          resolve(authResult);
         })
         .catch((error) => {
           console.error(error);
