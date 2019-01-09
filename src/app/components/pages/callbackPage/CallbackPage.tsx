@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
-import auth from '../../../services/auth/auth.service';
-import { PageTemplate } from '../../templates/pageTemplate/PageTemplate';
+import PageTemplateContainer from '../../../containers/PageTemplateContainer';
 import { ICallbackPageProps } from './ICallbackPageProps';
 export class CallbackPage extends React.Component<ICallbackPageProps> {
   constructor(props: ICallbackPageProps) {
@@ -10,16 +8,13 @@ export class CallbackPage extends React.Component<ICallbackPageProps> {
 
   public render(): JSX.Element {
     return (
-      <PageTemplate>
+      <PageTemplateContainer>
         loading...
-      </PageTemplate>
+      </PageTemplateContainer>
     );
   }
 
   public componentDidMount() {
-    auth.HandleCallback()
-      .then(() => {
-        window.location.href = '/';
-      });
+    this.props.handleAuthCallback();
   }
 }

@@ -1,3 +1,3 @@
 export interface ICallbackPageProps {
-  text: string;
+  handleAuthCallback: () => void;
 }

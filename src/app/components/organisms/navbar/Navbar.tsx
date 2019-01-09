@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import authService from '../../../services/auth/auth.service';
 import { INavbarProps } from './INavbarProps';
 import * as s from './Navbar.scss';
 export class Navbar extends React.Component<INavbarProps> {
@@ -15,8 +14,7 @@ export class Navbar extends React.Component<INavbarProps> {
   }
 
   public render(): JSX.Element {
-    const { title } = this.props;
-    const isAuthenticated = authService.IsAuthenticated;
+    const { title, isAuthenticated } = this.props;
     return (
       <nav className={s.container} >
         <Link className={s.title} to="/"><h1>{title}</h1></Link>
@@ -42,10 +40,10 @@ export class Navbar extends React.Component<INavbarProps> {
 
   public Login(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
-    authService.Login();
+    this.props.login();
   }
   public Logout(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
-    authService.Logout();
+    this.props.logout();
   }
 }

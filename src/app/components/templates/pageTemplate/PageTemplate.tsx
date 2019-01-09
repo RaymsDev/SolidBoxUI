@@ -1,25 +1,17 @@
 import * as React from 'react';
 import { Navbar } from './../../organisms/navbar/Navbar';
+import { IPageTemplateProps } from './IPageTemplateProps';
 import * as styles from './PageTemplate.scss';
 
 const title = "TeamWork";
 
-const login = () => {
-  console.log("login");
-  throw new Error('not implemented');
-};
-const logout = () => {
-  console.log("logout");
-  throw new Error('not implemented');
-};
-
-export class PageTemplate extends React.Component {
+export class PageTemplate extends React.Component<IPageTemplateProps> {
   public render(): JSX.Element {
-    const { children } = this.props;
+    const { children, login, logout, isAuthenticated } = this.props;
     return (
       <>
         <header className={styles.header}>
-          <Navbar title={title} isAuthenticated={true} login={login} logout={logout} />
+          <Navbar title={title} isAuthenticated={isAuthenticated} login={login} logout={logout} />
         </header>
         <div className={styles.container}>
           {children}

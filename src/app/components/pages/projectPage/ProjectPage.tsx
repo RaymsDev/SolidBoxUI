@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PageTemplateContainer from '../../../containers/PageTemplateContainer';
 import { ProjectAndTaskByClient } from '../../organisms/projectAndTaskByClient/ProjectAndTaskByClient';
 import { PageTemplate } from '../../templates/pageTemplate/PageTemplate';
 import { IProjectPageProps } from './IProjectPageProps';
@@ -8,9 +9,9 @@ export class ProjectPage extends React.Component {
   public render(): JSX.Element {
 
     return (
-      <PageTemplate>
+      <PageTemplateContainer>
         < ProjectAndTaskByClient clients={...CLIENTS} projects={...PROJECTS} tasks={...TASKS} />
-      </PageTemplate>
+      </PageTemplateContainer>
     );
   }
 }
