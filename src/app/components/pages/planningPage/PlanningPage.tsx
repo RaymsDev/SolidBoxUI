@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { IClient } from '../../../models/Client';
+
+import PageTemplateContainer from '../../../containers/PageTemplateContainer';
 import { TaskSelector } from '../../organisms/taskSelector/TaskSelector';
-import { PageTemplate } from '../../templates/pageTemplate/PageTemplate';
 import { IPlanningPageProps } from './IPlanningPageProps';
 export class PlanningPage extends React.Component<IPlanningPageProps> {
   constructor(props: IPlanningPageProps) {
@@ -10,9 +10,9 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
 
   public render(): JSX.Element {
     return (
-      <PageTemplate>
+      <PageTemplateContainer>
         <TaskSelector {...this.props} />
-      </PageTemplate>
+      </PageTemplateContainer>
     );
   }
 }
