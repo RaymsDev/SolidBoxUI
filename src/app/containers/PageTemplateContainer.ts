@@ -16,7 +16,7 @@ const onLogout = (dispatch: Dispatch<any>) => {
 };
 
 const mapStateToProps = (state: IRootState): Partial<IPageTemplateProps> => {
-  const { isAuthenticated } = state.authState;
+  const { isAuthenticated } = state.authState.authResult;
   return {
     isAuthenticated
   };

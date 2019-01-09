@@ -1,8 +1,7 @@
-import { AuthUser } from "../../models/AuthUser";
+import { AuthResult } from "../../models/AuthResult";
 
 export interface IAuthState {
-  user: AuthUser;
-  isAuthenticated: boolean;
+  authResult: AuthResult;
   isFetching: boolean;
   isError: boolean;
   errorMessage: string;

@@ -1,4 +1,4 @@
-import { AuthUser } from "../../../models/AuthUser";
+import { AuthResult } from "../../../models/AuthResult";
 
 export interface IPageTemplateProps {
   isAuthenticated: boolean;

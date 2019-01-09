@@ -1,4 +1,4 @@
-import { AuthUser } from "../../models/AuthUser";
+import { AuthResult } from "../../models/AuthResult";
 
 export interface IAuthService {
   AccessToken: string;
@@ -6,5 +6,6 @@ export interface IAuthService {
   IsAuthenticated: boolean;
   Login: () => void;
   Logout: () => void;
-  HandleCallback: () => Promise<AuthUser>;
+  HandleCallback: () => Promise<AuthResult>;
+  CheckAuthentication: () => Promise<AuthResult>;
 }

@@ -10,10 +10,16 @@ import { ProjectPage } from './components/pages/projectPage/ProjectPage';
 import CallbackPageContainer from './containers/CallbackPageContainer';
 import PlanningPageContainer from './containers/PlanningPageContainer';
 import TodoPageContainer from './containers/TodoPageContainer';
+import authService from './services/auth/auth.service';
+import AuthActions from './store/auth/action';
 import store from './store/store';
 import './styles.scss';
 
+const authAction = new AuthActions(store, authService);
 const rootElement = document.getElementById('root');
+
+store.dispatch(authAction.checkAuthentication());
+
 const Root = () => (
   <Provider store={store}>
     <Router >

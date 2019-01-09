@@ -1,12 +1,13 @@
 import { Action, Dispatch, Store } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { AuthUser } from "../../models/AuthUser";
+import { AuthResult } from "../../models/AuthResult";
 import { IAuthService } from "../../services/auth/IAuth.Service";
 import { IAuthState } from "./type";
 
 export enum AuthTypes {
   AUTHENTICATE = 'AUTHENTICATE',
   DECONNECTION = 'DECONNECTION',
+  CHECK_AUTHENTICATION = 'CHECK_AUTHENTICATION',
   RECEIVE_AUTH_RESULT = 'RECEIVE_AUTH_RESULT',
   RECEIVE_ERROR = 'RECEIVE_ERROR'
 }
@@ -21,7 +22,10 @@ export interface IDeconnectionAction extends Action {
 
 export interface IReceiveAuthResultAction extends Action {
   type: AuthTypes.RECEIVE_AUTH_RESULT;
-  user: AuthUser;
+  authResult: AuthResult;
+}
+export interface ICheckAuthenticationAction extends Action {
+  type: AuthTypes.CHECK_AUTHENTICATION;
 }
 
 export interface IReceiveErrorAction extends Action {
@@ -34,6 +38,7 @@ export type AuthThunkResult<R> = ThunkAction<R, IAuthState, undefined, Action>;
 export type AuthActionTypes =
   | IAuthenticateAction
   | IDeconnectionAction
+  | ICheckAuthenticationAction
   | IReceiveAuthResultAction
   | IReceiveErrorAction;
 
@@ -59,10 +64,17 @@ export default class AuthActions {
     };
   }
 
-  public receiveAuthResult(user: AuthUser): IReceiveAuthResultAction {
+  public checkAuthentication(): ICheckAuthenticationAction {
+    this.store.dispatch<any>(this.checkAuthenticationAsync());
+    return {
+      type: AuthTypes.CHECK_AUTHENTICATION,
+    };
+  }
+
+  public receiveAuthResult(authResult: AuthResult): IReceiveAuthResultAction {
     return {
       type: AuthTypes.RECEIVE_AUTH_RESULT,
-      user
+      authResult
     };
   }
 
@@ -73,11 +85,24 @@ export default class AuthActions {
     };
   }
 
+  public checkAuthenticationAsync() {
+    return (dispatch: Dispatch<Action>) => {
+      return this.authService.CheckAuthentication()
+        .then((authResult) => {
+          dispatch(this.receiveAuthResult(authResult));
+        })
+        .catch((error) => {
+          dispatch(this.receiveError(error));
+        });
+    };
+  }
+
   public handleCallback() {
     return (dispatch: Dispatch<Action>) => {
       return this.authService.HandleCallback()
-        .then((user) => {
-          dispatch(this.receiveAuthResult(user));
+        .then((authResult) => {
+
+          dispatch(this.receiveAuthResult(authResult));
         })
         .catch((error) => {
           dispatch(this.receiveError(error));

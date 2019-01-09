@@ -1,5 +1,5 @@
 import { User, UserManager, UserManagerSettings } from 'oidc-client';
-import { AuthUser } from '../../models/AuthUser';
+import { AuthResult } from '../../models/AuthResult';
 import { IAuthService } from './IAuth.Service';
 
 const authConfig = {
@@ -29,6 +29,11 @@ class AuthService implements IAuthService {
   }
 
   public get IsAuthenticated() {
+
+    if (localStorage.getItem(localStorageName.isLoggedIn) !== "false") {
+      return false;
+    }
+
     // Check whether the current time is past the
     // access token's expiry time
     if (!this.expiresAt) {
@@ -44,39 +49,20 @@ class AuthService implements IAuthService {
 
   constructor(config: UserManagerSettings) {
     this.authProvider = new UserManager(config);
-    this.authProvider.getUser()
-      .then((user) => {
-        this.setSession(user);
-      });
   }
 
-  public HandleAuthentication(): void {
-    this.authProvider.getUser()
-      .then((user) => {
-        console.log(user);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-  }
-
-  /*public RenewSession(): Promise<void> {
-    const promise = new Promise<void>((resolve, reject) => {
-      this.authProvider.checkSession({}, (err, authResult) => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          this.setSession(authResult);
-          resolve();
-        } else if (err) {
-          this.Logout();
-          console.error(err);
-          reject();
-        }
-      });
+  public CheckAuthentication(): Promise<AuthResult> {
+    const promise = new Promise<AuthResult>((resolve, reject) => {
+      this.authProvider.getUser()
+        .then((user) => {
+          resolve(this.handleAuthresult(user));
+        })
+        .catch((error) => {
+          reject(`User is not auth:${error.message}`);
+        });
     });
     return promise;
-
-  }*/
+  }
 
   public Login() {
     this.authProvider.signinRedirect();
@@ -95,11 +81,10 @@ class AuthService implements IAuthService {
   }
 
   public HandleCallback() {
-    const promise = new Promise<AuthUser>((resolve, reject) => {
+    const promise = new Promise<AuthResult>((resolve, reject) => {
       this.authProvider.signinRedirectCallback()
-        .then((authResult: User) => {
-          this.setSession(authResult);
-          resolve(authResult);
+        .then((user: User) => {
+          resolve(this.handleAuthresult(user));
         })
         .catch((error) => {
           console.error(error);
@@ -108,6 +93,14 @@ class AuthService implements IAuthService {
     });
     return promise;
 
+  }
+
+  private handleAuthresult(user: User): AuthResult {
+    this.setSession(user);
+    return {
+      user,
+      isAuthenticated: Boolean(user)
+    };
   }
 
   private setSession(authResult: User) {

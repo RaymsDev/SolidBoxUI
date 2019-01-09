@@ -1,7 +1,7 @@
 import * as DeepFreeze from 'deep-freeze';
 import configureMockStore from 'redux-mock-store';
 import thunk from "redux-thunk";
-import authFakeService, { fakeUser } from '../../services/auth/authFake.service';
+import authFakeService, { fakeAuthResult } from '../../services/auth/authFake.service';
 import AuthActions, { AuthActionTypes } from './action';
 import { IAuthState } from './type';
 
@@ -9,11 +9,13 @@ const middlewares = [thunk];
 const mockStore = configureMockStore<IAuthState>(middlewares);
 
 const initialState: IAuthState = {
-  user: null,
+  authResult: {
+    user: null,
+    isAuthenticated: false
+  },
   errorMessage: null,
   isError: false,
   isFetching: false,
-  isAuthenticated: false
 };
 
 describe('Auth Action', () => {
@@ -21,7 +23,7 @@ describe('Auth Action', () => {
     const store = mockStore(initialState);
     const authActions = new AuthActions(store, authFakeService);
     const expectedActions: AuthActionTypes[] = [
-      authActions.receiveAuthResult(fakeUser)
+      authActions.receiveAuthResult(fakeAuthResult)
     ];
 
     DeepFreeze(expectedActions);
@@ -35,7 +37,25 @@ describe('Auth Action', () => {
         expect(store.getActions()).toEqual(expectedActions);
       });
   });
-  test('Authenticate', async () => {
+  test('CheckAuthentication Async', async () => {
+    const store = mockStore(initialState);
+    const authActions = new AuthActions(store, authFakeService);
+    const expectedActions: AuthActionTypes[] = [
+      authActions.receiveAuthResult(fakeAuthResult)
+    ];
+
+    DeepFreeze(expectedActions);
+
+    const action = authActions.checkAuthenticationAsync();
+
+    DeepFreeze(action);
+
+    return store.dispatch<any>(action)
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+  });
+  test('Authenticate', () => {
     const store = mockStore(initialState);
     const authActions = new AuthActions(store, authFakeService);
 

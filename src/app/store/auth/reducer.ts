@@ -3,11 +3,13 @@ import { AuthActionTypes, AuthTypes } from "./action";
 import { IAuthState } from "./type";
 
 const initialState: IAuthState = {
-  user: null,
+  authResult: {
+    user: null,
+    isAuthenticated: false
+  },
   errorMessage: null,
   isError: false,
   isFetching: false,
-  isAuthenticated: false
 };
 
 export const authReducer = (state: IAuthState = initialState, action: AuthActionTypes): IAuthState => {
@@ -15,8 +17,17 @@ export const authReducer = (state: IAuthState = initialState, action: AuthAction
     case AuthTypes.AUTHENTICATE:
       return {
         ...state,
-        user: null,
-        isAuthenticated: false,
+        authResult: {
+          user: null,
+          isAuthenticated: false
+        },
+        isFetching: true,
+        isError: false,
+        errorMessage: null
+      };
+    case AuthTypes.CHECK_AUTHENTICATION:
+      return {
+        ...state,
         isFetching: true,
         isError: false,
         errorMessage: null
@@ -24,8 +35,7 @@ export const authReducer = (state: IAuthState = initialState, action: AuthAction
     case AuthTypes.RECEIVE_AUTH_RESULT:
       return {
         ...state,
-        user: action.user,
-        isAuthenticated: true,
+        authResult: action.authResult,
         isFetching: false,
         isError: false,
         errorMessage: null
