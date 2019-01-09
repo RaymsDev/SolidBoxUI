@@ -1,7 +1,7 @@
 import { ITodo } from './../../models/Todo';
 import { ITodoService } from "./ITodo.service";
 
-const asyncDelay = 200;
+const asyncDelay = 20;
 
 class TodoFakeService implements ITodoService {
   public todoList: ITodo[];

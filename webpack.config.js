@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'app/[name].bundle.js'
+    filename: 'app/[name].[chunkhash].bundle.js'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
