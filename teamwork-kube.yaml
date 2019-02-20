@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: teamwork
-        image: neoscontainerregistry.azurecr.io/teamwork:latest
+        image: raymsimagehub.azurecr.io/teamwork:integration
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---

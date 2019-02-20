@@ -21,7 +21,7 @@ export class SelectBox extends React.Component<ISelectBoxProps, ISelectBoxState>
     return (
       <>
         <label htmlFor={name}>{label}</label>
-        <select name={name} onChange={this.handleChange} defaultValue={this.getDefaultValue()} value={selected}>
+        <select name={name} onChange={this.handleChange} value={selected}>
           {list.map((item) => (<option key={item.id} value={item.id} >{item.value}</option>))}
         </select>
       </>
@@ -30,20 +30,12 @@ export class SelectBox extends React.Component<ISelectBoxProps, ISelectBoxState>
 
   public componentDidUpdate(prevProps: ISelectBoxProps) {
     if (this.state.selected === undefined && prevProps.isFetching && this.props.list.length > 0) {
-      this.selectItem(this.props.list[0].id);
-    }
-  }
-
-  private getDefaultValue(): string {
-
-    const { isFetching, list } = this.props;
-
-    if (isFetching || list.length < 1) {
-      return "0";
+      return this.selectItem(this.props.list[0].id);
     }
 
-    const defaultValue = list[0].id;
-    return defaultValue.toString();
+    if (prevProps.isFetching) {
+      return this.selectItem(undefined);
+    }
   }
 
   private selectItem(id: number) {
