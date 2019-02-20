@@ -2,15 +2,40 @@ import { IClient } from "../../models/Client";
 import { IClientService } from "./IClient.service";
 
 export const clientsListMock: IClient[] = [{
-  id: 1,
-  links: [],
-  name: "Client 1",
-  userId: 1
-}, {
   id: 2,
-  links: [],
-  name: "Client 2",
-  userId: 1
+  name: "Neos-SDI",
+  userId: 2,
+  links: [
+    {
+      rel: "ClientProjects",
+      url: "/API/Projects?$filter=ClientId eq 2",
+      method: "GET"
+    }
+  ]
+},
+{
+  id: 3,
+  name: "Stelia Aerospace",
+  userId: 2,
+  links: [
+    {
+      rel: "ClientProjects",
+      url: "/API/Projects?$filter=ClientId eq 3",
+      method: "GET"
+    }
+  ]
+},
+{
+  id: 4,
+  name: "Foo Bar",
+  userId: 2,
+  links: [
+    {
+      rel: "ClientProjects",
+      url: "/API/Projects?$filter=ClientId eq 4",
+      method: "GET"
+    }
+  ]
 }];
 
 const asyncDelay = 20;

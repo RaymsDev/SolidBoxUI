@@ -9,7 +9,7 @@ export class ProjectPage extends React.Component {
 
     return (
       <PageTemplate>
-        < ProjectAndTaskByClient clients={...CLIENTS} projects={...PROJECTS} tasks={...TASKS} />
+        {/* < ProjectAndTaskByClient clients={...CLIENTS} projects={...PROJECTS} tasks={...TASKS} /> */}
       </PageTemplate>
     );
   }

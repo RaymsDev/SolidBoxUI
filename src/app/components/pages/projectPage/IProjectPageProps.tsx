@@ -1,10 +1,16 @@
-import { Client } from "../../../models/Client";
-import { Project } from "../../../models/Project";
-import { Task } from "../../../models/Task";
+import { Client, IClient } from "../../../models/Client";
+import { IProject, Project } from "../../../models/Project";
+import { ITask, Task } from "../../../models/Task";
 
 export interface IProjectPageProps {
-  theader: string[];
-  clients: Client[];
-  projects: Project[];
-  tasks: Task[];
+  clientList: Client[];
+  projectList: Project[];
+  taskList: Task[];
+
+  clientsIsFetching: boolean;
+  projectsIsFetching: boolean;
+  taskIsFetching: boolean;
+
+  onClientSelected: (client: IClient) => void;
+  onProjectSelected: (project: Project) => void;
 }

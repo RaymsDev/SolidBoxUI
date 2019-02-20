@@ -4,6 +4,7 @@ import { Link } from "../../models/Link";
 import { Project } from "../../models/Project";
 import { IProjectService } from "./IProject.service";
 const url = `${apiUrl}/API/Projects`;
+const myProjectUrl = `${apiUrl}/API/Projects/me`;
 
 class ProjectService implements IProjectService {
 
@@ -43,6 +44,18 @@ class ProjectService implements IProjectService {
     return promise;
   }
 
+  public getMyProjects(): Promise<Project[]> {
+    const promise = new Promise<Project[]>((resolve, reject) => {
+      axios.get<Project[]>(myProjectUrl)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((response) => {
+          reject(response);
+        });
+    });
+    return promise;
+  }
 }
 
 export default new ProjectService();

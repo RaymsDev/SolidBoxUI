@@ -19,6 +19,7 @@ const onProjectSelected = (dispatch: Dispatch<any>, client: IClient) => {
 const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
   const { clients } = state.clientsState;
   const { projects } = state.projectsState;
+
   return {
     clientList: clients,
     clientsIsFetching: state.clientsState.isFetching,

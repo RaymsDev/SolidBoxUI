@@ -80,5 +80,9 @@ class ProjectFakeService implements IProjectService {
   public get(link: Link[]): Promise<Project[]> {
     return projectsPromise;
   }
+
+  public getMyProjects(): Promise<Project[]> {
+    return projectsPromise;
+  }
 }
 export default new ProjectFakeService();

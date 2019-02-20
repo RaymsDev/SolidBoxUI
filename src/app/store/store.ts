@@ -6,6 +6,9 @@ import { IClientsState } from "./client/types";
 import { ProjectsActionTypes } from "./project/action";
 import { projectReducer } from "./project/reducer";
 import { IProjectsState } from "./project/type";
+import { TasksActionTypes } from "./task/action";
+import { taskReducer } from "./task/reducer";
+import { ITasksState } from "./task/types";
 import { TodoActionTypes } from "./todo/action";
 import { todosReducer } from "./todo/reducer";
 import { ITodosState } from "./todo/types";
@@ -14,17 +17,20 @@ export interface IRootState {
   todosState: ITodosState;
   clientsState: IClientsState;
   projectsState: IProjectsState;
+  tasksState: ITasksState;
 }
 
 export type IRootAction =
   | ClientsActionTypes
   | TodoActionTypes
-  | ProjectsActionTypes;
+  | ProjectsActionTypes
+  | TasksActionTypes;
 
 const reducers = combineReducers<IRootState>({
   todosState: todosReducer,
   clientsState: clientsReducer,
-  projectsState: projectReducer
+  projectsState: projectReducer,
+  tasksState: taskReducer
 });
 
 const store = createStore(reducers,

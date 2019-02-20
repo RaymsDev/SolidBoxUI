@@ -51,6 +51,12 @@ export default class ProjectActions {
       type: ProjectTypes.FETCH_PROJECTS
     };
   }
+  public fetchMyProjects(): IFetchProjectsAction {
+    this.store.dispatch<any>(this.fetchMyProjectsAsync());
+    return {
+      type: ProjectTypes.FETCH_PROJECTS
+    };
+  }
   public fetchClientProjects(links: Link[]): IFetchClientProjectsAction {
     this.store.dispatch<any>(this.fetchClientProjectsAsync(links));
     return {
@@ -75,6 +81,18 @@ export default class ProjectActions {
   public fetchProjectsAsync() {
     return (dispatch: Dispatch<Action>) => {
       return this.projectService.getProjects()
+        .then((projects) => {
+          dispatch(this.receiveProjects(projects));
+        })
+        .catch((error) => {
+          dispatch(this.receiveError(error));
+        });
+    };
+  }
+
+  public fetchMyProjectsAsync() {
+    return (dispatch: Dispatch<Action>) => {
+      return this.projectService.getMyProjects()
         .then((projects) => {
           dispatch(this.receiveProjects(projects));
         })

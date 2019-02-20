@@ -1,6 +1,31 @@
+import { IClient } from "./Client";
 import { Link } from "./Link";
 
-export class Project {
+export interface IProject {
+  id: number;
+  name: string;
+  startDate: Date;
+  endDate: Date;
+  projectStatutId: number;
+  projectModeId: number;
+  clientId: number;
+  parentProjectId: number;
+  sortOrder: number;
+  comment: string;
+  enableOverRun: boolean;
+  updateDate: Date;
+  amount: number;
+  teamId: number;
+  branchId: number;
+  agencyId: number;
+  ownerUserId: number;
+  consumedLoad: number;
+  plannedLoad: number;
+  totalLoad: number;
+  links: Link[];
+}
+
+export class Project implements IProject {
   public id: number;
   public name: string;
   public startDate: Date;
