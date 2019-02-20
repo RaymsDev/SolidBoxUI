@@ -16,15 +16,21 @@ const onLogin = (dispatch: Dispatch<any>) => {
   dispatch(authActions.authenticate());
 };
 
-const mapStateToProps = (state: IRootState): Partial<ILoginPageProps> => {
-  return {
+const onLogout = (dispatch: Dispatch<any>) => {
+  dispatch(authActions.deconnection());
+};
 
+const mapStateToProps = (state: IRootState): Partial<ILoginPageProps> => {
+  const { isAuthenticated } = state.authState.authResult;
+  return {
+    isAuthenticated
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): Partial<ILoginPageProps> => {
   return {
     login: () => onLogin(dispatch),
+    logout: () => onLogout(dispatch)
   };
 };
 

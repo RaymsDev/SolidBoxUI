@@ -9,8 +9,6 @@ export class Navbar extends React.Component<INavbarProps> {
 
   constructor(props: INavbarProps) {
     super(props);
-
-    this.Logout = this.Logout.bind(this);
   }
 
   public render(): JSX.Element {
@@ -25,15 +23,12 @@ export class Navbar extends React.Component<INavbarProps> {
         </ul>
         <ul className={s.linkContainer}>
           <li className={s.linkItem}>
-            {!isAuthenticated ? (<Link className={s.link} to={RouteList.login}>Login</Link>) : (<button className={s.link} onClick={this.Logout}>Logout</button>)}
+            <Link className={s.link} to={RouteList.login}>
+              {!isAuthenticated ? "Login" : "Logout"}
+            </Link>
           </li>
         </ul>
       </nav >
     );
-  }
-
-  public Logout(e: React.MouseEvent<HTMLButtonElement>): void {
-    e.preventDefault();
-    this.props.logout();
   }
 }
