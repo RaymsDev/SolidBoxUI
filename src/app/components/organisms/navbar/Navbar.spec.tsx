@@ -10,7 +10,7 @@ const fakeLogout = () => {
 };
 
 test('Display Title in Navbar', () => {
-  const navbar = shallow(<Navbar title="Test" isAuthenticated={false} login={fakeLogin} logout={fakeLogout} />);
+  const navbar = shallow(<Navbar title="Test" isAuthenticated={false} logout={fakeLogout} />);
 
   expect(navbar.contains(<h1>Test</h1>)).toBe(true);
 

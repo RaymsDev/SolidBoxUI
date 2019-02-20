@@ -9,6 +9,7 @@ import { HomePage } from './components/pages/homePage/HomePage';
 import { NotFoundPage } from './components/pages/notFoundPage/NotFoundPage';
 import { ProjectPage } from './components/pages/projectPage/ProjectPage';
 import CallbackPageContainer from './containers/CallbackPageContainer';
+import LoginPageContainer from './containers/LoginPageContainer';
 import PlanningPageContainer from './containers/PlanningPageContainer';
 import PrivateRouteContainer from './containers/PrivateRouteContainer';
 import TodoPageContainer from './containers/TodoPageContainer';
@@ -30,6 +31,7 @@ const Root = () => (
         <Route path={RouteList.project} exact={true} component={ProjectPage} />
         <PrivateRouteContainer isAuthenticated={false} path={RouteList.planning} exact={true} component={PlanningPageContainer} />
         <Route path={RouteList.todo} exact={true} component={TodoPageContainer} />
+        <Route path={RouteList.login} exact={true} component={LoginPageContainer} />
         <Route component={NotFoundPage} />
       </Switch>
     </Router>

@@ -8,9 +8,6 @@ import store, { IRootState } from "../store/store";
 
 const authActions = new AuthActions(store, authService);
 
-const onLogin = (dispatch: Dispatch<any>) => {
-  dispatch(authActions.authenticate());
-};
 const onLogout = (dispatch: Dispatch<any>) => {
   dispatch(authActions.deconnection());
 };
@@ -24,7 +21,6 @@ const mapStateToProps = (state: IRootState): Partial<IPageTemplateProps> => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): Partial<IPageTemplateProps> => {
   return {
-    login: () => onLogin(dispatch),
     logout: () => onLogout(dispatch)
   };
 };
