@@ -7,11 +7,11 @@ const title = "TeamWork";
 
 export class PageTemplate extends React.Component<IPageTemplateProps> {
   public render(): JSX.Element {
-    const { children, login, logout, isAuthenticated } = this.props;
+    const { children, isAuthenticated } = this.props;
     return (
       <>
         <header className={styles.header}>
-          <Navbar title={title} isAuthenticated={isAuthenticated} login={login} logout={logout} />
+          <Navbar title={title} isAuthenticated={isAuthenticated} />
         </header>
         <div className={styles.container}>
           {children}
