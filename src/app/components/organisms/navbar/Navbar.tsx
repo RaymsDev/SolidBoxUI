@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import { RouteList } from '../../../../config/Routes';
+import { RouteList } from '../../../../config/RouteList';
 import { INavbarProps } from './INavbarProps';
 import * as s from './Navbar.scss';
 export class Navbar extends React.Component<INavbarProps> {

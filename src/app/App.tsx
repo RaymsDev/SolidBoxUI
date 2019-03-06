@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
-import { RouteList } from '../config/routes';
+import { RouteList } from '../config/RouteList';
 import { HomePage } from './components/pages/homePage/HomePage';
 import { NotFoundPage } from './components/pages/notFoundPage/NotFoundPage';
 import { ProjectPage } from './components/pages/projectPage/ProjectPage';
