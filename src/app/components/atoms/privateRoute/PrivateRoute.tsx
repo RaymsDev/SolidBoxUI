@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Redirect, Route } from 'react-router';
-import { RouteList } from '../../../../config/Routes';
+import { RouteList } from '../../../../config/RouteList';
 import { IPrivateRouteProps } from './IPrivateRouteProps';
 export class PrivateRoute extends React.Component<IPrivateRouteProps> {
   constructor(props: IPrivateRouteProps) {
@@ -27,7 +27,7 @@ export class PrivateRoute extends React.Component<IPrivateRouteProps> {
       );
     }
     return (
-      <Redirect to={{ pathname: RouteList.home, state: { from: routeProps.location } }} />
+      <Redirect to={{ pathname: RouteList.login, state: { from: routeProps.location } }} />
     );
   }
 }

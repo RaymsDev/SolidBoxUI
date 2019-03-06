@@ -21,7 +21,6 @@ module.exports = {
     hot: true,
     port: port,
     historyApiFallback: true,
-    open: true
   },
   node: {
     // workaround for webpack-dev-server issue
