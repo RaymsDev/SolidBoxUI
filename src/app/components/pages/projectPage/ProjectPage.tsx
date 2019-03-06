@@ -12,9 +12,9 @@ export class ProjectPage extends React.Component<IProjectPageProps> {
 
   public render(): JSX.Element {
     return (
-      <PageTemplate>
+      <PageTemplateContainer>
         < ProjectAndTaskByClient {...this.props} />
-      </PageTemplate>
+      </PageTemplateContainer>
     );
   }
 }

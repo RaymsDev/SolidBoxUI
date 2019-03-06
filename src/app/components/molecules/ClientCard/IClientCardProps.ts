@@ -8,4 +8,5 @@ export interface IClientCardProps {
   tasks: Task[];
 
   onClientSelected: (client: Client) => void;
+  onProjectSelected: (project: Project) => void;
 }

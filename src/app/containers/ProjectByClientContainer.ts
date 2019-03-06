@@ -40,21 +40,25 @@ const mapStateToProps = (state: IRootState): Partial<IProjectPageProps> => {
     clientList: clients,
     clientsIsFetching: state.clientsState.isFetching,
     projectList: projects,
-    projectsIsFetching: state.projectsState.isFetching
-
+    projectsIsFetching: state.projectsState.isFetching,
+    taskList: tasks
   };
 };
 
 // init
 store.dispatch(clientActions.fetchClients());
+store.dispatch(projectActions.fetchProjects());
+store.dispatch(taskActions.fetchTasks());
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): Partial<IProjectPageProps> => {
   return {
     onClientSelected: (client: IClient) => {
-      console.log("Client selected :" + client);
+      // console.log("Client selected :" + client.name);
+      store.dispatch(projectActions.fetchClientProjects(client.links));
     },
     onProjectSelected: (project: Project) => {
-      console.log("Project selected :" + project);
+      console.log("Project selected :" + project.name);
+      // store.dispatch(taskActions.fetchTasks());
     }
   };
 };

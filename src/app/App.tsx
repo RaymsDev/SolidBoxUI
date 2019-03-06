@@ -12,11 +12,7 @@ import CallbackPageContainer from './containers/CallbackPageContainer';
 import LoginPageContainer from './containers/LoginPageContainer';
 import PlanningPageContainer from './containers/PlanningPageContainer';
 import PrivateRouteContainer from './containers/PrivateRouteContainer';
-<<<<<<< HEAD
 import ProjectByClientContainer from './containers/ProjectByClientContainer';
-=======
-import PrivateRouteContainer from './containers/PrivateRouteContainer';
->>>>>>> 708213d5740b81ab7b238141d8bf88fcd57774fd
 import TodoPageContainer from './containers/TodoPageContainer';
 import authService from './services/auth/auth.service';
 import AuthActions from './store/auth/action';
