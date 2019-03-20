@@ -1,0 +1,24 @@
+import axios from 'axios';
+import { apiUrl } from "../../../config/env";
+import { Agency } from "../../models/Agency";
+import { IAgencyService } from "./IAgency.service";
+const url = `${apiUrl}/API/Agencys`;
+// todo service not done on swagger so use fake for the moment
+class AgencyService implements IAgencyService {
+
+  public list(): Promise<Agency[]> {
+    const promise = new Promise<Agency[]>((resolve, reject) => {
+      axios.get<Agency[]>(url)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((response) => {
+          reject(response);
+        });
+    });
+    return promise;
+  }
+
+}
+
+export default new AgencyService();

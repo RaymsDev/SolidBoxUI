@@ -1,20 +1,20 @@
-export interface ITeam {
+export interface IAgency {
   id: number;
   name: string;
 }
 
-export class Team {
+export class Agency {
   public id: number;
   public name: string;
 
-  constructor(data?: Partial<ITeam>) {
+  constructor(data?: Partial<IAgency>) {
     if (data) {
       this.id = data.id;
       this.name = data.name;
     }
   }
 
-  public clone(): Team {
-    return new Team({ ...this });
+  public clone(): Agency {
+    return new Agency({ ...this });
   }
 }

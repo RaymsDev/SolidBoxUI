@@ -125,6 +125,6 @@ export default class ProjectActions {
     return {
       type: ProjectTypes.NEW_EDITED,
       project,
-    }
+    };
   }
 }

@@ -1,8 +1,8 @@
 import { Action, Dispatch, Store } from "redux";
 import { ThunkAction } from "redux-thunk";
+import { ProjectStatus } from "../../models/ProjectStatus";
 import { IProjectStatusService } from "../../services/projectStatus/IProjectStatus.service";
 import { IProjectStatussState } from "./type";
-import { ProjectStatus } from "../../models/ProjectStatus";
 
 export enum ProjectStatusTypes {
   FETCH = 'FETCH_PROJECTSTATUSS',
@@ -61,7 +61,7 @@ export default class ProjectStatusActions {
   }
 
   public fetchAsync() {
-    return (dispatch: Dispatch<Action>) => {//TODO change service
+    return (dispatch: Dispatch<Action>) => {// TODO change service
       return this.projectStatusService.getProjectStatuss()
         .then((projectStatuss) => {
           dispatch(this.receive(projectStatuss));

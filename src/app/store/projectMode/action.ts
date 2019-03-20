@@ -1,8 +1,8 @@
 import { Action, Dispatch, Store } from "redux";
 import { ThunkAction } from "redux-thunk";
+import { ProjectMode } from "../../models/ProjectMode";
 import { IProjectModeService } from "../../services/projectMode/IProjectMode.service";
 import { IProjectModesState } from "./type";
-import { ProjectMode } from "../../models/ProjectMode";
 
 export enum ProjectModeTypes {
   FETCH = 'FETCH_PROJECTMODES',
@@ -61,7 +61,7 @@ export default class ProjectModeActions {
   }
 
   public fetchAsync() {
-    return (dispatch: Dispatch<Action>) => {//TODO change service
+    return (dispatch: Dispatch<Action>) => {// TODO change service
       return this.projectModeService.getProjectModes()
         .then((projectModes) => {
           dispatch(this.receive(projectModes));

@@ -73,7 +73,7 @@ export class Project {
     }
   }
 
-  clone(): Project {
+  public clone(): Project {
     return new Project({ ...this });
   }
 }
