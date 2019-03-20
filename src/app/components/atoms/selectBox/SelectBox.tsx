@@ -28,6 +28,14 @@ export class SelectBox extends React.Component<ISelectBoxProps, ISelectBoxState>
     );
   }
 
+  public componentDidMount() {
+    const { isFetching } = this.props;
+    const { selected } = this.state;
+    if (!isFetching && selected) {
+      this.selectItem(selected);
+    }
+  }
+
   public componentDidUpdate(prevProps: ISelectBoxProps) {
     if (this.state.selected === undefined && prevProps.isFetching && this.props.list.length > 0) {
       return this.selectItem(this.props.list[0].id);

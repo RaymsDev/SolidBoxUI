@@ -1,19 +1,8 @@
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import { IPageTemplateProps } from "../components/templates/pageTemplate/IPageTemplateProps";
 import { PageTemplate } from "../components/templates/pageTemplate/PageTemplate";
-import authService from "../services/auth/auth.service";
-import AuthActions from "../store/auth/action";
-import store, { IRootState } from "../store/store";
 
-const authActions = new AuthActions(store, authService);
-
-const onLogin = (dispatch: Dispatch<any>) => {
-  dispatch(authActions.authenticate());
-};
-const onLogout = (dispatch: Dispatch<any>) => {
-  dispatch(authActions.deconnection());
-};
+import { IRootState } from "../store/store";
 
 const mapStateToProps = (state: IRootState): Partial<IPageTemplateProps> => {
   const { isAuthenticated } = state.authState.authResult;
@@ -22,11 +11,4 @@ const mapStateToProps = (state: IRootState): Partial<IPageTemplateProps> => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): Partial<IPageTemplateProps> => {
-  return {
-    login: () => onLogin(dispatch),
-    logout: () => onLogout(dispatch)
-  };
-};
-
-export default connect<Partial<IPageTemplateProps>>(mapStateToProps, mapDispatchToProps)(PageTemplate);
+export default connect<Partial<IPageTemplateProps>>(mapStateToProps)(PageTemplate);

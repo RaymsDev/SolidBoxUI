@@ -12,7 +12,7 @@ import store, { IRootState } from "../store/store";
 const clientActions = new ClientActions(store, clientService);
 const projectActions = new ProjectActions(store, projectService);
 
-const onProjectSelected = (dispatch: Dispatch<any>, client: IClient) => {
+const onClientSelected = (dispatch: Dispatch<any>, client: IClient) => {
   dispatch(projectActions.fetchClientProjects(client.links));
 };
 
@@ -32,7 +32,7 @@ store.dispatch(clientActions.fetchClients());
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): Partial<IPlanningPageProps> => {
   return {
-    onClientSelected: (client: IClient) => { onProjectSelected(dispatch, client); },
+    onClientSelected: (client: IClient) => { onClientSelected(dispatch, client); },
     onProjectSelected: (project: Project) => {
       console.log(project);
     }

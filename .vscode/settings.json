@@ -1,5 +1,7 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "tslint.configFile": "./tslint.json",
-  "tslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.tslint": true
+  },
 }
