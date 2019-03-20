@@ -1,5 +1,29 @@
 import { Link } from "./Link";
 
+export interface IProject {
+  id: number;
+  name: string;
+  startDate: Date;
+  endDate: Date;
+  projectStatutId: number;
+  projectModeId: number;
+  clientId: number;
+  parentProjectId: number;
+  sortOrder: number;
+  comment: string;
+  enableOverRun: boolean;
+  updateDate: Date;
+  amount: number;
+  teamId: number;
+  branchId: number;
+  agencyId: number;
+  ownerUserId: number;
+  consumedLoad: number;
+  plannedLoad: number;
+  totalLoad: number;
+  links: Link[];
+}
+
 export class Project {
   public id: number;
   public name: string;
@@ -22,4 +46,34 @@ export class Project {
   public plannedLoad: number;
   public totalLoad: number;
   public links: Link[];
+
+  constructor(data?: Partial<IProject>) {
+    if (data) {
+      this.id = data.id;
+      this.name = data.name;
+      this.startDate = data.startDate;
+      this.endDate = data.endDate;
+      this.projectStatutId = data.projectStatutId;
+      this.projectModeId = data.projectModeId;
+      this.clientId = data.clientId;
+      this.parentProjectId = data.parentProjectId;
+      this.sortOrder = data.sortOrder;
+      this.comment = data.comment;
+      this.enableOverRun = data.enableOverRun;
+      this.updateDate = data.updateDate;
+      this.amount = data.amount;
+      this.teamId = data.teamId;
+      this.branchId = data.branchId;
+      this.agencyId = data.agencyId;
+      this.ownerUserId = data.ownerUserId;
+      this.consumedLoad = data.consumedLoad;
+      this.plannedLoad = data.plannedLoad;
+      this.totalLoad = data.totalLoad;
+      this.links = data.links;
+    }
+  }
+
+  clone(): Project {
+    return new Project({ ...this });
+  }
 }

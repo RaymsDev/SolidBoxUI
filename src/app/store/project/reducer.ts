@@ -1,11 +1,13 @@
 import { ProjectsActionTypes, ProjectTypes } from "./action";
 import { IProjectsState } from "./type";
+import { Project } from "../../models/Project";
 
 const initialState: IProjectsState = {
   projects: [],
   isFetching: false,
   isError: false,
-  errorMessage: ''
+  errorMessage: '',
+  edited: new Project(),
 };
 
 export const projectReducer = (state: IProjectsState = initialState, action: ProjectsActionTypes): IProjectsState => {
@@ -33,6 +35,18 @@ export const projectReducer = (state: IProjectsState = initialState, action: Pro
         isError: true,
         errorMessage: action.errorMessage
       };
+    case ProjectTypes.NEW_EDITED:
+      return {
+        ...state,
+        edited: action.project,
+      }
+    case ProjectTypes.UPDATE_EDITED:
+      let clonedEdited = state.edited.clone();
+      clonedEdited[action.attribut] = action.value;
+      return {
+        ...state,
+        edited: clonedEdited
+      }
     default:
       return state;
   }

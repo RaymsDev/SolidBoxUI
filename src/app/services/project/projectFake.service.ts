@@ -3,7 +3,7 @@ import { Project } from "../../models/Project";
 import { IProjectService } from "./IProject.service";
 
 export const projectListMock: Project[] = [
-  {
+  new Project({
     id: 1,
     name: "Solid Box API",
     startDate: null,
@@ -36,8 +36,8 @@ export const projectListMock: Project[] = [
         method: "GET"
       }
     ]
-  },
-  {
+  }),
+  new Project({
     id: 6,
     name: "Solid Box Front React",
     startDate: null,
@@ -59,7 +59,8 @@ export const projectListMock: Project[] = [
     plannedLoad: 0,
     totalLoad: 0,
     links: []
-  },];
+  }),
+];
 
 export const linksMock: Link[] = [{
   rel: "ClientProjects",

@@ -9,6 +9,12 @@ import { IClientsState } from "./client/types";
 import { ProjectsActionTypes } from "./project/action";
 import { projectReducer } from "./project/reducer";
 import { IProjectsState } from "./project/type";
+import { ProjectModesActionTypes } from "./projectMode/action";
+import { projectModeReducer } from "./projectMode/reducer";
+import { IProjectModesState } from "./projectMode/type";
+import { ProjectStatussActionTypes } from "./projectStatus/action";
+import { projectStatusReducer } from "./projectStatus/reducer";
+import { IProjectStatussState } from "./projectStatus/type";
 import { TodoActionTypes } from "./todo/action";
 import { todosReducer } from "./todo/reducer";
 import { ITodosState } from "./todo/types";
@@ -21,12 +27,15 @@ export interface IRootState {
   clientsState: IClientsState;
   projectsState: IProjectsState;
   authState: IAuthState;
+  projectModesState: IProjectModesState;
+  projectStatussState: IProjectStatussState;
 }
 
 export type IRootAction =
   | ClientsActionTypes
   | TodoActionTypes
   | ProjectsActionTypes
+  | ProjectModesActionTypes
   | AuthActionTypes;
 
 const reducers = combineReducers<IRootState>({
@@ -34,6 +43,8 @@ const reducers = combineReducers<IRootState>({
   clientsState: clientsReducer,
   projectsState: projectReducer,
   authState: authReducer,
+  projectModesState: projectModeReducer,
+  projectStatussState: projectStatusReducer,
 });
 
 const store = createStore(reducers,

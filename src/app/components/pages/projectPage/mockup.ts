@@ -42,7 +42,7 @@ export const CLIENTS: Client[] = [
 ];
 
 export const PROJECTS: Project[] = [
-  {
+  new Project({
     id: 1,
     name: "Solid Box API",
     startDate: null,
@@ -75,8 +75,8 @@ export const PROJECTS: Project[] = [
         method: "GET"
       }
     ]
-  },
-  {
+  }),
+  new Project({
     id: 6,
     name: "Solid Box Front React",
     startDate: null,
@@ -98,8 +98,8 @@ export const PROJECTS: Project[] = [
     plannedLoad: 0,
     totalLoad: 0,
     links: []
-  },
-  {
+  }),
+  new Project({
     id: 7,
     name: "API de base",
     startDate: null,
@@ -132,8 +132,8 @@ export const PROJECTS: Project[] = [
         method: "GET"
       }
     ]
-  },
-  {
+  }),
+  new Project({
     id: 8,
     name: "Gestion de la sécurité",
     startDate: null,
@@ -166,8 +166,8 @@ export const PROJECTS: Project[] = [
         method: "GET"
       }
     ]
-  },
-  {
+  }),
+  new Project({
     id: 9,
     name: "Demat 3X",
     startDate: null,
@@ -195,8 +195,8 @@ export const PROJECTS: Project[] = [
         method: "GET"
       }
     ]
-  },
-  {
+  }),
+  new Project({
     id: 10,
     name: "Lot 4",
     startDate: null,
@@ -229,7 +229,7 @@ export const PROJECTS: Project[] = [
         method: "GET"
       }
     ]
-  }
+  })
 ];
 
 export const TASKS: Task[] = [

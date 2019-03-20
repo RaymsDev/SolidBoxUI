@@ -5,4 +5,5 @@ export interface IProjectsState {
   isFetching: boolean;
   isError: boolean;
   errorMessage: string;
+  edited: Project;
 }

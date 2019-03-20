@@ -14,6 +14,8 @@ import authService from './services/auth/auth.service';
 import AuthActions from './store/auth/action';
 import store from './store/store';
 import './styles.scss';
+import EditProjectPageContainer from './containers/EditProjectPageContainer';
+import "react-datepicker/dist/react-datepicker.css";
 
 const authAction = new AuthActions(store, authService);
 const rootElement = document.getElementById('root');
@@ -29,6 +31,7 @@ const Root = () => (
         <Route path="/project" exact={true} component={ProjectPage} />
         <Route path="/planning" exact={true} component={PlanningPageContainer} />
         <Route path="/todo" exact={true} component={TodoPageContainer} />
+        <Route path="/project/new" exact={true} component={EditProjectPageContainer} />
         <Route component={NotFoundPage} />
       </Switch>
     </Router>
