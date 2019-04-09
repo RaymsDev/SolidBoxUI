@@ -4,18 +4,19 @@ import { IAuthService } from "./IAuth.Service";
 const delay = 10;
 export const fakeAuthResult: AuthResult = {
   user: {
-    access_token: 'token',
+    access_token: "token",
     expired: false,
     expires_at: 5156561,
     expires_in: 55555,
-    id_token: 'id_token',
-    token_type: 'token_type',
+    id_token: "id_token",
+    token_type: "token_type",
     profile: {},
-    state: 'state',
-    scope: 'scope',
-    scopes: ['scopes'],
-    session_state: 'session_state',
-    toStorageString: () => 'toString',
+    state: "state",
+    scope: "scope",
+    scopes: ["scopes"],
+    session_state: "session_state",
+    toStorageString: () => "toString",
+    refresh_token: "plop"
   },
   isAuthenticated: true
 };
@@ -42,11 +43,10 @@ class AuthFakeService implements IAuthService {
     const promise = new Promise<AuthResult>((resolve, reject) => {
       setTimeout(() => {
         this.isAuthenticated = true;
-        this.accessToken = 'access_token';
-        this.idToken = 'id_token';
+        this.accessToken = "access_token";
+        this.idToken = "id_token";
         resolve(fakeAuthResult);
       }, delay);
-
     });
     return promise;
   }
@@ -54,8 +54,8 @@ class AuthFakeService implements IAuthService {
   public Login() {
     setTimeout(() => {
       this.isAuthenticated = true;
-      this.accessToken = 'access_token';
-      this.idToken = 'id_token';
+      this.accessToken = "access_token";
+      this.idToken = "id_token";
     }, delay);
   }
 
