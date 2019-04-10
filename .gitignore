@@ -79,3 +79,4 @@ junit.xml
 .scannerwork/
 
 *.sh
+*.bat
