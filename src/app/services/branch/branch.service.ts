@@ -3,7 +3,6 @@ import { apiUrl } from "../../../config/env";
 import { Branch } from "../../models/Branch";
 import { IBranchService } from "./IBranch.service";
 const url = `${apiUrl}/API/Branchs`;
-// todo service not done on swagger so use fake for the moment
 class BranchService implements IBranchService {
 
   public list(): Promise<Branch[]> {

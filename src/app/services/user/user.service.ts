@@ -3,7 +3,6 @@ import { apiUrl } from "../../../config/env";
 import { User } from "../../models/User";
 import { IUserService } from "./IUser.service";
 const url = `${apiUrl}/API/Users`;
-// todo service not done on swagger so use fake for the moment
 class UserService implements IUserService {
 
   public getUsers(): Promise<User[]> {

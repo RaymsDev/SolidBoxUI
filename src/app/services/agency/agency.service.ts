@@ -2,8 +2,7 @@ import axios from 'axios';
 import { apiUrl } from "../../../config/env";
 import { Agency } from "../../models/Agency";
 import { IAgencyService } from "./IAgency.service";
-const url = `${apiUrl}/API/Agencys`;
-// todo service not done on swagger so use fake for the moment
+const url = `${apiUrl}/API/Agencies`;
 class AgencyService implements IAgencyService {
 
   public list(): Promise<Agency[]> {

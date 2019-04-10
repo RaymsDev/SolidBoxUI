@@ -43,6 +43,21 @@ export const projectReducer = (state: IProjectsState = initialState, action: Pro
     case ProjectTypes.UPDATE_EDITED:
       const clonedEdited = state.edited.clone();
       clonedEdited[action.attribut] = action.value;
+      if (action.attribut === "agencyId") {
+        clonedEdited.branchId = null;
+        clonedEdited.teamId = null;
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === "branchId") {
+        clonedEdited.teamId = null;
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === "teamId") {
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === "clientId") {
+        clonedEdited.parentProjectId = null;
+      }
       return {
         ...state,
         edited: clonedEdited

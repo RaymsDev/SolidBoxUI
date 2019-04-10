@@ -18,4 +18,7 @@ export interface IEditProjectPageProps {
   listClient: Client[];
   listProject: Project[];
   onChangeProperty: (property: string) => (newValue: any) => void;
+  onDelete: () => void;
+  onSave: () => void;
+  onCreate: () => void;
 }

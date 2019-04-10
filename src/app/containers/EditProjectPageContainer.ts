@@ -3,14 +3,14 @@ import { Dispatch } from "redux";
 import { EditProjectPage } from "../components/pages/editProjectPage/EditProjectPage";
 import { IEditProjectPageProps } from "../components/pages/editProjectPage/IEditProjectPageProps";
 import { Project } from "../models/Project";
-import agencyService from "../services/agency/agencyFake.service";// todo remove fake when service will be done
-import branchService from "../services/branch/branchFake.service";// todo remove fake when service will be done
+import agencyService from "../services/agency/agency.service";
+import branchService from "../services/branch/branch.service";
 import clientService from "../services/client/client.service";
 import projectService from "../services/project/project.service";
 import projectModeService from "../services/projectMode/projectMode.service";
 import projectStatusService from "../services/projectStatus/projectStatus.service";
-import teamService from "../services/team/teamFake.service";// todo remove fake when service will be done
-import userService from "../services/user/userFake.service";// todo remove fake when service will be done
+import teamService from "../services/team/team.service";
+import userService from "../services/user/user.service";
 import AgencyActions from "../store/agency/action";
 import BranchActions from "../store/branch/action";
 import { ClientActions } from "../store/client/action";
@@ -43,10 +43,10 @@ const mapStateToProps = (state: IRootState): Partial<IEditProjectPageProps> => {
     newProject: edited,
     listProjectMode: projectModes,
     listProjectStatus: projectStatuss,
-    listUser: users,
+    listUser: users.filter((u) => u.teamId === edited.teamId),
     listAgency: agencys,
-    listBranch: branchs,
-    listTeam: teams,
+    listBranch: branchs.filter((b) => b.agencyId === edited.agencyId),
+    listTeam: teams.filter((t) => t.branchId === edited.branchId),
     listClient: clients,
     listProject: projects.filter((p) => p.clientId === edited.clientId),
   };
@@ -69,6 +69,15 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): Partial<IEditProjectPagePr
       return (newValue: any): void => {
         dispatch(projectActions.updateEdited(property, newValue));
       };
+    },
+    onDelete: (): void => {
+      alert("You cannot delete a project");
+    },
+    onSave: (): void => {
+      dispatch(projectActions.saveEdited());
+    },
+    onCreate: (): void => {
+      dispatch(projectActions.createEdited());
     },
   };
 };

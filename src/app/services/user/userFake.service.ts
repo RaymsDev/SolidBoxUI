@@ -4,27 +4,33 @@ import { IUserService } from "./IUser.service";
 export const UserListMock: User[] = [
   new User({
     id: 1,
-    name: "Yann",
+    firstName: "Yann",
+    lastName: "SIMON",
   }),
   new User({
     id: 2,
-    name: "Rémi",
+    firstName: "Rémi",
+    lastName: "LAFUGE",
   }),
   new User({
     id: 3,
-    name: "Alexandre",
+    firstName: "Alexandre",
+    lastName: "QUENTIN",
   }),
   new User({
     id: 4,
-    name: "Vincent",
+    firstName: "Vincent",
+    lastName: "MADELEINE",
   }),
   new User({
     id: 5,
-    name: "Lucas",
+    firstName: "Lucas",
+    lastName: "AUDOUART",
   }),
   new User({
     id: 6,
-    name: "Ludovic",
+    firstName: "Ludovic",
+    lastName: "SENECHAL",
   }),
 ];
 

@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Button, DropdownProps, Form, InputOnChangeData, TextAreaProps } from 'semantic-ui-react';
+import { Divider, DropdownProps, Form, InputOnChangeData, TextAreaProps } from 'semantic-ui-react';
 import { DatePicker } from '../../atoms/form/datePicker/DatePicker';
+import { Input } from '../../atoms/form/input/Input';
 import { Select } from '../../atoms/form/select/Select';
 import { TextArea } from '../../atoms/form/textArea/TextArea';
+import { Toggle } from '../../atoms/form/toggle/toggle';
 import { EditTemplate } from '../../templates/editTemplate/EditTemplate';
 import { Mode } from '../../templates/editTemplate/IEditTemplateProps';
 import { IEditProjectPageProps } from './IEditProjectPageProps';
@@ -21,6 +23,9 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       listTeam,
       listClient,
       listProject,
+      onDelete,
+      onSave,
+      onCreate,
     } = this.props;
 
     const itemProjectMode = listProjectMode.map((v) => ({
@@ -34,7 +39,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
     }));
 
     const itemUser = listUser.map((v) => ({
-      text: v.name,
+      text: v.firstName + ' ' + v.lastName,
       value: v.id,
     }));
     const itemAgency = listAgency.map((v) => ({
@@ -57,23 +62,34 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       text: v.name,
       value: v.id,
     }));
+
+    const mode = Mode.Create;
     return (
       <EditTemplate
-        mode={Mode.Edit}
-        onDelete={undefined}
-        onSave={undefined}
+        mode={mode}
+        onDelete={onDelete}
+        onSave={onSave}
+        onCreate={onCreate}
       >
         <Form.Field>
-          {this.name(newProject.name, onChangeProperty('name'))}
+          <Input
+            enabled={this.enabled(mode)}
+            value={newProject.name}
+            label="Name"
+            onChange={this.onChangeInput(onChangeProperty('name'))}
+          />
         </Form.Field>
         <Form.Group widths='equal'>
           <DatePicker
-            enabled={true}
+            dateFormat="dd-MM-YYYY"
+            enabled={this.enabled(mode)}
             value={newProject.startDate}
             label="Start date"
             onChange={onChangeProperty('startDate')}
-          /><DatePicker
-            enabled={true}
+          />
+          <DatePicker
+            dateFormat="dd-MM-YYYY"
+            enabled={this.enabled(mode)}
             value={newProject.endDate}
             label="End date"
             onChange={onChangeProperty('endDate')}
@@ -81,37 +97,38 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         </Form.Group>
         <Form.Group widths='equal'>
           <Select
-            enabled={true}
+            enabled={this.enabled(mode)}
             value={newProject.projectStatutId}
-            list={itemProjectMode}
+            list={itemProjectStatus}
             label="Status"
             onChange={this.onChangeSelect(onChangeProperty('projectStatutId'))}
           />
           <Select
-            enabled={true}
+            enabled={this.enabled(mode)}
             value={newProject.projectModeId}
-            list={itemProjectStatus}
+            list={itemProjectMode}
             label="Mode"
             onChange={this.onChangeSelect(onChangeProperty('projectModeId'))}
           />
         </Form.Group>
+        <Divider />
         <Form.Group widths='equal'>
           <Select
-            enabled={true}
+            enabled={this.enabled(mode)}
             value={newProject.agencyId}
             list={itemAgency}
             label="Agency"
             onChange={this.onChangeSelect(onChangeProperty('agencyId'))}
           />
           <Select
-            enabled={true}
+            enabled={this.enabled(mode)}
             value={newProject.branchId}
             list={itemBranch}
             label="Branch"
             onChange={this.onChangeSelect(onChangeProperty('branchId'))}
           />
           <Select
-            enabled={true}
+            enabled={this.enabled(mode)}
             value={newProject.teamId}
             list={itemTeam}
             label="Team"
@@ -119,67 +136,47 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
           />
         </Form.Group>
         <Select
-          enabled={true}
+          enabled={this.enabled(mode)}
+          value={newProject.ownerUserId}
+          list={itemUser}
+          label="Owner"
+          onChange={this.onChangeSelect(onChangeProperty('ownerUserId'))}
+        />
+        <Divider />
+        <Select
+          enabled={this.enabled(mode)}
           value={newProject.clientId}
           list={itemClient}
           label="Client"
           onChange={this.onChangeSelect(onChangeProperty('clientId'))}
         />
         <Select
-          enabled={true}
+          enabled={this.enabled(mode)}
           value={newProject.parentProjectId}
           list={itemProject}
           label="Parent"
           onChange={this.onChangeSelect(onChangeProperty('parentProjectId'))}
         />
-        <Form.Group widths='equal'>
-          <Select
-            enabled={true}
-            value={newProject.ownerUserId}
-            list={itemUser}
-            label="Owner"
-            onChange={this.onChangeSelect(onChangeProperty('ownerUserId'))}
-          />
-          <Form.Field>
-            {this.toggle('enable over run', newProject.enableOverRun, onChangeProperty('enableOverRun'))}
-          </Form.Field>
-        </Form.Group>
+        <Divider />
         <TextArea
           onChange={(e: React.FormEvent, { value }: TextAreaProps) => onChangeProperty('comment')(value)}
           label="Comment"
-          enabled={true}
+          enabled={this.enabled(mode)}
           value={newProject.comment}
         />
       </EditTemplate>
     );
   }
 
+  private enabled(mode: Mode): boolean {
+    return mode !== Mode.View;
+  }
+
   private onChangeSelect(onChange: (newValue: boolean | number | string | Array<boolean | number | string>) => void): (e: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps) => void {
     return (e: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps) => onChange(value);
   }
 
-  private toggle(label: string, enabled: boolean, onChange: (newValue: boolean) => void): JSX.Element {
-    let text;
-    if (enabled) {
-      text = 'enabled';
-    } else {
-      text = 'disabled';
-    }
-    const onClick = () => onChange(!enabled);
-    return (
-      <>
-        <label>{label}</label>
-        <Button toggle={true} active={enabled} onClick={onClick}>
-          {text}
-        </Button>
-      </>
-    );
-  }
-
-  private name(text: string, onChange: (newValue: string) => void): JSX.Element {
-    const handler = (e: React.ChangeEvent, { value }: InputOnChangeData) => onChange(value);
-    return (
-      <Form.Input fluid={true} label='Name' placeholder='Name' value={text} onChange={handler} />
-    );
+  private onChangeInput(onChange: (newValue: string) => void): (e: React.ChangeEvent, { value }: InputOnChangeData) => void {
+    return (e: React.ChangeEvent, { value }: InputOnChangeData) => onChange(value);
   }
 }
