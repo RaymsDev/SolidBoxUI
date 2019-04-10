@@ -77,3 +77,5 @@ junit.xml
 #ignore sonar files
 .sonarlint/
 .scannerwork/
+
+*.sh
