@@ -1,7 +1,7 @@
 import { IProject } from '../../../models/Project';
 import { ITask, ITasksNormalized } from '../../../models/Task';
 
-export interface IProjectSelectorProps {
+export interface ITaskSelectorProps {
   projectList: IProject[];
   projectIsFetching: boolean;
   onProjectSelected: (project: IProject) => void;

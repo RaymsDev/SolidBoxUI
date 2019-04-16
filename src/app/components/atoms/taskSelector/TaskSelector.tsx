@@ -1,15 +1,11 @@
 import * as React from 'react';
 import { IProject } from '../../../models/Project';
 import { ITask } from '../../../models/Task';
-import { IProjectSelectorProps } from './IProjectSelectorProps';
-import { IProjectSelectorState } from './IProjectSelectorState';
-import * as styles from './ProjectSelector.scss';
+import { ITaskSelectorProps } from './ITaskSelectorProps';
+import * as styles from './TaskSelector.scss';
 
-export class ProjectSelector extends React.Component<
-  IProjectSelectorProps,
-  IProjectSelectorState
-> {
-  constructor(props: IProjectSelectorProps) {
+export class TaskSelector extends React.Component<ITaskSelectorProps> {
+  constructor(props: ITaskSelectorProps) {
     super(props);
 
     this.state = {};

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { IClient } from '../../../models/Client';
 import { IDictionaryItem } from '../../../models/DictionaryItem';
-import { Project } from '../../../models/Project';
 import { SelectBox } from '../../atoms/selectBox/SelectBox';
-import { ITaskSelectorProps } from './ITaskSelectorProps';
-import * as s from './TaskSelector.scss';
+import { IPRojectSelectorProps } from './IProjectSelectorProps';
+import * as s from './ProjectSelector.scss';
 
-export class TaskSelector extends React.Component<ITaskSelectorProps> {
-  constructor(props: ITaskSelectorProps) {
+export class ProjectSelector extends React.Component<IPRojectSelectorProps> {
+  constructor(props: IPRojectSelectorProps) {
     super(props);
   }
 
@@ -15,7 +14,7 @@ export class TaskSelector extends React.Component<ITaskSelectorProps> {
     const {
       onClientSelected,
       clientList,
-      clientsIsFetching: clientIsFetching
+      clientsIsFetching: clientIsFetching,
     } = this.props;
     return (
       <div className={s.container}>
@@ -33,13 +32,13 @@ export class TaskSelector extends React.Component<ITaskSelectorProps> {
   }
 
   private clientsToDictionary(
-    clients: IClient[]
+    clients: IClient[],
   ): Array<IDictionaryItem<number>> {
     return clients.map(c => {
       return {
         id: c.id,
         value: c.name,
-        object: c
+        object: c,
       };
     });
   }
