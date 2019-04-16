@@ -1,5 +1,5 @@
-import { ProjectStatus } from "../../models/ProjectStatus";
+import { ProjectStatus } from '../../models/ProjectStatus';
 
 export interface IProjectStatusService {
-  getProjectStatuss(): Promise<ProjectStatus[]>;
+  getProjectStatusList(): Promise<ProjectStatus[]>;
 }

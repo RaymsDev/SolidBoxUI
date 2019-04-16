@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import { RouteList } from '../config/RouteList';
 import { HomePage } from './components/pages/homePage/HomePage';
+import { LogoutPage } from './components/pages/logoutPage/LogoutPage';
 import { NotFoundPage } from './components/pages/notFoundPage/NotFoundPage';
 import { ProjectPage } from './components/pages/projectPage/ProjectPage';
 import CallbackPageContainer from './containers/CallbackPageContainer';
@@ -35,7 +36,7 @@ const Root = () => (
         />
         <Route path={RouteList.project} exact={true} component={ProjectPage} />
         <PrivateRouteContainer
-          isAuthenticated={false}
+          isAuthenticated={isAuthenticated}
           path={RouteList.planning}
           exact={true}
           component={PlanningPageContainer}
@@ -45,6 +46,7 @@ const Root = () => (
           exact={true}
           component={LoginPageContainer}
         />
+        <Route path={RouteList.logout} exact={true} component={LogoutPage} />
         <Route
           path={RouteList.edit}
           exact={true}

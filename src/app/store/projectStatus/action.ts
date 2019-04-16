@@ -1,13 +1,13 @@
-import { Action, Dispatch, Store } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { IProjectStatusService } from "../../services/projectStatus/IProjectStatus.service";
-import { IProjectStatussState } from "./type";
-import { ProjectStatus } from "../../models/ProjectStatus";
+import { Action, Dispatch, Store } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { ProjectStatus } from '../../models/ProjectStatus';
+import { IProjectStatusService } from '../../services/projectStatus/IProjectStatus.service';
+import { IProjectStatusListState } from './type';
 
 export enum ProjectStatusTypes {
   FETCH = 'FETCH_PROJECTSTATUSS',
   RECEIVE = 'RECEIVE_PROJECTSTATUSS',
-  RECEIVE_ERROR = 'RECEIVE_ERROR_PROJECTSTATUSS',
+  RECEIVE_ERROR = 'RECEIVE_ERROR_PROJECTSTATUSS'
 }
 
 export interface IFetchAction extends Action {
@@ -16,7 +16,7 @@ export interface IFetchAction extends Action {
 
 export interface IReceiveAction extends Action {
   type: ProjectStatusTypes.RECEIVE;
-  projectStatuss: ProjectStatus[];
+  projectStatusList: ProjectStatus[];
 }
 
 export interface IReceiveErrorAction extends Action {
@@ -24,7 +24,12 @@ export interface IReceiveErrorAction extends Action {
   errorMessage: string;
 }
 
-export type ProjectStatusThunkResult<R> = ThunkAction<R, IProjectStatussState, undefined, Action>;
+export type ProjectStatusThunkResult<R> = ThunkAction<
+  R,
+  IProjectStatusListState,
+  undefined,
+  Action
+>;
 
 export type ProjectStatussActionTypes =
   | IFetchAction
@@ -49,7 +54,7 @@ export default class ProjectStatusActions {
   public receive(projectStatuss: ProjectStatus[]): IReceiveAction {
     return {
       type: ProjectStatusTypes.RECEIVE,
-      projectStatuss
+      projectStatusList: projectStatuss
     };
   }
 
@@ -61,12 +66,14 @@ export default class ProjectStatusActions {
   }
 
   public fetchAsync() {
-    return (dispatch: Dispatch<Action>) => {//TODO change service
-      return this.projectStatusService.getProjectStatuss()
-        .then((projectStatuss) => {
+    return (dispatch: Dispatch<Action>) => {
+      // TODO change service
+      return this.projectStatusService
+        .getProjectStatusList()
+        .then(projectStatuss => {
           dispatch(this.receive(projectStatuss));
         })
-        .catch((error) => {
+        .catch(error => {
           dispatch(this.receiveError(error));
         });
     };

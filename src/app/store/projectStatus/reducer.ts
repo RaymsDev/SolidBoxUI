@@ -1,14 +1,17 @@
-import { ProjectStatussActionTypes, ProjectStatusTypes } from "./action";
-import { IProjectStatussState } from "./type";
+import { ProjectStatussActionTypes, ProjectStatusTypes } from './action';
+import { IProjectStatusListState } from './type';
 
-const initialState: IProjectStatussState = {
-  projectStatuss: [],
+const initialState: IProjectStatusListState = {
+  projectStatusList: [],
   isFetching: false,
   isError: false,
-  errorMessage: '',
+  errorMessage: ''
 };
 
-export const projectStatusReducer = (state: IProjectStatussState = initialState, action: ProjectStatussActionTypes): IProjectStatussState => {
+export const projectStatusReducer = (
+  state: IProjectStatusListState = initialState,
+  action: ProjectStatussActionTypes
+): IProjectStatusListState => {
   switch (action.type) {
     case ProjectStatusTypes.FETCH:
       return {
@@ -20,7 +23,7 @@ export const projectStatusReducer = (state: IProjectStatussState = initialState,
     case ProjectStatusTypes.RECEIVE:
       return {
         ...state,
-        projectStatuss: action.projectStatuss,
+        projectStatusList: action.projectStatusList,
         isFetching: false,
         isError: false,
         errorMessage: ''

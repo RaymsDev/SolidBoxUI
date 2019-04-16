@@ -1,9 +1,15 @@
 import * as DeepFreeze from 'deep-freeze';
+import { Project } from '../../models/Project';
 import { projectListMock } from './../../services/project/projectFake.service';
-import { IFetchClientProjectsAction, IFetchProjectsAction, IReceiveErrorAction, IReceiveProjectsAction, ProjectTypes } from './action';
+import {
+  IFetchClientProjectsAction,
+  IFetchProjectsAction,
+  IReceiveErrorAction,
+  IReceiveProjectsAction,
+  ProjectTypes,
+} from './action';
 import { projectReducer } from './reducer';
 import { IProjectsState } from './type';
-import { Project } from '../../models/Project';
 
 const initialState: IProjectsState = {
   projects: [],
@@ -20,12 +26,12 @@ describe('Project Reducer', () => {
     const stateBefore = initialState;
     DeepFreeze(stateBefore);
     const action: IFetchProjectsAction = {
-      type: ProjectTypes.FETCH_PROJECTS
+      type: ProjectTypes.FETCH_PROJECTS,
     };
     DeepFreeze(action);
     const stateAfter: IProjectsState = {
       ...initialState,
-      isFetching: true
+      isFetching: true,
     };
     DeepFreeze(stateAfter);
 
@@ -35,12 +41,12 @@ describe('Project Reducer', () => {
     const stateBefore = initialState;
     DeepFreeze(stateBefore);
     const action: IFetchClientProjectsAction = {
-      type: ProjectTypes.FETCH_CLIENT_PROJECTS
+      type: ProjectTypes.FETCH_CLIENT_PROJECTS,
     };
     DeepFreeze(action);
     const stateAfter: IProjectsState = {
       ...initialState,
-      isFetching: true
+      isFetching: true,
     };
     DeepFreeze(stateAfter);
 
@@ -51,12 +57,12 @@ describe('Project Reducer', () => {
     DeepFreeze(stateBefore);
     const action: IReceiveProjectsAction = {
       type: ProjectTypes.RECEIVE_PROJECTS,
-      projects: projectListMock
+      projects: projectListMock,
     };
     DeepFreeze(action);
     const stateAfter: IProjectsState = {
       ...initialState,
-      projects: projectListMock
+      projects: projectListMock,
     };
     DeepFreeze(stateAfter);
 
@@ -67,13 +73,13 @@ describe('Project Reducer', () => {
     DeepFreeze(stateBefore);
     const action: IReceiveErrorAction = {
       type: ProjectTypes.RECEIVE_ERROR,
-      errorMessage
+      errorMessage,
     };
     DeepFreeze(action);
     const stateAfter: IProjectsState = {
       ...initialState,
       isError: true,
-      errorMessage
+      errorMessage,
     };
     DeepFreeze(stateAfter);
 

@@ -11,6 +11,7 @@ $space:16px;
   color: $primary-text;
 
   .title{
+    cursor: pointer;
     margin-left: $space;
     font-size: 20px;
     color: $primary-text;
@@ -25,6 +26,7 @@ $space:16px;
     display: flex;
     height: 100%;
     .linkItem{
+      cursor: pointer;
       display: flex;
       align-items: center;
       height: 100%;

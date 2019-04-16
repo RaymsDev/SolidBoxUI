@@ -1,13 +1,13 @@
 const path = require('path'),
   webpack = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin');
-const sourcePath = path.join(__dirname, './src');
+const sourcePath = path.resolve(__dirname, 'src');
 const port = 3000;
 module.exports = {
   context: sourcePath,
   mode: 'development',
   entry: {
-    app: ['./app/App.tsx',],
+    app: ['./app/App.tsx'],
     vendor: ['react', 'react-dom']
   },
   output: {
@@ -20,7 +20,7 @@ module.exports = {
     contentBase: sourcePath,
     hot: true,
     port: port,
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   node: {
     // workaround for webpack-dev-server issue
@@ -37,12 +37,11 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-
           {
-            loader: "style-loader"
+            loader: 'style-loader'
           },
           {
-            loader: "typings-for-css-modules-loader",
+            loader: 'typings-for-css-modules-loader',
             options: {
               camelcase: true,
               modules: true,
@@ -52,15 +51,16 @@ module.exports = {
             }
           },
           {
-            loader: "sass-loader",
-          }]
+            loader: 'sass-loader'
+          }
+        ]
       },
       {
         test: /\.(ts|tsx)$/,
         enforce: 'pre',
         use: [
           {
-            loader: 'tslint-loader',
+            loader: 'tslint-loader'
           }
         ]
       },
@@ -68,36 +68,38 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         loader: 'awesome-typescript-loader'
       },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [{
+        use: [
+          {
             loader: 'file-loader',
             options: {
-                name: '[name].[ext]',
-                outputPath: 'fonts/'
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
             }
-        }]
+          }
+        ]
       },
       {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
             loader: 'file-loader',
-            options: {},
-          },
-        ],
-      },
+            options: {}
+          }
+        ]
+      }
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'index.html') }),
-    new webpack.WatchIgnorePlugin([
-      /scss\.d\.ts$/
-    ]),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src', 'index.html')
+    }),
+    new webpack.WatchIgnorePlugin([/scss\.d\.ts$/])
   ]
-}
+};

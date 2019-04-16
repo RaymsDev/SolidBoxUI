@@ -2,14 +2,14 @@ import axios from 'axios';
 import { apiUrl } from '../../../config/env';
 import { Link } from '../../models/Link';
 import { LinkRelations } from '../../models/LinkRelations';
-import { Project } from '../../models/Project';
-import { IProjectService } from './IProject.service';
-const url = `${apiUrl}/API/Projects`;
+import { ITask } from '../../models/Task';
+import { ITaskService } from './ITask.service';
+const url = `${apiUrl}/API/Tasks`;
 
-class ProjectService implements IProjectService {
-  public get(links: Link[]): Promise<Project[]> {
+class TaskService implements ITaskService {
+  public get(links: Link[], relation: LinkRelations): Promise<ITask[]> {
     const link = links.find(l => {
-      return l.rel == LinkRelations.projects;
+      return l.rel === relation;
     });
 
     if (!link) {
@@ -17,9 +17,9 @@ class ProjectService implements IProjectService {
     }
 
     const linkUrl = `${apiUrl}${link.url}`;
-    const promise = new Promise<Project[]>((resolve, reject) => {
+    const promise = new Promise<ITask[]>((resolve, reject) => {
       axios
-        .get<Project[]>(linkUrl)
+        .get<ITask[]>(linkUrl)
         .then(response => {
           resolve(response.data);
         })
@@ -30,10 +30,10 @@ class ProjectService implements IProjectService {
     return promise;
   }
 
-  public getProjects(): Promise<Project[]> {
-    const promise = new Promise<Project[]>((resolve, reject) => {
+  public list(): Promise<ITask[]> {
+    const promise = new Promise<ITask[]>((resolve, reject) => {
       axios
-        .get<Project[]>(url)
+        .get<ITask[]>(url)
         .then(response => {
           resolve(response.data);
         })
@@ -45,4 +45,4 @@ class ProjectService implements IProjectService {
   }
 }
 
-export default new ProjectService();
+export default new TaskService();

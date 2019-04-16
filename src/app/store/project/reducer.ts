@@ -1,16 +1,19 @@
-import { ProjectsActionTypes, ProjectTypes } from "./action";
-import { IProjectsState } from "./type";
-import { Project } from "../../models/Project";
+import { Project } from '../../models/Project';
+import { ProjectsActionTypes, ProjectTypes } from './action';
+import { IProjectsState } from './type';
 
 const initialState: IProjectsState = {
   projects: [],
   isFetching: false,
   isError: false,
   errorMessage: '',
-  edited: new Project(),
+  edited: new Project()
 };
 
-export const projectReducer = (state: IProjectsState = initialState, action: ProjectsActionTypes): IProjectsState => {
+export const projectReducer = (
+  state: IProjectsState = initialState,
+  action: ProjectsActionTypes
+): IProjectsState => {
   switch (action.type) {
     case ProjectTypes.FETCH_PROJECTS:
     case ProjectTypes.FETCH_CLIENT_PROJECTS:
@@ -38,15 +41,15 @@ export const projectReducer = (state: IProjectsState = initialState, action: Pro
     case ProjectTypes.NEW_EDITED:
       return {
         ...state,
-        edited: action.project,
-      }
+        edited: action.project
+      };
     case ProjectTypes.UPDATE_EDITED:
-      let clonedEdited = state.edited.clone();
+      const clonedEdited = state.edited.Clone();
       clonedEdited[action.attribut] = action.value;
       return {
         ...state,
         edited: clonedEdited
-      }
+      };
     default:
       return state;
   }

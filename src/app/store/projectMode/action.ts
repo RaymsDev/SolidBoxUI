@@ -1,13 +1,13 @@
-import { Action, Dispatch, Store } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { IProjectModeService } from "../../services/projectMode/IProjectMode.service";
-import { IProjectModesState } from "./type";
-import { ProjectMode } from "../../models/ProjectMode";
+import { Action, Dispatch, Store } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { ProjectMode } from '../../models/ProjectMode';
+import { IProjectModeService } from '../../services/projectMode/IProjectMode.service';
+import { IProjectModesState } from './type';
 
 export enum ProjectModeTypes {
   FETCH = 'FETCH_PROJECTMODES',
   RECEIVE = 'RECEIVE_PROJECTMODES',
-  RECEIVE_ERROR = 'RECEIVE_ERROR_PROJECTMODES',
+  RECEIVE_ERROR = 'RECEIVE_ERROR_PROJECTMODES'
 }
 
 export interface IFetchAction extends Action {
@@ -24,7 +24,12 @@ export interface IReceiveErrorAction extends Action {
   errorMessage: string;
 }
 
-export type ProjectModeThunkResult<R> = ThunkAction<R, IProjectModesState, undefined, Action>;
+export type ProjectModeThunkResult<R> = ThunkAction<
+  R,
+  IProjectModesState,
+  undefined,
+  Action
+>;
 
 export type ProjectModesActionTypes =
   | IFetchAction
@@ -61,12 +66,14 @@ export default class ProjectModeActions {
   }
 
   public fetchAsync() {
-    return (dispatch: Dispatch<Action>) => {//TODO change service
-      return this.projectModeService.getProjectModes()
-        .then((projectModes) => {
+    return (dispatch: Dispatch<Action>) => {
+      //  TODO change service
+      return this.projectModeService
+        .getProjectModes()
+        .then(projectModes => {
           dispatch(this.receive(projectModes));
         })
-        .catch((error) => {
+        .catch(error => {
           dispatch(this.receiveError(error));
         });
     };

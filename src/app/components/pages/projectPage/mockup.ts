@@ -1,50 +1,51 @@
-import { Client } from "../../../models/Client";
-import { Project } from "../../../models/Project";
-import { Task } from "../../../models/Task";
+import { Client } from '../../../models/Client';
+import { LinkRelations } from '../../../models/LinkRelations';
+import { Project } from '../../../models/Project';
+import { Task } from '../../../models/Task';
 
 export const CLIENTS: Client[] = [
   {
     id: 2,
-    name: "Neos-SDI",
+    name: 'Neos-SDI',
     userId: 2,
     links: [
       {
-        rel: "ClientProjects",
-        url: "/API/Projects?$filter=ClientId eq 2",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.projects,
+        url: '/API/Projects?$filter=ClientId eq 2',
+        method: 'GET',
+      },
+    ],
   },
   {
     id: 3,
-    name: "Stelia Aerospace",
+    name: 'Stelia Aerospace',
     userId: 2,
     links: [
       {
-        rel: "ClientProjects",
-        url: "/API/Projects?$filter=ClientId eq 3",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.projects,
+        url: '/API/Projects?$filter=ClientId eq 3',
+        method: 'GET',
+      },
+    ],
   },
   {
     id: 4,
-    name: "Foo Bar",
+    name: 'Foo Bar',
     userId: 2,
     links: [
       {
-        rel: "ClientProjects",
-        url: "/API/Projects?$filter=ClientId eq 4",
-        method: "GET"
-      }
-    ]
-  }
+        rel: LinkRelations.projects,
+        url: '/API/Projects?$filter=ClientId eq 4',
+        method: 'GET',
+      },
+    ],
+  },
 ];
 
 export const PROJECTS: Project[] = [
   new Project({
     id: 1,
-    name: "Solid Box API",
+    name: 'Solid Box API',
     startDate: null,
     endDate: null,
     projectStatutId: 1,
@@ -65,20 +66,20 @@ export const PROJECTS: Project[] = [
     totalLoad: 0,
     links: [
       {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 1",
-        method: "GET"
+        rel: LinkRelations.self_childs,
+        url: '/API/Projects?$filter=ParentProjectId eq 1',
+        method: 'GET',
       },
       {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 1",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.self_childs,
+        url: '/API/Projects?$filter=ParentProjectId eq 1',
+        method: 'GET',
+      },
+    ],
   }),
   new Project({
     id: 6,
-    name: "Solid Box Front React",
+    name: 'Solid Box Front React',
     startDate: null,
     endDate: null,
     projectStatutId: 1,
@@ -97,11 +98,11 @@ export const PROJECTS: Project[] = [
     consumedLoad: 0,
     plannedLoad: 0,
     totalLoad: 0,
-    links: []
+    links: [],
   }),
   new Project({
     id: 7,
-    name: "API de base",
+    name: 'API de base',
     startDate: null,
     endDate: null,
     projectStatutId: 1,
@@ -122,20 +123,20 @@ export const PROJECTS: Project[] = [
     totalLoad: 0,
     links: [
       {
-        rel: "ProjectParent",
-        url: "/API/Projects/1",
-        method: "GET"
+        rel: LinkRelations.self_parent,
+        url: '/API/Projects/1',
+        method: 'GET',
       },
       {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 7",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.self_childs,
+        url: '/API/Projects?$filter=ParentProjectId eq 7',
+        method: 'GET',
+      },
+    ],
   }),
   new Project({
     id: 8,
-    name: "Gestion de la sécurité",
+    name: 'Gestion de la sécurité',
     startDate: null,
     endDate: null,
     projectStatutId: 1,
@@ -156,20 +157,20 @@ export const PROJECTS: Project[] = [
     totalLoad: 0,
     links: [
       {
-        rel: "ProjectParent",
-        url: "/API/Projects/1",
-        method: "GET"
+        rel: LinkRelations.self_parent,
+        url: '/API/Projects/1',
+        method: 'GET',
       },
       {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 8",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.self_childs,
+        url: '/API/Projects?$filter=ParentProjectId eq 8',
+        method: 'GET',
+      },
+    ],
   }),
   new Project({
     id: 9,
-    name: "Demat 3X",
+    name: 'Demat 3X',
     startDate: null,
     endDate: null,
     projectStatutId: 1,
@@ -190,15 +191,15 @@ export const PROJECTS: Project[] = [
     totalLoad: 0,
     links: [
       {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 9",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.self_childs,
+        url: '/API/Projects?$filter=ParentProjectId eq 9',
+        method: 'GET',
+      },
+    ],
   }),
   new Project({
     id: 10,
-    name: "Lot 4",
+    name: 'Lot 4',
     startDate: null,
     endDate: null,
     projectStatutId: 1,
@@ -219,23 +220,23 @@ export const PROJECTS: Project[] = [
     totalLoad: 0,
     links: [
       {
-        rel: "ProjectParent",
-        url: "/API/Projects/9",
-        method: "GET"
+        rel: LinkRelations.self_parent,
+        url: '/API/Projects/9',
+        method: 'GET',
       },
       {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 10",
-        method: "GET"
-      }
-    ]
-  })
+        rel: LinkRelations.self_childs,
+        url: '/API/Projects?$filter=ParentProjectId eq 10',
+        method: 'GET',
+      },
+    ],
+  }),
 ];
 
 export const TASKS: Task[] = [
   {
     id: 1,
-    name: "Etude",
+    name: 'Etude',
     projectId: 8,
     taskTypeId: 1,
     load: 10,
@@ -243,15 +244,15 @@ export const TASKS: Task[] = [
     sortOrder: null,
     links: [
       {
-        rel: "TaskProjectParent",
-        url: "/API/Projects/8",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.tasks,
+        url: '/API/Projects/8',
+        method: 'GET',
+      },
+    ],
   },
   {
     id: 2,
-    name: "DEV",
+    name: 'DEV',
     projectId: 8,
     taskTypeId: 1,
     load: 10,
@@ -259,15 +260,15 @@ export const TASKS: Task[] = [
     sortOrder: null,
     links: [
       {
-        rel: "TaskProjectParent",
-        url: "/API/Projects/8",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.tasks,
+        url: '/API/Projects/8',
+        method: 'GET',
+      },
+    ],
   },
   {
     id: 3,
-    name: "Brique Projet",
+    name: 'Brique Projet',
     projectId: 7,
     taskTypeId: 1,
     load: 5,
@@ -275,15 +276,15 @@ export const TASKS: Task[] = [
     sortOrder: null,
     links: [
       {
-        rel: "TaskProjectParent",
-        url: "/API/Projects/7",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.tasks,
+        url: '/API/Projects/7',
+        method: 'GET',
+      },
+    ],
   },
   {
     id: 4,
-    name: "Pipe line deploiement",
+    name: 'Pipe line deploiement',
     projectId: 1,
     taskTypeId: 1,
     load: 2,
@@ -291,15 +292,15 @@ export const TASKS: Task[] = [
     sortOrder: null,
     links: [
       {
-        rel: "TaskProjectParent",
-        url: "/API/Projects/1",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.tasks,
+        url: '/API/Projects/1',
+        method: 'GET',
+      },
+    ],
   },
   {
     id: 5,
-    name: "Développeur Junior",
+    name: 'Développeur Junior',
     projectId: 10,
     taskTypeId: 1,
     load: 10,
@@ -307,15 +308,15 @@ export const TASKS: Task[] = [
     sortOrder: null,
     links: [
       {
-        rel: "TaskProjectParent",
-        url: "/API/Projects/10",
-        method: "GET"
-      }
-    ]
+        rel: LinkRelations.tasks,
+        url: '/API/Projects/10',
+        method: 'GET',
+      },
+    ],
   },
   {
     id: 6,
-    name: "Développeur Senior",
+    name: 'Développeur Senior',
     projectId: 10,
     taskTypeId: 1,
     load: 20,
@@ -323,10 +324,10 @@ export const TASKS: Task[] = [
     sortOrder: null,
     links: [
       {
-        rel: "TaskProjectParent",
-        url: "/API/Projects/10",
-        method: "GET"
-      }
-    ]
-  }
+        rel: LinkRelations.tasks,
+        url: '/API/Projects/10',
+        method: 'GET',
+      },
+    ],
+  },
 ];

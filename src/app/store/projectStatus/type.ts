@@ -1,7 +1,7 @@
-import { ProjectStatus } from "../../models/ProjectStatus";
+import { ProjectStatus } from '../../models/ProjectStatus';
 
-export interface IProjectStatussState {
-  projectStatuss: ProjectStatus[];
+export interface IProjectStatusListState {
+  projectStatusList: ProjectStatus[];
   isFetching: boolean;
   isError: boolean;
   errorMessage: string;

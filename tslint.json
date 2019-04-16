@@ -2,7 +2,8 @@
   "defaultSeverity": "error",
   "extends": [
     "tslint:recommended",
-    "tslint-react"
+    "tslint-react",
+    "tslint-config-prettier"
   ],
   "rulesDirectory": [
     "tslint-microsoft-contrib"
@@ -43,7 +44,7 @@
     ],
     "no-with-statement": true,
     "semicolon": true,
-    "trailing-comma": false,
+    "trailing-comma": true,
     "typedef-whitespace": false,
     "use-named-parameter": true,
     "variable-name": false,

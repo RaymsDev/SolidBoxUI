@@ -7,20 +7,16 @@ import authService from '../services/auth/auth.service';
 import { Dispatch } from 'react';
 
 import { connect } from 'react-redux';
-import { ILoginPageProps } from '../components/pages/loginPage/ILoginPageProps';
-import { LoginPage } from '../components/pages/loginPage/LoginPage';
+import { ILogoutPageProps } from '../components/pages/logoutPage/ILogoutPageProps';
+import { LogoutPage } from '../components/pages/logoutPage/LogoutPage';
 
 const authActions = new AuthActions(store, authService);
-
-const onLogin = (dispatch: Dispatch<any>) => {
-  dispatch(authActions.authenticate());
-};
 
 const onLogout = (dispatch: Dispatch<any>) => {
   dispatch(authActions.deconnection());
 };
 
-const mapStateToProps = (state: IRootState): Partial<ILoginPageProps> => {
+const mapStateToProps = (state: IRootState): Partial<ILogoutPageProps> => {
   const { isAuthenticated } = state.authState.authResult;
   return {
     isAuthenticated
@@ -29,13 +25,13 @@ const mapStateToProps = (state: IRootState): Partial<ILoginPageProps> => {
 
 const mapDispatchToProps = (
   dispatch: Dispatch<any>
-): Partial<ILoginPageProps> => {
+): Partial<ILogoutPageProps> => {
   return {
-    login: () => onLogin(dispatch)
+    logout: () => onLogout(dispatch)
   };
 };
 
-export default connect<Partial<ILoginPageProps>>(
+export default connect<Partial<ILogoutPageProps>>(
   mapStateToProps,
   mapDispatchToProps
-)(LoginPage);
+)(LogoutPage);

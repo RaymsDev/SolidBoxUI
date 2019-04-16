@@ -1,42 +1,77 @@
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { IPlanningPageProps } from "../components/pages/planningPage/IPlanningPageProps";
-import { PlanningPage } from "../components/pages/planningPage/PlanningPage";
-import { IClient } from "../models/Client";
-import { Project } from "../models/Project";
-import clientService from "../services/client/client.service";
-import projectService from "../services/project/project.service";
-import { ClientActions } from "../store/client/action";
-import ProjectActions from "../store/project/action";
-import store, { IRootState } from "../store/store";
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { IPlanningPageProps } from '../components/pages/planningPage/IPlanningPageProps';
+import { PlanningPage } from '../components/pages/planningPage/PlanningPage';
+import { IClient } from '../models/Client';
+import { IProject, Project } from '../models/Project';
+import { IProjectStatus } from '../models/ProjectStatus';
+import clientService from '../services/client/client.service';
+import projectService from '../services/project/project.service';
+import projectStatusService from '../services/projectStatus/projectStatus.service';
+import taskService from '../services/task/task.service';
+import { ClientActions } from '../store/client/action';
+import ProjectActions from '../store/project/action';
+import ProjectStatusActions from '../store/projectStatus/action';
+import store, { IRootState } from '../store/store';
+import TaskActions from '../store/task/action';
+
+const projectStatusActions = new ProjectStatusActions(
+  store,
+  projectStatusService,
+);
 const clientActions = new ClientActions(store, clientService);
 const projectActions = new ProjectActions(store, projectService);
+const taskActions = new TaskActions(store, taskService);
 
 const onClientSelected = (dispatch: Dispatch<any>, client: IClient) => {
   dispatch(projectActions.fetchClientProjects(client.links));
 };
 
+const onProjectStatusSelected = (
+  dispatch: Dispatch<any>,
+  projectStatus: IProjectStatus,
+) => {
+  console.log('STATUS SELECTED', projectStatus);
+};
+
+const onProjectSelected = (dispatch: Dispatch<any>, project: IProject) => {
+  dispatch(taskActions.fetchByLink(project.links));
+};
+
 const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
   const { clients } = state.clientsState;
   const { projects } = state.projectsState;
+  const { projectStatusList } = state.projectStatusListState;
   return {
     clientList: clients,
     clientsIsFetching: state.clientsState.isFetching,
     projectList: projects,
-    projectsIsFetching: state.projectsState.isFetching
+    projectsIsFetching: state.projectsState.isFetching,
+    projectStatusList,
+    projectStatusIsFetching: state.projectStatusListState.isFetching,
   };
 };
 
 // init
 store.dispatch(clientActions.fetchClients());
 
-const mapDispatchToProps = (dispatch: Dispatch<any>): Partial<IPlanningPageProps> => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<any>,
+): Partial<IPlanningPageProps> => {
   return {
-    onClientSelected: (client: IClient) => { onClientSelected(dispatch, client); },
-    onProjectSelected: (project: Project) => {
-      console.log(project);
-    }
+    onClientSelected: (client: IClient) => {
+      onClientSelected(dispatch, client);
+    },
+    onProjectStatusSelect: (projectStatus: IProjectStatus) => {
+      onProjectStatusSelected(dispatch, projectStatus);
+    },
+    onProjectSelected: project => {
+      onProjectSelected(dispatch, project);
+    },
   };
 };
 
-export default connect<Partial<IPlanningPageProps>>(mapStateToProps, mapDispatchToProps)(PlanningPage);
+export default connect<Partial<IPlanningPageProps>>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PlanningPage);

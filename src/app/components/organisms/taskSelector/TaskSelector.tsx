@@ -12,36 +12,35 @@ export class TaskSelector extends React.Component<ITaskSelectorProps> {
   }
 
   public render(): JSX.Element {
-    const { onClientSelected, onProjectSelected, clientList, projectList, clientsIsFetching: clientIsFetching, projectsIsFetching: projectIsFetching } = this.props;
+    const {
+      onClientSelected,
+      clientList,
+      clientsIsFetching: clientIsFetching
+    } = this.props;
     return (
       <div className={s.container}>
         <div>
-          <SelectBox list={this.clientsToDictionary(clientList)} isFetching={clientIsFetching} label="Clients :" name="client" onChangeHandler={onClientSelected} />
-        </div>
-        <div>
-          <SelectBox list={this.projectsToDictionary(projectList)} isFetching={projectIsFetching} label="Projets :" name="project" onChangeHandler={onProjectSelected} />
+          <SelectBox
+            list={this.clientsToDictionary(clientList)}
+            isFetching={clientIsFetching}
+            label="Clients :"
+            name="client"
+            onChangeHandler={onClientSelected}
+          />
         </div>
       </div>
     );
   }
 
-  private clientsToDictionary(clients: IClient[]): Array<IDictionaryItem<number>> {
-    return clients.map((c) => {
-      return ({
+  private clientsToDictionary(
+    clients: IClient[]
+  ): Array<IDictionaryItem<number>> {
+    return clients.map(c => {
+      return {
         id: c.id,
         value: c.name,
         object: c
-      });
-    });
-  }
-
-  private projectsToDictionary(projects: Project[]): Array<IDictionaryItem<number>> {
-    return projects.map((p) => {
-      return ({
-        id: p.id,
-        value: p.name,
-        object: p
-      });
+      };
     });
   }
 }

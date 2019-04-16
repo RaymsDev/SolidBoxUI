@@ -1,5 +1,7 @@
+import { LinkRelations } from './LinkRelations';
+
 export class Link {
-    public rel: string;
-    public url: string;
-    public method: string;
+  public rel: LinkRelations;
+  public url: string;
+  public method: string;
 }

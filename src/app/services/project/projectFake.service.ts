@@ -1,11 +1,29 @@
-import { Link } from "../../models/Link";
-import { Project } from "../../models/Project";
-import { IProjectService } from "./IProject.service";
+import { Link } from '../../models/Link';
+import { LinkRelations } from '../../models/LinkRelations';
+import { Project } from '../../models/Project';
+import { IProjectService } from './IProject.service';
 
+export const linksMock: Link[] = [
+  {
+    rel: LinkRelations.tasks,
+    url: '/API/Projects/6/Tasks',
+    method: 'GET',
+  },
+  {
+    rel: LinkRelations.self_childs,
+    url: '/API/Projects?$filter=ParentProjectId eq 1',
+    method: 'GET',
+  },
+  {
+    rel: LinkRelations.self_childs,
+    url: '/API/Projects?$filter=ParentProjectId eq 1',
+    method: 'GET',
+  },
+];
 export const projectListMock: Project[] = [
   new Project({
     id: 1,
-    name: "Solid Box API",
+    name: 'Solid Box API',
     startDate: null,
     endDate: null,
     projectStatutId: 1,
@@ -24,22 +42,11 @@ export const projectListMock: Project[] = [
     consumedLoad: 0,
     plannedLoad: 0,
     totalLoad: 0,
-    links: [
-      {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 1",
-        method: "GET"
-      },
-      {
-        rel: "ProjectChildren",
-        url: "/API/Projects?$filter=ParentProjectId eq 1",
-        method: "GET"
-      }
-    ]
+    links: linksMock,
   }),
   new Project({
     id: 6,
-    name: "Solid Box Front React",
+    name: 'Solid Box Front React',
     startDate: null,
     endDate: null,
     projectStatutId: 1,
@@ -58,15 +65,9 @@ export const projectListMock: Project[] = [
     consumedLoad: 0,
     plannedLoad: 0,
     totalLoad: 0,
-    links: []
+    links: linksMock,
   }),
 ];
-
-export const linksMock: Link[] = [{
-  rel: "ClientProjects",
-  url: "/API/Projects?$filter=ClientId eq 3",
-  method: "GET"
-}];
 
 const asyncDelay = 20;
 

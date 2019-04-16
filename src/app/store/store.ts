@@ -14,7 +14,7 @@ import { projectModeReducer } from './projectMode/reducer';
 import { IProjectModesState } from './projectMode/type';
 import { ProjectStatussActionTypes } from './projectStatus/action';
 import { projectStatusReducer } from './projectStatus/reducer';
-import { IProjectStatussState } from './projectStatus/type';
+import { IProjectStatusListState } from './projectStatus/type';
 
 // devtool
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -24,7 +24,7 @@ export interface IRootState {
   projectsState: IProjectsState;
   authState: IAuthState;
   projectModesState: IProjectModesState;
-  projectStatussState: IProjectStatussState;
+  projectStatusListState: IProjectStatusListState;
 }
 
 export type IRootAction =
@@ -38,7 +38,7 @@ const reducers = combineReducers<IRootState>({
   projectsState: projectReducer,
   authState: authReducer,
   projectModesState: projectModeReducer,
-  projectStatussState: projectStatusReducer
+  projectStatusListState: projectStatusReducer
 });
 
 const store = createStore(

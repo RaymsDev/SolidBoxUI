@@ -2,21 +2,21 @@ import * as React from 'react';
 import { Redirect } from 'react-router';
 import { RouteList } from '../../../../config/RouteList';
 import PageTemplateContainer from '../../../containers/PageTemplateContainer';
-import { ILoginPageProps } from './ILoginPageProps';
-export class LoginPage extends React.Component<ILoginPageProps> {
-  constructor(props: ILoginPageProps) {
+import { ILogoutPageProps } from './ILogoutPageProps';
+export class LogoutPage extends React.Component<ILogoutPageProps> {
+  constructor(props: ILogoutPageProps) {
     super(props);
   }
 
   public render(): JSX.Element {
-    const { login, isAuthenticated } = this.props;
-    if (isAuthenticated) {
+    const { logout, isAuthenticated } = this.props;
+    if (!isAuthenticated) {
       return <Redirect to={{ pathname: RouteList.home }} />;
     } else {
-      login();
+      logout();
       return (
         <PageTemplateContainer>
-          <div>Login...</div>
+          <div>Logout...</div>
         </PageTemplateContainer>
       );
     }
