@@ -15,16 +15,18 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
     const taskSelectProps: ITaskSelectorProps = {
       clientList: this.props.clientList,
       clientsIsFetching: this.props.clientsIsFetching,
-      onClientSelected: this.props.onClientSelected
+      onClientSelected: this.props.onClientSelected,
     };
 
     const projectSelectorProps: IProjectSelectorProps = {
       onProjectSelected: this.props.onProjectSelected,
       projectList: this.props.projectList,
-      projectIsFetching: this.props.projectsIsFetching
+      projectIsFetching: this.props.projectsIsFetching,
+      onTaskSelected: this.props.onTaskSelected,
+      taskList: this.props.taskList,
+      taskIsFetching: this.props.tasksIsFetching,
     };
 
-    const {} = this.props;
     return (
       <PageTemplateContainer>
         <h1>Planning</h1>

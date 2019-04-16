@@ -18,6 +18,8 @@ import { IProjectStatusListState } from './projectStatus/type';
 
 // devtool
 import { composeWithDevTools } from 'redux-devtools-extension';
+import taskReducer from './task/reducer';
+import { ITasksState } from './task/type';
 
 export interface IRootState {
   clientsState: IClientsState;
@@ -25,6 +27,7 @@ export interface IRootState {
   authState: IAuthState;
   projectModesState: IProjectModesState;
   projectStatusListState: IProjectStatusListState;
+  tasksState: ITasksState;
 }
 
 export type IRootAction =
@@ -38,13 +41,14 @@ const reducers = combineReducers<IRootState>({
   projectsState: projectReducer,
   authState: authReducer,
   projectModesState: projectModeReducer,
-  projectStatusListState: projectStatusReducer
+  projectStatusListState: projectStatusReducer,
+  tasksState: taskReducer,
 });
 
 const store = createStore(
   reducers,
   composeWithDevTools(
-    applyMiddleware(thunk as ThunkMiddleware<IRootState, IRootAction>)
-  )
+    applyMiddleware(thunk as ThunkMiddleware<IRootState, IRootAction>),
+  ),
 );
 export default store;

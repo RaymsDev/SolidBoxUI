@@ -14,6 +14,7 @@ import ProjectActions from '../store/project/action';
 import ProjectStatusActions from '../store/projectStatus/action';
 import store, { IRootState } from '../store/store';
 import TaskActions from '../store/task/action';
+import { ITask } from '../models/Task';
 
 const projectStatusActions = new ProjectStatusActions(
   store,
@@ -35,20 +36,37 @@ const onProjectStatusSelected = (
 };
 
 const onProjectSelected = (dispatch: Dispatch<any>, project: IProject) => {
-  dispatch(taskActions.fetchByLink(project.links));
+  const { links } = project;
+  dispatch(taskActions.fetchByLink(links));
+};
+
+const onTaskSelected = (dispatch: Dispatch<any>, task: ITask) => {
+  console.info('TASK SELECTED', task);
 };
 
 const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
-  const { clients } = state.clientsState;
-  const { projects } = state.projectsState;
-  const { projectStatusList } = state.projectStatusListState;
-  return {
-    clientList: clients,
-    clientsIsFetching: state.clientsState.isFetching,
-    projectList: projects,
-    projectsIsFetching: state.projectsState.isFetching,
+  const {
+    clients: clientList,
+    isFetching: clientsIsFetching,
+  } = state.clientsState;
+  const {
+    projects: projectList,
+    isFetching: projectsIsFetching,
+  } = state.projectsState;
+  const {
     projectStatusList,
-    projectStatusIsFetching: state.projectStatusListState.isFetching,
+    isFetching: projectStatusIsFetching,
+  } = state.projectStatusListState;
+  const { tasks: taskList, isFetching: tasksIsFetching } = state.tasksState;
+  return {
+    clientList,
+    clientsIsFetching,
+    projectList,
+    projectsIsFetching,
+    projectStatusList,
+    projectStatusIsFetching,
+    tasksIsFetching,
+    taskList,
   };
 };
 
@@ -67,6 +85,9 @@ const mapDispatchToProps = (
     },
     onProjectSelected: project => {
       onProjectSelected(dispatch, project);
+    },
+    onTaskSelected: task => {
+      onTaskSelected(dispatch, task);
     },
   };
 };

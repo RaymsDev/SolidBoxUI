@@ -1,15 +1,15 @@
-import { Link } from "./Link";
+import { ILink } from './Link';
 
 export interface IProjectMode {
   id: number;
   name: string;
-  links: Link[];
+  links: ILink[];
 }
 
 export class ProjectMode {
   public id: number;
   public name: string;
-  public links: Link[];
+  public links: ILink[];
 
   constructor(projectMode?: IProjectMode) {
     if (projectMode) {

@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { apiUrl } from '../../../config/env';
-import { Link } from '../../models/Link';
+import { ILink } from '../../models/Link';
 import { LinkRelations } from '../../models/LinkRelations';
 import { Project } from '../../models/Project';
 import { IProjectService } from './IProject.service';
 const url = `${apiUrl}/API/Projects`;
 
 class ProjectService implements IProjectService {
-  public get(links: Link[]): Promise<Project[]> {
+  public get(links: ILink[]): Promise<Project[]> {
     const link = links.find(l => {
       return l.rel == LinkRelations.projects;
     });

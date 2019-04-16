@@ -1,7 +1,7 @@
 import { IClient } from '../../../models/Client';
 import { Project } from '../../../models/Project';
 import { IProjectStatus, ProjectStatus } from '../../../models/ProjectStatus';
-import { ITask } from '../../../models/Task';
+import { ITask, ITasksNormalized } from '../../../models/Task';
 
 export interface IPlanningPageProps {
   clientList: IClient[];
@@ -13,7 +13,7 @@ export interface IPlanningPageProps {
   projectStatusList: IProjectStatus[];
   projectStatusIsFetching: boolean;
   onProjectStatusSelect: (projectStatus: ProjectStatus) => void;
-  taskList: ITask[];
+  taskList: ITasksNormalized;
   tasksIsFetching: boolean;
   onTaskSelected: (task: ITask) => void;
 }

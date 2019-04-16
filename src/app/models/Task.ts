@@ -1,4 +1,4 @@
-import { Link } from './Link';
+import { ILink } from './Link';
 
 export interface ITask {
   id: number;
@@ -8,7 +8,7 @@ export interface ITask {
   load: number;
   realizedPercentage: number;
   sortOrder: number;
-  links: Link[];
+  links: ILink[];
 }
 
 export class Task {
@@ -19,5 +19,9 @@ export class Task {
   public load: number;
   public realizedPercentage: number;
   public sortOrder: number;
-  public links: Link[];
+  public links: ILink[];
+}
+
+export interface ITasksNormalized {
+  [taskId: string]: ITask;
 }

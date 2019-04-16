@@ -1,5 +1,6 @@
 import * as DeepFreeze from 'deep-freeze';
 
+import { ITask } from '../../models/Task';
 import { taskListMock } from '../../services/task/taskFake.service';
 import {
   IFetchTaskByLinkAction,
@@ -12,7 +13,7 @@ import reducer from './reducer';
 import { ITasksState } from './type';
 
 const initialState: ITasksState = {
-  tasks: [],
+  tasks: {},
   errorMessage: '',
   isError: false,
   isFetching: false,
@@ -53,15 +54,44 @@ describe('Task Reducer', () => {
   });
   test('Receive', () => {
     const stateBefore = initialState;
+    const tasks: ITask[] = [
+      {
+        projectId: 1,
+        links: [],
+        load: 5,
+        sortOrder: 1,
+        taskTypeId: 1,
+        name: 'fake task 1',
+        id: 1,
+        realizedPercentage: 10,
+      },
+      {
+        projectId: 1,
+        links: [],
+        load: 5,
+        sortOrder: 1,
+        taskTypeId: 1,
+        name: 'fake task 2',
+        id: 2,
+        realizedPercentage: 10,
+      },
+    ];
     DeepFreeze(stateBefore);
     const action: IReceiveTasksAction = {
       type: TaskTypes.RECEIVE_TASKS,
-      tasks: taskListMock,
+      tasks,
     };
     DeepFreeze(action);
     const stateAfter: ITasksState = {
       ...initialState,
-      tasks: taskListMock,
+      tasks: {
+        '1': {
+          ...tasks[0],
+        },
+        '2': {
+          ...tasks[1],
+        },
+      },
     };
     DeepFreeze(stateAfter);
 

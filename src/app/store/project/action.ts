@@ -1,9 +1,9 @@
-import { Action, Dispatch, Store } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { Link } from "../../models/Link";
-import { Project } from "../../models/Project";
-import { IProjectService } from "../../services/project/IProject.service";
-import { IProjectsState } from "./type";
+import { Action, Dispatch, Store } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { ILink } from '../../models/Link';
+import { Project } from '../../models/Project';
+import { IProjectService } from '../../services/project/IProject.service';
+import { IProjectsState } from './type';
 
 export enum ProjectTypes {
   FETCH_PROJECTS = 'FETCH_PROJECTS',
@@ -41,7 +41,12 @@ export interface INewEditedAction extends Action {
   project: Project;
 }
 
-export type ProjectThunkResult<R> = ThunkAction<R, IProjectsState, undefined, Action>;
+export type ProjectThunkResult<R> = ThunkAction<
+  R,
+  IProjectsState,
+  undefined,
+  Action
+>;
 
 export type ProjectsActionTypes =
   | IFetchProjectsAction
@@ -62,55 +67,60 @@ export default class ProjectActions {
   public fetchProjects(): IFetchProjectsAction {
     this.store.dispatch<any>(this.fetchProjectsAsync());
     return {
-      type: ProjectTypes.FETCH_PROJECTS
+      type: ProjectTypes.FETCH_PROJECTS,
     };
   }
-  public fetchClientProjects(links: Link[]): IFetchClientProjectsAction {
+  public fetchClientProjects(links: ILink[]): IFetchClientProjectsAction {
     this.store.dispatch<any>(this.fetchClientProjectsAsync(links));
     return {
-      type: ProjectTypes.FETCH_CLIENT_PROJECTS
+      type: ProjectTypes.FETCH_CLIENT_PROJECTS,
     };
   }
 
   public receiveProjects(projects: Project[]): IReceiveProjectsAction {
     return {
       type: ProjectTypes.RECEIVE_PROJECTS,
-      projects
+      projects,
     };
   }
 
   public receiveError(errorMessage: string): IReceiveErrorAction {
     return {
       type: ProjectTypes.RECEIVE_ERROR,
-      errorMessage
+      errorMessage,
     };
   }
 
   public fetchProjectsAsync() {
     return (dispatch: Dispatch<Action>) => {
-      return this.projectService.getProjects()
-        .then((projects) => {
+      return this.projectService
+        .getProjects()
+        .then(projects => {
           dispatch(this.receiveProjects(projects));
         })
-        .catch((error) => {
+        .catch(error => {
           dispatch(this.receiveError(error));
         });
     };
   }
 
-  public fetchClientProjectsAsync(links: Link[]) {
+  public fetchClientProjectsAsync(links: ILink[]) {
     return (dispatch: Dispatch<Action>) => {
-      return this.projectService.get(links)
-        .then((projects) => {
+      return this.projectService
+        .get(links)
+        .then(projects => {
           dispatch(this.receiveProjects(projects));
         })
-        .catch((error) => {
+        .catch(error => {
           dispatch(this.receiveError(error));
         });
     };
   }
 
-  public updateEdited(attribut: keyof Project, value: any): IUpdateEditedAction {
+  public updateEdited(
+    attribut: keyof Project,
+    value: any,
+  ): IUpdateEditedAction {
     return {
       type: ProjectTypes.UPDATE_EDITED,
       attribut,
@@ -125,6 +135,6 @@ export default class ProjectActions {
     return {
       type: ProjectTypes.NEW_EDITED,
       project,
-    }
+    };
   }
 }

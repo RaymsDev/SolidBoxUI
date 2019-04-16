@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { apiUrl } from '../../../config/env';
-import { Link } from '../../models/Link';
+import { ILink } from '../../models/Link';
 import { LinkRelations } from '../../models/LinkRelations';
 import { ITask } from '../../models/Task';
 import { ITaskService } from './ITask.service';
 const url = `${apiUrl}/API/Tasks`;
 
 class TaskService implements ITaskService {
-  public get(links: Link[], relation: LinkRelations): Promise<ITask[]> {
+  public get(links: ILink[], relation: LinkRelations): Promise<ITask[]> {
     const link = links.find(l => {
       return l.rel === relation;
     });

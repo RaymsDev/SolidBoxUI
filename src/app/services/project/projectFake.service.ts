@@ -1,12 +1,12 @@
-import { Link } from '../../models/Link';
+import { ILink } from '../../models/Link';
 import { LinkRelations } from '../../models/LinkRelations';
 import { Project } from '../../models/Project';
 import { IProjectService } from './IProject.service';
 
-export const linksMock: Link[] = [
+export const linksMock: ILink[] = [
   {
     rel: LinkRelations.tasks,
-    url: '/API/Projects/6/Tasks',
+    url: '/API/Projects/1/Tasks',
     method: 'GET',
   },
   {
@@ -79,7 +79,7 @@ class ProjectFakeService implements IProjectService {
   public getProjects(): Promise<Project[]> {
     return projectsPromise;
   }
-  public get(link: Link[]): Promise<Project[]> {
+  public get(link: ILink[]): Promise<Project[]> {
     return projectsPromise;
   }
 }

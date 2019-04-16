@@ -1,4 +1,4 @@
-import { Link } from './Link';
+import { ILink } from './Link';
 import { ITask } from './Task';
 
 export interface IProject {
@@ -22,8 +22,8 @@ export interface IProject {
   consumedLoad: number;
   plannedLoad: number;
   totalLoad: number;
-  tasks?: ITask[];
-  links: Link[];
+  taskIdList: string[];
+  links: ILink[];
 }
 
 export class Project implements IProject {
@@ -47,8 +47,8 @@ export class Project implements IProject {
   public consumedLoad: number;
   public plannedLoad: number;
   public totalLoad: number;
-  public tasks?: ITask[];
-  public links: Link[];
+  public taskIdList: string[];
+  public links: ILink[];
 
   constructor(data?: Partial<IProject>) {
     if (data) {
@@ -73,8 +73,11 @@ export class Project implements IProject {
       this.plannedLoad = data.plannedLoad;
       this.totalLoad = data.totalLoad;
       this.links = data.links;
-      this.tasks = data.tasks ? data.tasks : [];
+      this.taskIdList = data.taskIdList ? data.taskIdList : [];
+      return;
     }
+
+    this.taskIdList = [];
   }
 
   public Clone(): Project {

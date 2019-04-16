@@ -1,14 +1,14 @@
-import { Link } from './Link';
+import { ILink } from './Link';
 
 export interface IClient {
   id: number;
   name: string;
   userId: number;
-  links: Link[];
+  links: ILink[];
 }
 export class Client implements IClient {
   public id: number;
   public name: string;
   public userId: number;
-  public links: Link[];
+  public links: ILink[];
 }
