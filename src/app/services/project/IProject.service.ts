@@ -5,5 +5,4 @@ export interface IProjectService {
   get(links: ILink[]): Promise<Project[]>;
   getProjects(): Promise<Project[]>;
   create(project: Project): Promise<Project>;
-  save(project: Project): Promise<Project>;
 }

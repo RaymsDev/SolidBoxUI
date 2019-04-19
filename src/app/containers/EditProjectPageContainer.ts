@@ -35,7 +35,7 @@ const agencyActions = new AgencyActions(store, agencyService);
 
 const mapStateToProps = (state: IRootState): Partial<IEditProjectPageProps> => {
   const { projectModes } = state.projectModesState;
-  const { projectStatuss } = state.projectStatussState;
+  const { projectStatusList } = state.projectStatusListState;
   const { edited, projects } = state.projectsState;
   const { users } = state.usersState;
   const { agencys } = state.agencysState;
@@ -45,7 +45,7 @@ const mapStateToProps = (state: IRootState): Partial<IEditProjectPageProps> => {
   return {
     newProject: edited,
     listProjectMode: projectModes,
-    listProjectStatus: projectStatuss,
+    listProjectStatus: projectStatusList,
     listUser: users.filter(u => u.teamId === edited.teamId),
     listAgency: agencys,
     listBranch: branchs.filter(b => b.agencyId === edited.agencyId),

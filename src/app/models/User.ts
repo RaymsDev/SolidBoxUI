@@ -1,4 +1,4 @@
-import { Link } from "./Link";
+import { ILink } from './Link';
 
 export interface IUser {
   id: number;
@@ -11,7 +11,7 @@ export interface IUser {
   teamId: number;
   userRoleId: number;
   isActive: boolean;
-  links: Link[];
+  links: ILink[];
 }
 
 export class User {
@@ -25,7 +25,7 @@ export class User {
   public teamId: number;
   public userRoleId: number;
   public isActive: boolean;
-  public links: Link[];
+  public links: ILink[];
 
   constructor(data?: Partial<IUser>) {
     if (data) {

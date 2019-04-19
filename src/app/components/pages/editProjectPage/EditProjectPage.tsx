@@ -86,16 +86,16 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         <Form.Group widths="equal">
           <DatePicker
             dateFormat="dd-MM-YYYY"
-            enabled={this.enabled(mode)}
-            value={newProject.startDate}
-            label="Start date"
+            disabled={!this.enabled(mode)}
+            value={newProject.startDate.toISOString()}
+            title="Start date"
             onChange={onChangeProperty('startDate')}
           />
           <DatePicker
             dateFormat="dd-MM-YYYY"
-            enabled={this.enabled(mode)}
-            value={newProject.endDate}
-            label="End date"
+            disabled={!this.enabled(mode)}
+            value={newProject.endDate.toISOString()}
+            title="End date"
             onChange={onChangeProperty('endDate')}
           />
         </Form.Group>
