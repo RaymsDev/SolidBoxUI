@@ -86,5 +86,11 @@ class ProjectFakeService implements IProjectService {
     projectListMock.push(project);
     return Promise.resolve(project);
   }
+
+  public save(project: Project): Promise<Project> {
+    const i = projectListMock.findIndex((p) => p.id === project.id);
+    projectListMock[i] = project;
+    return Promise.resolve(project);
+  }
 }
 export default new ProjectFakeService();

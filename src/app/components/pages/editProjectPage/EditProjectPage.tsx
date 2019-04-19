@@ -1,20 +1,38 @@
 import * as React from 'react';
-import { Divider, DropdownProps, Form, InputOnChangeData, TextAreaProps } from 'semantic-ui-react';
+import { Dimmer, Divider, DropdownProps, Form, InputOnChangeData, Loader, TextAreaProps } from 'semantic-ui-react';
+import { Project } from '../../../models/Project';
 import { DatePicker } from '../../atoms/form/datePicker/DatePicker';
 import { Input } from '../../atoms/form/input/Input';
 import { Select } from '../../atoms/form/select/Select';
 import { TextArea } from '../../atoms/form/textArea/TextArea';
-import { Toggle } from '../../atoms/form/toggle/toggle';
 import { EditTemplate } from '../../templates/editTemplate/EditTemplate';
 import { Mode } from '../../templates/editTemplate/IEditTemplateProps';
 import { IEditProjectPageProps } from './IEditProjectPageProps';
 
 export class EditProjectPage extends React.Component<IEditProjectPageProps> {
+  private edited: Project;
+  private mode: Mode;
+
+  constructor(props: IEditProjectPageProps) {
+    super(props);
+    this.createEdited();
+  }
+
+  public createEdited() {
+    if (this.props.match.params.id) {
+      this.mode = Mode.Edit;
+      this.edited = this.props.listProject.find((p) => p.id === +this.props.match.params.id);
+      if (this.edited) {
+        this.edited = this.edited.clone();
+      }
+    } else {
+      this.mode = Mode.View;
+      this.edited = new Project();
+    }
+  }
 
   public render(): JSX.Element {
     const {
-      newProject,
-      onChangeProperty,
       listProjectMode,
       listProjectStatus,
       listUser,
@@ -26,7 +44,21 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       onDelete,
       onSave,
       onCreate,
+      isFetching,
+      isFetchingMessage,
     } = this.props;
+
+    if (isFetching) {
+      return (
+        <Dimmer active={true}>
+          <Loader>{isFetchingMessage}</Loader>
+        </Dimmer>
+      );
+    }
+
+    if (!this.edited) {
+      this.createEdited();
+    }
 
     const itemProjectMode = listProjectMode.map((v) => ({
       text: v.name,
@@ -38,7 +70,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       value: v.id,
     }));
 
-    const itemUser = listUser.map((v) => ({
+    const itemUser = listUser.filter((u) => u.teamId === this.edited.teamId).map((v) => ({
       text: v.firstName + ' ' + v.lastName,
       value: v.id,
     }));
@@ -46,11 +78,11 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       text: v.name,
       value: v.id,
     }));
-    const itemBranch = listBranch.map((v) => ({
+    const itemBranch = listBranch.filter((b) => b.agencyId === this.edited.agencyId).map((v) => ({
       text: v.name,
       value: v.id,
     }));
-    const itemTeam = listTeam.map((v) => ({
+    const itemTeam = listTeam.filter((t) => t.branchId === this.edited.branchId).map((v) => ({
       text: v.name,
       value: v.id,
     }));
@@ -58,118 +90,138 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       text: v.name,
       value: v.id,
     }));
-    const itemProject = listProject.map((v) => ({
+    const itemProject = listProject.filter((p) => p.clientId === this.edited.clientId).map((v) => ({
       text: v.name,
       value: v.id,
     }));
 
-    const mode = Mode.Create;
     return (
       <EditTemplate
-        mode={mode}
+        mode={this.mode}
         onDelete={onDelete}
         onSave={onSave}
         onCreate={onCreate}
       >
         <Form.Field>
           <Input
-            enabled={this.enabled(mode)}
-            value={newProject.name}
+            enabled={this.enabled()}
+            value={this.edited.name}
             label="Name"
-            onChange={this.onChangeInput(onChangeProperty('name'))}
+            onChange={this.onChangeInput(this.onChangeProperty('name'))}
           />
         </Form.Field>
         <Form.Group widths='equal'>
           <DatePicker
             dateFormat="dd-MM-YYYY"
-            enabled={this.enabled(mode)}
-            value={newProject.startDate}
+            enabled={this.enabled()}
+            value={this.edited.startDate}
             label="Start date"
-            onChange={onChangeProperty('startDate')}
+            onChange={this.onChangeProperty('startDate')}
           />
           <DatePicker
             dateFormat="dd-MM-YYYY"
-            enabled={this.enabled(mode)}
-            value={newProject.endDate}
+            enabled={this.enabled()}
+            value={this.edited.endDate}
             label="End date"
-            onChange={onChangeProperty('endDate')}
+            onChange={this.onChangeProperty('endDate')}
           />
         </Form.Group>
         <Form.Group widths='equal'>
           <Select
-            enabled={this.enabled(mode)}
-            value={newProject.projectStatutId}
+            enabled={this.enabled()}
+            value={this.edited.projectStatutId}
             list={itemProjectStatus}
             label="Status"
-            onChange={this.onChangeSelect(onChangeProperty('projectStatutId'))}
+            onChange={this.onChangeSelect(this.onChangeProperty('projectStatutId'))}
           />
           <Select
-            enabled={this.enabled(mode)}
-            value={newProject.projectModeId}
+            enabled={this.enabled()}
+            value={this.edited.projectModeId}
             list={itemProjectMode}
             label="Mode"
-            onChange={this.onChangeSelect(onChangeProperty('projectModeId'))}
+            onChange={this.onChangeSelect(this.onChangeProperty('projectModeId'))}
           />
         </Form.Group>
         <Divider />
         <Form.Group widths='equal'>
           <Select
-            enabled={this.enabled(mode)}
-            value={newProject.agencyId}
+            enabled={this.enabled()}
+            value={this.edited.agencyId}
             list={itemAgency}
             label="Agency"
-            onChange={this.onChangeSelect(onChangeProperty('agencyId'))}
+            onChange={this.onChangeSelect(this.onChangeProperty('agencyId'))}
           />
           <Select
-            enabled={this.enabled(mode)}
-            value={newProject.branchId}
+            enabled={this.enabled()}
+            value={this.edited.branchId}
             list={itemBranch}
             label="Branch"
-            onChange={this.onChangeSelect(onChangeProperty('branchId'))}
+            onChange={this.onChangeSelect(this.onChangeProperty('branchId'))}
           />
           <Select
-            enabled={this.enabled(mode)}
-            value={newProject.teamId}
+            enabled={this.enabled()}
+            value={this.edited.teamId}
             list={itemTeam}
             label="Team"
-            onChange={this.onChangeSelect(onChangeProperty('teamId'))}
+            onChange={this.onChangeSelect(this.onChangeProperty('teamId'))}
           />
         </Form.Group>
         <Select
-          enabled={this.enabled(mode)}
-          value={newProject.ownerUserId}
+          enabled={this.enabled()}
+          value={this.edited.ownerUserId}
           list={itemUser}
           label="Owner"
-          onChange={this.onChangeSelect(onChangeProperty('ownerUserId'))}
+          onChange={this.onChangeSelect(this.onChangeProperty('ownerUserId'))}
         />
         <Divider />
         <Select
-          enabled={this.enabled(mode)}
-          value={newProject.clientId}
+          enabled={this.enabled()}
+          value={this.edited.clientId}
           list={itemClient}
           label="Client"
-          onChange={this.onChangeSelect(onChangeProperty('clientId'))}
+          onChange={this.onChangeSelect(this.onChangeProperty('clientId'))}
         />
         <Select
-          enabled={this.enabled(mode)}
-          value={newProject.parentProjectId}
+          enabled={this.enabled()}
+          value={this.edited.parentProjectId}
           list={itemProject}
           label="Parent"
-          onChange={this.onChangeSelect(onChangeProperty('parentProjectId'))}
+          onChange={this.onChangeSelect(this.onChangeProperty('parentProjectId'))}
         />
         <Divider />
         <TextArea
-          onChange={(e: React.FormEvent, { value }: TextAreaProps) => onChangeProperty('comment')(value)}
+          onChange={(e: React.FormEvent, { value }: TextAreaProps) => this.onChangeProperty('comment')(value)}
           label="Comment"
-          enabled={this.enabled(mode)}
-          value={newProject.comment}
+          enabled={this.enabled()}
+          value={this.edited.comment}
         />
       </EditTemplate>
     );
   }
 
-  private enabled(mode: Mode): boolean {
-    return mode !== Mode.View;
+  private onChangeProperty(attribut: keyof Project): (newValue: any) => void {
+    return (newValue: any): void => {
+      this.edited[attribut] = newValue;
+      if (attribut === "agencyId") {
+        this.edited.branchId = null;
+        this.edited.teamId = null;
+        this.edited.ownerUserId = null;
+      }
+      if (attribut === "branchId") {
+        this.edited.teamId = null;
+        this.edited.ownerUserId = null;
+      }
+      if (attribut === "teamId") {
+        this.edited.ownerUserId = null;
+      }
+      if (attribut === "clientId") {
+        this.edited.parentProjectId = null;
+      }
+    };
+  }
+
+  private enabled(): boolean {
+    return this.mode !== Mode.View;
   }
 
   private onChangeSelect(onChange: (newValue: boolean | number | string | Array<boolean | number | string>) => void): (e: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps) => void {

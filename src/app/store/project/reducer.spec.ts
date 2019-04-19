@@ -3,14 +3,12 @@ import { projectListMock } from './../../services/project/projectFake.service';
 import { IFetchClientProjectsAction, IFetchProjectsAction, IReceiveErrorAction, IReceiveProjectsAction, ProjectTypes } from './action';
 import { projectReducer } from './reducer';
 import { IProjectsState } from './type';
-import { Project } from '../../models/Project';
 
 const initialState: IProjectsState = {
   projects: [],
   errorMessage: '',
   isError: false,
   isFetching: false,
-  edited: new Project(),
 };
 
 const errorMessage = 'Error Message';

@@ -35,6 +35,7 @@ const Root = () => (
         <PrivateRouteContainer isAuthenticated={false} path={RouteList.planning} exact={true} component={PlanningPageContainer} />
         <Route path={RouteList.todo} exact={true} component={TodoPageContainer} />
         <Route path={RouteList.login} exact={true} component={LoginPageContainer} />
+        <Route path={RouteList.create} exact={true} component={EditProjectPageContainer} />
         <Route path={RouteList.edit} exact={true} component={EditProjectPageContainer} />
         <Route component={NotFoundPage} />
       </Switch>

@@ -1,3 +1,4 @@
+import { RouteChildrenProps } from "react-router";
 import { Agency } from "../../../models/Agency";
 import { Branch } from "../../../models/Branch";
 import { Client } from "../../../models/Client";
@@ -7,8 +8,7 @@ import { ProjectStatus } from "../../../models/ProjectStatus";
 import { Team } from "../../../models/Team";
 import { User } from "../../../models/User";
 
-export interface IEditProjectPageProps {
-  newProject: Project;
+export interface IEditProjectPageProps extends RouteChildrenProps<IEditProjectPagePropsParams> {
   listProjectMode: ProjectMode[];
   listProjectStatus: ProjectStatus[];
   listUser: User[];
@@ -17,8 +17,13 @@ export interface IEditProjectPageProps {
   listTeam: Team[];
   listClient: Client[];
   listProject: Project[];
-  onChangeProperty: (property: string) => (newValue: any) => void;
+  isFetching: boolean;
+  isFetchingMessage: string;
   onDelete: () => void;
   onSave: () => void;
   onCreate: () => void;
+}
+
+interface IEditProjectPagePropsParams {
+  id: string;
 }

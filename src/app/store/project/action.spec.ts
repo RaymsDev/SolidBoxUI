@@ -4,14 +4,12 @@ import thunk from "redux-thunk";
 import projectFakeService, { linksMock, projectListMock } from '../../services/project/projectFake.service';
 import ProjectActions, { ProjectsActionTypes } from './action';
 import { IProjectsState } from "./type";
-import { Project } from '../../models/Project';
 
 const initialState: IProjectsState = {
   projects: [],
   isError: false,
   isFetching: false,
   errorMessage: '',
-  edited: new Project(),
 };
 
 const middlewares = [thunk];

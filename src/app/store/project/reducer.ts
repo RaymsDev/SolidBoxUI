@@ -7,7 +7,6 @@ const initialState: IProjectsState = {
   isFetching: false,
   isError: false,
   errorMessage: '',
-  edited: new Project(),
 };
 
 export const projectReducer = (state: IProjectsState = initialState, action: ProjectsActionTypes): IProjectsState => {
@@ -21,9 +20,13 @@ export const projectReducer = (state: IProjectsState = initialState, action: Pro
         errorMessage: ''
       };
     case ProjectTypes.RECEIVE_PROJECTS:
+      const p = [];
+      for (let i = 0; i < action.projects.length; i++) {
+        p.push(new Project(action.projects[i]));
+      }
       return {
         ...state,
-        projects: action.projects,
+        projects: p,
         isFetching: false,
         isError: false,
         errorMessage: ''
@@ -34,33 +37,6 @@ export const projectReducer = (state: IProjectsState = initialState, action: Pro
         isFetching: false,
         isError: true,
         errorMessage: action.errorMessage
-      };
-    case ProjectTypes.NEW_EDITED:
-      return {
-        ...state,
-        edited: action.project,
-      };
-    case ProjectTypes.UPDATE_EDITED:
-      const clonedEdited = state.edited.clone();
-      clonedEdited[action.attribut] = action.value;
-      if (action.attribut === "agencyId") {
-        clonedEdited.branchId = null;
-        clonedEdited.teamId = null;
-        clonedEdited.ownerUserId = null;
-      }
-      if (action.attribut === "branchId") {
-        clonedEdited.teamId = null;
-        clonedEdited.ownerUserId = null;
-      }
-      if (action.attribut === "teamId") {
-        clonedEdited.ownerUserId = null;
-      }
-      if (action.attribut === "clientId") {
-        clonedEdited.parentProjectId = null;
-      }
-      return {
-        ...state,
-        edited: clonedEdited
       };
     default:
       return state;
