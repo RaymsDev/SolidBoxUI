@@ -7,7 +7,7 @@ import { IProjectModesState } from './type';
 export enum ProjectModeTypes {
   FETCH = 'FETCH_PROJECTMODES',
   RECEIVE = 'RECEIVE_PROJECTMODES',
-  RECEIVE_ERROR = 'RECEIVE_ERROR_PROJECTMODES'
+  RECEIVE_ERROR = 'RECEIVE_ERROR_PROJECTMODES',
 }
 
 export interface IFetchAction extends Action {
@@ -47,27 +47,27 @@ export default class ProjectModeActions {
   public fetch(): IFetchAction {
     this.store.dispatch<any>(this.fetchAsync());
     return {
-      type: ProjectModeTypes.FETCH
+      type: ProjectModeTypes.FETCH,
     };
   }
 
   public receive(projectModes: ProjectMode[]): IReceiveAction {
     return {
       type: ProjectModeTypes.RECEIVE,
-      projectModes
+      projectModes,
     };
   }
 
   public receiveError(errorMessage: string): IReceiveErrorAction {
     return {
       type: ProjectModeTypes.RECEIVE_ERROR,
-      errorMessage
+      errorMessage,
     };
   }
 
   public fetchAsync() {
     return (dispatch: Dispatch<Action>) => {
-      //  TODO change service
+      // TODO change service
       return this.projectModeService
         .getProjectModes()
         .then(projectModes => {

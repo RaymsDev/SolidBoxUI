@@ -5,23 +5,23 @@ export const projectListMock: ProjectStatus[] = [
   new ProjectStatus({
     id: 1,
     name: 'Forfait',
-    links: []
+    links: [],
   }),
   new ProjectStatus({
     id: 2,
     name: 'Régie',
-    links: []
+    links: [],
   }),
   new ProjectStatus({
     id: 3,
     name: 'TMA',
-    links: []
+    links: [],
   }),
   new ProjectStatus({
     id: 4,
     name: 'TMI',
-    links: []
-  })
+    links: [],
+  }),
 ];
 
 const asyncDelay = 20;

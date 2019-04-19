@@ -7,7 +7,7 @@ import { IProjectStatusListState } from './type';
 export enum ProjectStatusTypes {
   FETCH = 'FETCH_PROJECTSTATUSS',
   RECEIVE = 'RECEIVE_PROJECTSTATUSS',
-  RECEIVE_ERROR = 'RECEIVE_ERROR_PROJECTSTATUSS'
+  RECEIVE_ERROR = 'RECEIVE_ERROR_PROJECTSTATUSS',
 }
 
 export interface IFetchAction extends Action {
@@ -47,21 +47,21 @@ export default class ProjectStatusActions {
   public fetch(): IFetchAction {
     this.store.dispatch<any>(this.fetchAsync());
     return {
-      type: ProjectStatusTypes.FETCH
+      type: ProjectStatusTypes.FETCH,
     };
   }
 
   public receive(projectStatuss: ProjectStatus[]): IReceiveAction {
     return {
       type: ProjectStatusTypes.RECEIVE,
-      projectStatusList: projectStatuss
+      projectStatusList: projectStatuss,
     };
   }
 
   public receiveError(errorMessage: string): IReceiveErrorAction {
     return {
       type: ProjectStatusTypes.RECEIVE_ERROR,
-      errorMessage
+      errorMessage,
     };
   }
 
@@ -70,8 +70,8 @@ export default class ProjectStatusActions {
       // TODO change service
       return this.projectStatusService
         .getProjectStatusList()
-        .then(projectStatuss => {
-          dispatch(this.receive(projectStatuss));
+        .then(projectStatus => {
+          dispatch(this.receive(projectStatus));
         })
         .catch(error => {
           dispatch(this.receiveError(error));

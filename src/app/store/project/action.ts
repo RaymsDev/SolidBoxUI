@@ -4,6 +4,7 @@ import { ILink } from '../../models/Link';
 import { Project } from '../../models/Project';
 import { IProjectService } from '../../services/project/IProject.service';
 import { IProjectsState } from './type';
+'../store';
 
 export enum ProjectTypes {
   FETCH_PROJECTS = 'FETCH_PROJECTS',
@@ -12,6 +13,8 @@ export enum ProjectTypes {
   RECEIVE_ERROR = 'RECEIVE_ERROR',
   UPDATE_EDITED = 'UPDATE_EDITED_PROJECT',
   NEW_EDITED = 'NEW_EDITED_PROJECT',
+  CREATE_EDITED = 'CREATE_EDITED_PROJECT',
+  SAVE_EDITED = 'SAVE_EDITED_PROJECT',
 }
 
 export interface IFetchProjectsAction extends Action {
@@ -137,4 +140,24 @@ export default class ProjectActions {
       project,
     };
   }
+
+  public createEdited() {
+    this.store.dispatch<any>(this.createEditedAsync());
+    return {
+      type: ProjectTypes.CREATE_EDITED,
+    };
+  }
+
+  public createEditedAsync() {
+    return (dispatch: Dispatch<Action>) => {
+      return this.projectService
+        .create(this.store.getState().projectsState.edited)
+        .then(project => {})
+        .catch(error => {
+          dispatch(this.receiveError(error));
+        });
+    };
+  }
+
+  public saveEdited() {}
 }

@@ -6,13 +6,13 @@ import { IEditTemplateProps, Mode } from './IEditTemplateProps';
 
 export class EditTemplate extends React.Component<IEditTemplateProps> {
   public render(): JSX.Element {
-    const { children, mode, onSave, onDelete } = this.props;
+    const { children, mode, onSave, onDelete, onCreate } = this.props;
     return (
       <PageTemplateContainer>
         <Container>
           <Form>{children}</Form>
           <div className={s.validation}>
-            {this.getValidButton(mode, onSave, onDelete)}
+            {this.getValidButton(mode, onSave, onDelete, onCreate)}
           </div>
         </Container>
       </PageTemplateContainer>
@@ -22,7 +22,8 @@ export class EditTemplate extends React.Component<IEditTemplateProps> {
   private getValidButton(
     mode: Mode,
     onSave: () => void,
-    onDelete: () => void
+    onDelete: () => void,
+    onCreate: () => void,
   ): JSX.Element {
     if (mode === Mode.View) {
       return <></>;
@@ -31,14 +32,14 @@ export class EditTemplate extends React.Component<IEditTemplateProps> {
         <Button.Group>
           <Button onClick={onDelete}>Delete</Button>
           <Button.Or />
-          <Button positive onClick={onSave}>
+          <Button positive={true} onClick={onSave}>
             Save
           </Button>
         </Button.Group>
       );
     } else if (mode === Mode.Create) {
       return (
-        <Button primary onClick={onSave}>
+        <Button primary={true} onClick={onCreate}>
           Create
         </Button>
       );

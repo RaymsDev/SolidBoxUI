@@ -43,6 +43,32 @@ class ProjectService implements IProjectService {
     });
     return promise;
   }
+
+  public create(project: Project): Promise<Project> {
+    return new Promise<Project>((resolve, reject) => {
+      axios.post<any>(url, project)
+        .then((response) => {
+          console.log(response);
+          resolve(project);
+        })
+        .catch((response) => {
+          reject(response);
+        });
+    });
+  }
+
+  public save(project: Project): Promise<Project> {
+    return new Promise<Project>((resolve, reject) => {
+      axios.put<any>(url + `/${project.id}`, project)
+        .then((response) => {
+          console.log(response);
+          resolve(project);
+        })
+        .catch((response) => {
+          reject(response);
+        });
+    });
+  }
 }
 
 export default new ProjectService();

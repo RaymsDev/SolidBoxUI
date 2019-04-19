@@ -82,5 +82,10 @@ class ProjectFakeService implements IProjectService {
   public get(link: ILink[]): Promise<Project[]> {
     return projectsPromise;
   }
+
+  public create(project: Project): Promise<Project> {
+    projectListMock.push(project);
+    return Promise.resolve(project);
+  }
 }
 export default new ProjectFakeService();

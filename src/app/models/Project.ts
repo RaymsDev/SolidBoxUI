@@ -1,5 +1,4 @@
 import { ILink } from './Link';
-import { ITask } from './Task';
 
 export interface IProject {
   id: number;
@@ -80,7 +79,7 @@ export class Project implements IProject {
     this.taskIdList = [];
   }
 
-  public Clone(): Project {
+  public clone(): Project {
     return new Project({ ...this });
   }
 }

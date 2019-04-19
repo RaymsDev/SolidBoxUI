@@ -7,12 +7,12 @@ const initialState: IProjectsState = {
   isFetching: false,
   isError: false,
   errorMessage: '',
-  edited: new Project()
+  edited: new Project(),
 };
 
 export const projectReducer = (
   state: IProjectsState = initialState,
-  action: ProjectsActionTypes
+  action: ProjectsActionTypes,
 ): IProjectsState => {
   switch (action.type) {
     case ProjectTypes.FETCH_PROJECTS:
@@ -21,7 +21,7 @@ export const projectReducer = (
         ...state,
         isFetching: true,
         isError: false,
-        errorMessage: ''
+        errorMessage: '',
       };
     case ProjectTypes.RECEIVE_PROJECTS:
       return {
@@ -29,26 +29,41 @@ export const projectReducer = (
         projects: action.projects,
         isFetching: false,
         isError: false,
-        errorMessage: ''
+        errorMessage: '',
       };
     case ProjectTypes.RECEIVE_ERROR:
       return {
         ...state,
         isFetching: false,
         isError: true,
-        errorMessage: action.errorMessage
+        errorMessage: action.errorMessage,
       };
     case ProjectTypes.NEW_EDITED:
       return {
         ...state,
-        edited: action.project
+        edited: action.project,
       };
     case ProjectTypes.UPDATE_EDITED:
-      const clonedEdited = state.edited.Clone();
+      const clonedEdited = state.edited.clone();
       clonedEdited[action.attribut] = action.value;
+      if (action.attribut === 'agencyId') {
+        clonedEdited.branchId = null;
+        clonedEdited.teamId = null;
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === 'branchId') {
+        clonedEdited.teamId = null;
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === 'teamId') {
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === 'clientId') {
+        clonedEdited.parentProjectId = null;
+      }
       return {
         ...state,
-        edited: clonedEdited
+        edited: clonedEdited,
       };
     default:
       return state;

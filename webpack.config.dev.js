@@ -14,6 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app/[name].bundle.js',
+    publicPath: '/',
   },
   devtool: 'source-map',
 
