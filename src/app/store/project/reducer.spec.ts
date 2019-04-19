@@ -16,7 +16,6 @@ const initialState: IProjectsState = {
   errorMessage: '',
   isError: false,
   isFetching: false,
-  edited: new Project(),
 };
 
 const errorMessage = 'Error Message';

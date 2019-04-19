@@ -4,15 +4,12 @@ import { ILink } from '../../models/Link';
 import { Project } from '../../models/Project';
 import { IProjectService } from '../../services/project/IProject.service';
 import { IProjectsState } from './type';
-'../store';
 
 export enum ProjectTypes {
   FETCH_PROJECTS = 'FETCH_PROJECTS',
   FETCH_CLIENT_PROJECTS = 'FETCH_CLIENT_PROJECTS',
   RECEIVE_PROJECTS = 'RECEIVE_PROJECTS',
   RECEIVE_ERROR = 'RECEIVE_ERROR',
-  UPDATE_EDITED = 'UPDATE_EDITED_PROJECT',
-  NEW_EDITED = 'NEW_EDITED_PROJECT',
   CREATE_EDITED = 'CREATE_EDITED_PROJECT',
   SAVE_EDITED = 'SAVE_EDITED_PROJECT',
 }
@@ -34,16 +31,6 @@ export interface IReceiveErrorAction extends Action {
   errorMessage: string;
 }
 
-export interface IUpdateEditedAction extends Action {
-  type: ProjectTypes.UPDATE_EDITED;
-  attribut: keyof Project;
-  value: any;
-}
-export interface INewEditedAction extends Action {
-  type: ProjectTypes.NEW_EDITED;
-  project: Project;
-}
-
 export type ProjectThunkResult<R> = ThunkAction<
   R,
   IProjectsState,
@@ -55,9 +42,7 @@ export type ProjectsActionTypes =
   | IFetchProjectsAction
   | IFetchClientProjectsAction
   | IReceiveProjectsAction
-  | IReceiveErrorAction
-  | IUpdateEditedAction
-  | INewEditedAction;
+  | IReceiveErrorAction;
 
 export default class ProjectActions {
   private store: Store;
@@ -120,27 +105,6 @@ export default class ProjectActions {
     };
   }
 
-  public updateEdited(
-    attribut: keyof Project,
-    value: any,
-  ): IUpdateEditedAction {
-    return {
-      type: ProjectTypes.UPDATE_EDITED,
-      attribut,
-      value,
-    };
-  }
-
-  public newEdited(project?: Project): INewEditedAction {
-    if (!project) {
-      project = new Project();
-    }
-    return {
-      type: ProjectTypes.NEW_EDITED,
-      project,
-    };
-  }
-
   public createEdited() {
     this.store.dispatch<any>(this.createEditedAsync());
     return {
@@ -151,7 +115,7 @@ export default class ProjectActions {
   public createEditedAsync() {
     return (dispatch: Dispatch<Action>) => {
       return this.projectService
-        .create(this.store.getState().projectsState.edited)
+        .create(new Project())
         .then(project => {})
         .catch(error => {
           dispatch(this.receiveError(error));

@@ -1,7 +1,6 @@
 import * as DeepFreeze from 'deep-freeze';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { Project } from '../../models/Project';
 import projectFakeService, {
   linksMock,
   projectListMock,
@@ -14,7 +13,6 @@ const initialState: IProjectsState = {
   isError: false,
   isFetching: false,
   errorMessage: '',
-  edited: new Project(),
 };
 
 const middlewares = [thunk];

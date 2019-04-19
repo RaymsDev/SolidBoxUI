@@ -6,5 +6,6 @@ export enum RouteList {
   planning = '/planning',
   todo = '/todo',
   authCallback = '/callback',
-  edit = '/project/edit'
+  edit = '/project/edit/:id',
+  create = '/project/create',
 }

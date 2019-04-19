@@ -53,6 +53,16 @@ const Root = () => (
           component={EditProjectPageContainer}
         />
         <Route component={NotFoundPage} />
+        <Route
+          path={RouteList.create}
+          exact={true}
+          component={EditProjectPageContainer}
+        />
+        <Route
+          path={RouteList.edit}
+          exact={true}
+          component={EditProjectPageContainer}
+        />
       </Switch>
     </Router>
   </Provider>

@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { EditProjectPage } from '../components/pages/editProjectPage/EditProjectPage';
 import { IEditProjectPageProps } from '../components/pages/editProjectPage/IEditProjectPageProps';
-import { Project } from '../models/Project';
 import agencyService from '../services/agency/agency.service';
 import branchService from '../services/branch/branch.service';
 import clientService from '../services/client/client.service';
@@ -34,30 +33,71 @@ const branchActions = new BranchActions(store, branchService);
 const agencyActions = new AgencyActions(store, agencyService);
 
 const mapStateToProps = (state: IRootState): Partial<IEditProjectPageProps> => {
-  const { projectModes } = state.projectModesState;
-  const { projectStatusList } = state.projectStatusListState;
-  const { edited, projects } = state.projectsState;
-  const { users } = state.usersState;
-  const { agencys } = state.agencysState;
-  const { branchs } = state.branchsState;
-  const { teams } = state.teamsState;
-  const { clients } = state.clientsState;
+  const {
+    projectModes,
+    isFetching: isFetchingProjectMode,
+  } = state.projectModesState;
+  const {
+    projectStatusList,
+    isFetching: isFetchingProjectStatus,
+  } = state.projectStatusListState;
+  const { projects, isFetching: isFetchingProject } = state.projectsState;
+  const { users, isFetching: isFetchingUser } = state.usersState;
+  const { agencys, isFetching: isFetchingAgency } = state.agencysState;
+  const { branchs, isFetching: isFetchingBranch } = state.branchsState;
+  const { teams, isFetching: isFetchingTeam } = state.teamsState;
+  const { clients, isFetching: isFetchingClient } = state.clientsState;
   return {
-    newProject: edited,
     listProjectMode: projectModes,
     listProjectStatus: projectStatusList,
-    listUser: users.filter(u => u.teamId === edited.teamId),
+    listUser: users,
     listAgency: agencys,
-    listBranch: branchs.filter(b => b.agencyId === edited.agencyId),
-    listTeam: teams.filter(t => t.branchId === edited.branchId),
+    listBranch: branchs,
+    listTeam: teams,
     listClient: clients,
-    listProject: projects.filter(p => p.clientId === edited.clientId),
+    listProject: projects,
+    isFetching:
+      isFetchingAgency ||
+      isFetchingProject ||
+      isFetchingUser ||
+      isFetchingProjectMode ||
+      isFetchingProjectStatus ||
+      isFetchingBranch ||
+      isFetchingTeam ||
+      isFetchingClient,
+    isFetchingMessage:
+      'Waiting for the ' +
+      (() => {
+        if (isFetchingAgency) {
+          return 'agency';
+        }
+        if (isFetchingProject) {
+          return 'project';
+        }
+        if (isFetchingUser) {
+          return 'user';
+        }
+        if (isFetchingProjectMode) {
+          return 'project mode';
+        }
+        if (isFetchingProjectStatus) {
+          return 'project status';
+        }
+        if (isFetchingBranch) {
+          return 'branch';
+        }
+        if (isFetchingTeam) {
+          return 'team';
+        }
+        if (isFetchingClient) {
+          return 'client';
+        }
+      })(),
   };
 };
 
 // init
 store.dispatch(projectActions.fetchProjects());
-store.dispatch(projectActions.newEdited());
 store.dispatch(projectModeActions.fetch());
 store.dispatch(projectStatusActions.fetch());
 store.dispatch(userActions.fetch());
@@ -70,11 +110,6 @@ const mapDispatchToProps = (
   dispatch: Dispatch<any>,
 ): Partial<IEditProjectPageProps> => {
   return {
-    onChangeProperty: (property: keyof Project): ((newValue: any) => void) => {
-      return (newValue: any): void => {
-        dispatch(projectActions.updateEdited(property, newValue));
-      };
-    },
     onDelete: (): void => {
       alert('You cannot delete a project');
     },

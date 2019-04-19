@@ -9,7 +9,7 @@ export class EditTemplate extends React.Component<IEditTemplateProps> {
     const { children, mode, onSave, onDelete, onCreate } = this.props;
     return (
       <PageTemplateContainer>
-        <Container>
+        <Container className={s.container}>
           <Form>{children}</Form>
           <div className={s.validation}>
             {this.getValidButton(mode, onSave, onDelete, onCreate)}
