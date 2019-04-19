@@ -1,6 +1,6 @@
+import { Project } from "../../models/Project";
 import { ProjectsActionTypes, ProjectTypes } from "./action";
 import { IProjectsState } from "./type";
-import { Project } from "../../models/Project";
 
 const initialState: IProjectsState = {
   projects: [],
@@ -39,14 +39,29 @@ export const projectReducer = (state: IProjectsState = initialState, action: Pro
       return {
         ...state,
         edited: action.project,
-      }
+      };
     case ProjectTypes.UPDATE_EDITED:
-      let clonedEdited = state.edited.clone();
+      const clonedEdited = state.edited.clone();
       clonedEdited[action.attribut] = action.value;
+      if (action.attribut === "agencyId") {
+        clonedEdited.branchId = null;
+        clonedEdited.teamId = null;
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === "branchId") {
+        clonedEdited.teamId = null;
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === "teamId") {
+        clonedEdited.ownerUserId = null;
+      }
+      if (action.attribut === "clientId") {
+        clonedEdited.parentProjectId = null;
+      }
       return {
         ...state,
         edited: clonedEdited
-      }
+      };
     default:
       return state;
   }

@@ -8,4 +8,5 @@ export interface IEditTemplateProps {
   mode: Mode;
   onSave: () => void;
   onDelete: () => void;
+  onCreate: () => void;
 }
