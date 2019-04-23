@@ -1,7 +1,8 @@
-import { ITask, ITasksNormalized } from '../../models/Task';
+import { IListNormalized } from '../../models/IListNormalized';
+import { ITask } from '../../models/Task';
 
 export interface ITasksState {
-  tasks: ITasksNormalized;
+  tasks: IListNormalized<ITask>;
   isFetching: boolean;
   isError: boolean;
   errorMessage: string;

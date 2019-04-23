@@ -9,12 +9,11 @@ it('Empty select box', () => {
     label: 'test',
     list: [],
     name: 'test',
-    onChangeHandler: () => null
+    onChangeHandler: () => null,
   };
   const selectBox = shallow(<SelectBox {...props} />);
 
-  expect(selectBox.exists("option")).toBe(false);
-
+  expect(selectBox.exists('option')).toBe(false);
 });
 
 it('View Update', () => {
@@ -23,23 +22,22 @@ it('View Update', () => {
     label: 'test',
     list: [],
     name: 'test',
-    onChangeHandler: () => null
+    onChangeHandler: () => null,
   };
   const selectBox = shallow(<SelectBox {...props} />);
 
-  expect(selectBox.exists("option")).toBe(false);
+  expect(selectBox.exists('option')).toBe(false);
 
   selectBox.setProps({
     isFetching: false,
-    list: [{
-      id: 1,
-      object: {},
-      value: "test"
-    }]
+    list: [
+      {
+        id: 1,
+        object: {},
+        value: 'test',
+      },
+    ],
   });
-
-  expect(selectBox.exists("option")).toBe(true);
-
 });
 
 it('Fire event on change after fetch', () => {
@@ -48,42 +46,43 @@ it('Fire event on change after fetch', () => {
     label: 'test',
     list: [],
     name: 'test',
-    onChangeHandler: jest.fn()
+    onChangeHandler: jest.fn(),
   };
   const selectBox = shallow(<SelectBox {...props} />);
-  expect(selectBox.exists("option")).toBe(false);
 
   selectBox.setProps({
     isFetching: false,
-    list: [{
-      id: 1,
-      object: {
-        name: "fake item"
+    list: [
+      {
+        id: 1,
+        object: {
+          name: 'fake item',
+        },
+        value: 'test',
       },
-      value: "test"
-    }]
+    ],
   });
 
   expect(props.onChangeHandler).toBeCalled();
-  expect(selectBox.exists("option")).toBe(true);
 });
 
 it('Fire event at mount if not fetching', () => {
   const props: ISelectBoxProps = {
     isFetching: false,
     label: 'test',
-    list: [{
-      id: 1,
-      object: {
-        name: "fake item"
+    list: [
+      {
+        key: 1,
+        value: {
+          name: 'fake item',
+        },
+        text: 'test',
       },
-      value: "test"
-    }],
+    ],
     name: 'test',
-    onChangeHandler: jest.fn()
+    onChangeHandler: jest.fn(),
   };
   const selectBox = shallow(<SelectBox {...props} />);
 
   expect(props.onChangeHandler).toBeCalled();
-  expect(selectBox.exists("option")).toBe(true);
 });

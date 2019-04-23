@@ -1,7 +1,8 @@
-import { Agency } from "../../models/Agency";
+import { IAgency } from '../../models/Agency';
+import { IListNormalized } from '../../models/IListNormalized';
 
 export interface IAgencysState {
-  agencys: Agency[];
+  agencies: IListNormalized<IAgency>;
   isFetching: boolean;
   isError: boolean;
   errorMessage: string;

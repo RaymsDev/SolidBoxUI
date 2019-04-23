@@ -9,7 +9,7 @@ const url = `${apiUrl}/API/Projects`;
 class ProjectService implements IProjectService {
   public get(links: ILink[]): Promise<Project[]> {
     const link = links.find(l => {
-      return l.rel == LinkRelations.projects;
+      return l.rel === LinkRelations.projects;
     });
 
     if (!link) {

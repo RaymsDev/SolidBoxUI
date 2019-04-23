@@ -46,7 +46,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       listProjectMode,
       listProjectStatus,
       listUser,
-      listAgency,
+      agenciesNormalized: angenciesNormalized,
       listBranch,
       listTeam,
       listClient,
@@ -80,23 +80,26 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       value: v.id,
     }));
 
-    const itemUser = listUser
+    const itemUser = listUser.idList
+      .map(id => listUser.entities[id])
       .filter(u => u.teamId === this.edited.teamId)
       .map(v => ({
         text: v.firstName + ' ' + v.lastName,
         value: v.id,
       }));
-    const itemAgency = listAgency.map(v => ({
-      text: v.name,
-      value: v.id,
+    const itemAgency = angenciesNormalized.idList.map(id => ({
+      text: angenciesNormalized.entities[id].name,
+      value: angenciesNormalized.entities[id].id,
     }));
-    const itemBranch = listBranch
+    const itemBranch = listBranch.idList
+      .map(id => listBranch.entities[id])
       .filter(b => b.agencyId === this.edited.agencyId)
       .map(v => ({
         text: v.name,
         value: v.id,
       }));
-    const itemTeam = listTeam
+    const itemTeam = listTeam.idList
+      .map(id => listTeam.entities[id])
       .filter(t => t.branchId === this.edited.branchId)
       .map(v => ({
         text: v.name,

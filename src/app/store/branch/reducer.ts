@@ -1,36 +1,75 @@
-import { BranchsActionTypes, BranchTypes } from "./action";
-import { IBranchsState } from "./type";
+import { normalize, schema } from 'normalizr';
+import { IBranch } from '../../models/Branch';
+import { IListNormalized } from '../../models/IListNormalized';
+import { BranchesActionTypes, BranchTypes } from './action';
+import { IBranchesState } from './type';
 
-const initialState: IBranchsState = {
-  branchs: [],
+const initialState: IBranchesState = {
+  branches: {
+    idList: [],
+    entities: {},
+  },
   isFetching: false,
   isError: false,
   errorMessage: '',
 };
 
-export const branchReducer = (state: IBranchsState = initialState, action: BranchsActionTypes): IBranchsState => {
+const normalizeBranches = (branches: IBranch[]): IListNormalized<IBranch> => {
+  const branch = new schema.Entity('branches');
+  const mySchema = { branches: [branch] };
+  const normalizedData = normalize(
+    {
+      branches,
+    },
+    mySchema,
+  );
+  return {
+    idList: normalizedData.result.branches,
+    entities: normalizedData.entities.branches,
+  };
+};
+
+const receiveBranches = (
+  state: IBranchesState = initialState,
+  action: BranchesActionTypes,
+): IBranchesState => {
   switch (action.type) {
-    case BranchTypes.FETCH:
+    case BranchTypes.RECEIVE:
+      const { entities, idList } = normalizeBranches(action.branches);
+      return {
+        ...state,
+        branches: {
+          idList,
+          entities,
+        },
+        isFetching: false,
+        isError: false,
+        errorMessage: '',
+      };
+    default:
+      return state;
+  }
+};
+export const branchReducer = (
+  state: IBranchesState = initialState,
+  action: BranchesActionTypes,
+): IBranchesState => {
+  switch (action.type) {
+    case BranchTypes.FETCH_BRANCH:
       return {
         ...state,
         isFetching: true,
         isError: false,
-        errorMessage: ''
+        errorMessage: '',
       };
     case BranchTypes.RECEIVE:
-      return {
-        ...state,
-        branchs: action.branchs,
-        isFetching: false,
-        isError: false,
-        errorMessage: ''
-      };
+      return receiveBranches(state, action);
     case BranchTypes.RECEIVE_ERROR:
       return {
         ...state,
         isFetching: false,
         isError: true,
-        errorMessage: action.errorMessage
+        errorMessage: action.errorMessage,
       };
     default:
       return state;

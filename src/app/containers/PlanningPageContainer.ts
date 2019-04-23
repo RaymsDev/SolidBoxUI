@@ -2,19 +2,24 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { IPlanningPageProps } from '../components/pages/planningPage/IPlanningPageProps';
 import { PlanningPage } from '../components/pages/planningPage/PlanningPage';
+import { IAgency } from '../models/Agency';
+import { IBranch } from '../models/Branch';
 import { IClient } from '../models/Client';
-import { IProject, Project } from '../models/Project';
+import { IProject } from '../models/Project';
 import { IProjectStatus } from '../models/ProjectStatus';
+import { ITask } from '../models/Task';
+import { ITeam } from '../models/Team';
+import branchService from '../services/branch/branch.service';
 import clientService from '../services/client/client.service';
 import projectService from '../services/project/project.service';
 import projectStatusService from '../services/projectStatus/projectStatus.service';
 import taskService from '../services/task/task.service';
+import BranchActions from '../store/branch/action';
 import { ClientActions } from '../store/client/action';
 import ProjectActions from '../store/project/action';
 import ProjectStatusActions from '../store/projectStatus/action';
 import store, { IRootState } from '../store/store';
 import TaskActions from '../store/task/action';
-import { ITask } from '../models/Task';
 
 const projectStatusActions = new ProjectStatusActions(
   store,
@@ -23,6 +28,7 @@ const projectStatusActions = new ProjectStatusActions(
 const clientActions = new ClientActions(store, clientService);
 const projectActions = new ProjectActions(store, projectService);
 const taskActions = new TaskActions(store, taskService);
+const branchActions = new BranchActions(store, branchService);
 
 const onClientSelected = (dispatch: Dispatch<any>, client: IClient) => {
   dispatch(projectActions.fetchClientProjects(client.links));
@@ -41,7 +47,23 @@ const onProjectSelected = (dispatch: Dispatch<any>, project: IProject) => {
 };
 
 const onTaskSelected = (dispatch: Dispatch<any>, task: ITask) => {
-  console.info('TASK SELECTED', task);
+  console.error('Not Implemented');
+};
+
+const onAgencySelected = (dispatch: Dispatch<any>, agency: IAgency) => {
+  dispatch(branchActions.fetchByLink(agency.links));
+};
+
+const onBranchSelected = (dispatch: Dispatch<any>, branch: IBranch) => {
+  console.error('Not Implemented');
+};
+
+const onTeamSelected = (dispatch: Dispatch<any>, team: ITeam) => {
+  console.error('Not Implemented');
+};
+
+const onUsersSelected = (dispatch: Dispatch<any>, userIdList: number[]) => {
+  console.error('Not Implemented');
 };
 
 const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
@@ -58,6 +80,17 @@ const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
     isFetching: projectStatusIsFetching,
   } = state.projectStatusListState;
   const { tasks: taskList, isFetching: tasksIsFetching } = state.tasksState;
+  const {
+    agencies: agencyList,
+    isFetching: agenciesIsFetching,
+  } = state.agenciesState;
+  const {
+    branches: branchList,
+    isFetching: branchesIsFetching,
+  } = state.branchesState;
+  const { teams: teamList, isFetching: teamsIsFetching } = state.teamsState;
+  const { users: userList, isFetching: usersIsFetching } = state.usersState;
+
   return {
     clientList,
     clientsIsFetching,
@@ -67,6 +100,18 @@ const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
     projectStatusIsFetching,
     tasksIsFetching,
     taskList,
+
+    agencyList,
+    agenciesIsFetching,
+
+    branchList,
+    branchesIsFetching,
+
+    teamList,
+    teamsIsFetching,
+
+    userList,
+    usersIsFetching,
   };
 };
 
@@ -88,6 +133,18 @@ const mapDispatchToProps = (
     },
     onTaskSelected: task => {
       onTaskSelected(dispatch, task);
+    },
+    onAgencySelected: agency => {
+      onAgencySelected(dispatch, agency);
+    },
+    onBranchSelected: branch => {
+      onBranchSelected(dispatch, branch);
+    },
+    onTeamSelected: team => {
+      onTeamSelected(dispatch, team);
+    },
+    onUsersSelected: userIdList => {
+      onUsersSelected(dispatch, userIdList);
     },
   };
 };

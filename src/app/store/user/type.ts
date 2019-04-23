@@ -1,7 +1,8 @@
-import { User } from "../../models/User";
+import { IListNormalized } from '../../models/IListNormalized';
+import { IUser } from '../../models/User';
 
 export interface IUsersState {
-  users: User[];
+  users: IListNormalized<IUser>;
   isFetching: boolean;
   isError: boolean;
   errorMessage: string;

@@ -21,7 +21,3 @@ export class Task {
   public sortOrder: number;
   public links: ILink[];
 }
-
-export interface ITasksNormalized {
-  [taskId: string]: ITask;
-}

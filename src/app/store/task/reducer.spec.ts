@@ -1,7 +1,5 @@
 import * as DeepFreeze from 'deep-freeze';
-
 import { ITask } from '../../models/Task';
-import { taskListMock } from '../../services/task/taskFake.service';
 import {
   IFetchTaskByLinkAction,
   IFetchTasksAction,
@@ -13,7 +11,10 @@ import reducer from './reducer';
 import { ITasksState } from './type';
 
 const initialState: ITasksState = {
-  tasks: {},
+  tasks: {
+    idList: [],
+    entities: {},
+  },
   errorMessage: '',
   isError: false,
   isFetching: false,
@@ -85,11 +86,14 @@ describe('Task Reducer', () => {
     const stateAfter: ITasksState = {
       ...initialState,
       tasks: {
-        '1': {
-          ...tasks[0],
-        },
-        '2': {
-          ...tasks[1],
+        idList: [1, 2],
+        entities: {
+          1: {
+            ...tasks[0],
+          },
+          2: {
+            ...tasks[1],
+          },
         },
       },
     };

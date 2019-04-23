@@ -1,7 +1,8 @@
-import { Team } from "../../models/Team";
+import { IListNormalized } from '../../models/IListNormalized';
+import { ITeam } from '../../models/Team';
 
 export interface ITeamsState {
-  teams: Team[];
+  teams: IListNormalized<ITeam>;
   isFetching: boolean;
   isError: boolean;
   errorMessage: string;

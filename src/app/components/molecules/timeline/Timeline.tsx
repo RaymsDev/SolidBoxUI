@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 import 'moment/locale/fr';
 import * as React from 'react';
-import Timeline from 'react-calendar-timeline';
+import CalendarTimeline from 'react-calendar-timeline';
 import 'react-calendar-timeline/lib/Timeline.css';
 import { ITimelineProps } from './ITimelineProps';
 import { ITimelineState } from './ITimelineState';
@@ -35,10 +35,7 @@ const items = [
     end_time: moment().add(3, 'day'),
   },
 ];
-export class TaskTimeline extends React.Component<
-  ITimelineProps,
-  ITimelineState
-> {
+export class Timeline extends React.Component<ITimelineProps, ITimelineState> {
   constructor(props: ITimelineProps) {
     super(props);
 
@@ -50,7 +47,7 @@ export class TaskTimeline extends React.Component<
   public render(): JSX.Element {
     return (
       <div>
-        <Timeline
+        <CalendarTimeline
           groups={groups}
           items={items}
           dragSnap={60 * 60 * 1000 * 24}

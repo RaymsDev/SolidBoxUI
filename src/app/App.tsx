@@ -52,7 +52,6 @@ const Root = () => (
           exact={true}
           component={EditProjectPageContainer}
         />
-        <Route component={NotFoundPage} />
         <Route
           path={RouteList.create}
           exact={true}
@@ -63,6 +62,7 @@ const Root = () => (
           exact={true}
           component={EditProjectPageContainer}
         />
+        <Route component={NotFoundPage} />
       </Switch>
     </Router>
   </Provider>

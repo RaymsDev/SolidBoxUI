@@ -1,8 +1,8 @@
-import { Action, Dispatch, Store } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { Agency } from "../../models/Agency";
-import { IAgencyService } from "../../services/agency/IAgency.service";
-import { IAgencysState } from "./type";
+import { Action, Dispatch, Store } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { Agency } from '../../models/Agency';
+import { IAgencyService } from '../../services/agency/IAgency.service';
+import { IAgencysState } from './type';
 
 export enum AgencyTypes {
   FETCH = 'FETCH_AGENCY',
@@ -16,7 +16,7 @@ export interface IFetchAction extends Action {
 
 export interface IReceiveAction extends Action {
   type: AgencyTypes.RECEIVE;
-  agencys: Agency[];
+  agencies: Agency[];
 }
 
 export interface IReceiveErrorAction extends Action {
@@ -24,7 +24,12 @@ export interface IReceiveErrorAction extends Action {
   errorMessage: string;
 }
 
-export type AgencyThunkResult<R> = ThunkAction<R, IAgencysState, undefined, Action>;
+export type AgencyThunkResult<R> = ThunkAction<
+  R,
+  IAgencysState,
+  undefined,
+  Action
+>;
 
 export type AgencysActionTypes =
   | IFetchAction
@@ -42,31 +47,32 @@ export default class AgencyActions {
   public fetch(): IFetchAction {
     this.store.dispatch<any>(this.fetchAsync());
     return {
-      type: AgencyTypes.FETCH
+      type: AgencyTypes.FETCH,
     };
   }
 
-  public receive(agencys: Agency[]): IReceiveAction {
+  public receive(agencies: Agency[]): IReceiveAction {
     return {
       type: AgencyTypes.RECEIVE,
-      agencys
+      agencies,
     };
   }
 
   public receiveError(errorMessage: string): IReceiveErrorAction {
     return {
       type: AgencyTypes.RECEIVE_ERROR,
-      errorMessage
+      errorMessage,
     };
   }
 
   public fetchAsync() {
     return (dispatch: Dispatch<Action>) => {
-      return this.agencyService.list()
-        .then((agencys) => {
-          dispatch(this.receive(agencys));
+      return this.agencyService
+        .list()
+        .then(agencies => {
+          dispatch(this.receive(agencies));
         })
-        .catch((error) => {
+        .catch(error => {
           dispatch(this.receiveError(error));
         });
     };

@@ -4,13 +4,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { AgencysActionTypes } from './agency/action';
 import { agencyReducer } from './agency/reducer';
-import { IAgencysState } from './agency/type';
+import { IAgencysState as IAgenciesState } from './agency/type';
 import { AuthActionTypes } from './auth/action';
 import { authReducer } from './auth/reducer';
 import { IAuthState } from './auth/type';
-import { BranchsActionTypes } from './branch/action';
+import { BranchesActionTypes } from './branch/action';
 import { branchReducer } from './branch/reducer';
-import { IBranchsState } from './branch/type';
+import { IBranchesState } from './branch/type';
 import { ClientsActionTypes } from './client/action';
 import { clientsReducer } from './client/reducer';
 import { IClientsState } from './client/types';
@@ -41,8 +41,8 @@ export interface IRootState {
   tasksState: ITasksState;
   usersState: IUsersState;
   teamsState: ITeamsState;
-  branchsState: IBranchsState;
-  agencysState: IAgencysState;
+  branchesState: IBranchesState;
+  agenciesState: IAgenciesState;
 }
 
 export type IRootAction =
@@ -53,7 +53,7 @@ export type IRootAction =
   | AuthActionTypes
   | UsersActionTypes
   | TeamsActionTypes
-  | BranchsActionTypes
+  | BranchesActionTypes
   | AgencysActionTypes;
 
 const reducers = combineReducers<IRootState>({
@@ -65,8 +65,8 @@ const reducers = combineReducers<IRootState>({
   tasksState: taskReducer,
   usersState: userReducer,
   teamsState: teamReducer,
-  branchsState: branchReducer,
-  agencysState: agencyReducer,
+  branchesState: branchReducer,
+  agenciesState: agencyReducer,
 });
 
 const store = createStore(

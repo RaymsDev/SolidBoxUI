@@ -1,11 +1,14 @@
 import * as React from 'react';
-
 import PageTemplateContainer from '../../../containers/PageTemplateContainer';
 import { ITaskSelectorProps } from '../../atoms/taskSelector/ITaskSelectorProps';
 import { TaskSelector } from '../../atoms/taskSelector/TaskSelector';
+import { Timeline } from '../../molecules/timeline/Timeline';
+import { IUserSelectorProps } from '../../molecules/userSelector/IUserSelectorProps';
+import { UserSelector } from '../../molecules/userSelector/UserSelector';
 import { IPRojectSelectorProps } from '../../organisms/projectSelector/IProjectSelectorProps';
 import { ProjectSelector } from '../../organisms/projectSelector/ProjectSelector';
 import { IPlanningPageProps } from './IPlanningPageProps';
+
 export class PlanningPage extends React.Component<IPlanningPageProps> {
   constructor(props: IPlanningPageProps) {
     super(props);
@@ -19,12 +22,31 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
     };
 
     const taskSelectorProps: ITaskSelectorProps = {
-      onProjectSelected: this.props.onProjectSelected,
       projectList: this.props.projectList,
       projectIsFetching: this.props.projectsIsFetching,
-      onTaskSelected: this.props.onTaskSelected,
+      onProjectSelected: this.props.onProjectSelected,
+
       taskList: this.props.taskList,
       taskIsFetching: this.props.tasksIsFetching,
+      onTaskSelected: this.props.onTaskSelected,
+    };
+
+    const userSelectorProps: IUserSelectorProps = {
+      agencyList: this.props.agencyList,
+      agencyIsFetching: this.props.agenciesIsFetching,
+      onAgencySelected: this.props.onAgencySelected,
+
+      branchList: this.props.branchList,
+      branchIsFetching: this.props.branchesIsFetching,
+      onBranchSelected: this.props.onBranchSelected,
+
+      teamList: this.props.teamList,
+      teamIsFetching: this.props.teamsIsFetching,
+      onTeamSelected: this.props.onTeamSelected,
+
+      userList: this.props.userList,
+      userIsFetching: this.props.usersIsFetching,
+      onUsersSelected: this.props.onUsersSelected,
     };
 
     return (
@@ -32,6 +54,8 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
         <h1>Planning</h1>
         <ProjectSelector {...projectSelectProps} />
         <TaskSelector {...taskSelectorProps} />
+        <UserSelector {...userSelectorProps} />
+        <Timeline name="planning" />
       </PageTemplateContainer>
     );
   }

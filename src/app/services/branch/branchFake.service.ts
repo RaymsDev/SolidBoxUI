@@ -1,30 +1,35 @@
-import { Branch } from "../../models/Branch";
-import { IBranchService } from "./IBranch.service";
+import { Branch } from '../../models/Branch';
+import { ILink } from '../../models/Link';
+import { IBranchService } from './IBranch.service';
 
 export const BranchListMock: Branch[] = [
   new Branch({
     id: 1,
-    name: "Tilleul",
+    name: 'Tilleul',
   }),
   new Branch({
     id: 2,
-    name: "baobab",
+    name: 'baobab',
   }),
   new Branch({
     id: 3,
-    name: "Saule",
+    name: 'Saule',
   }),
 ];
 
 const asyncDelay = 20;
 
-const BranchsPromise = new Promise<Branch[]>((resolve, reject) => {
+const branchsPromise = new Promise<Branch[]>((resolve, reject) => {
   setTimeout(() => resolve(BranchListMock), asyncDelay);
 });
 
 class BranchFakeService implements IBranchService {
   public list(): Promise<Branch[]> {
-    return BranchsPromise;
+    return branchsPromise;
+  }
+
+  public get(links: ILink[]) {
+    return branchsPromise;
   }
 }
 export default new BranchFakeService();

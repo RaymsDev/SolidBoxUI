@@ -1,7 +1,8 @@
-import { Branch } from "../../models/Branch";
+import { IBranch } from '../../models/Branch';
+import { IListNormalized } from '../../models/IListNormalized';
 
-export interface IBranchsState {
-  branchs: Branch[];
+export interface IBranchesState {
+  branches: IListNormalized<IBranch>;
   isFetching: boolean;
   isError: boolean;
   errorMessage: string;

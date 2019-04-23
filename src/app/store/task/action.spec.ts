@@ -9,7 +9,10 @@ import TaskActions, { TasksActionTypes } from './action';
 import { ITasksState } from './type';
 
 const initialState: ITasksState = {
-  tasks: {},
+  tasks: {
+    idList: [],
+    entities: {},
+  },
   isError: false,
   isFetching: false,
   errorMessage: '',

@@ -43,15 +43,21 @@ const mapStateToProps = (state: IRootState): Partial<IEditProjectPageProps> => {
   } = state.projectStatusListState;
   const { projects, isFetching: isFetchingProject } = state.projectsState;
   const { users, isFetching: isFetchingUser } = state.usersState;
-  const { agencys, isFetching: isFetchingAgency } = state.agencysState;
-  const { branchs, isFetching: isFetchingBranch } = state.branchsState;
+  const {
+    agencies: agenciesNormalized,
+    isFetching: isFetchingAgency,
+  } = state.agenciesState;
+  const {
+    branches: branchs,
+    isFetching: isFetchingBranch,
+  } = state.branchesState;
   const { teams, isFetching: isFetchingTeam } = state.teamsState;
   const { clients, isFetching: isFetchingClient } = state.clientsState;
   return {
     listProjectMode: projectModes,
     listProjectStatus: projectStatusList,
     listUser: users,
-    listAgency: agencys,
+    agenciesNormalized,
     listBranch: branchs,
     listTeam: teams,
     listClient: clients,

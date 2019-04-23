@@ -3,4 +3,6 @@ export enum LinkRelations {
   self_parent = 'self_parent',
   self_childs = 'self_childs',
   tasks = 'tasks',
+  branches = 'branches',
+  agencies = 'agencies',
 }

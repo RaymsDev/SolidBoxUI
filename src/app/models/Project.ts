@@ -21,7 +21,7 @@ export interface IProject {
   consumedLoad: number;
   plannedLoad: number;
   totalLoad: number;
-  taskIdList: string[];
+  taskIdList: number[];
   links: ILink[];
 }
 
@@ -46,7 +46,7 @@ export class Project implements IProject {
   public consumedLoad: number;
   public plannedLoad: number;
   public totalLoad: number;
-  public taskIdList: string[];
+  public taskIdList: number[];
   public links: ILink[];
 
   constructor(data?: Partial<IProject>) {

@@ -1,16 +1,20 @@
 import { normalize, schema } from 'normalizr';
+import { IListNormalized } from '../../models/IListNormalized';
 import { ITask } from '../../models/Task';
 import { IReceiveTasksAction, TasksActionTypes, TaskTypes } from './action';
 import { ITasksState } from './type';
 
 const initialState: ITasksState = {
-  tasks: {},
+  tasks: {
+    idList: [],
+    entities: {},
+  },
   isFetching: false,
   isError: false,
   errorMessage: '',
 };
 
-const normalizeTasks = (tasks: ITask[]) => {
+const normalizeTasks = (tasks: ITask[]): IListNormalized<ITask> => {
   const task = new schema.Entity('tasks');
   const mySchema = { tasks: [task] };
   const normalizedData = normalize(
@@ -19,19 +23,25 @@ const normalizeTasks = (tasks: ITask[]) => {
     },
     mySchema,
   );
-  return normalizedData;
+  return {
+    idList: normalizedData.result.tasks,
+    entities: normalizedData.entities.tasks,
+  };
 };
 
 const receiveTasks = (
   state: ITasksState = initialState,
   action: IReceiveTasksAction,
 ): ITasksState => {
-  const { tasks } = normalizeTasks(action.tasks).entities;
+  const { entities, idList } = normalizeTasks(action.tasks);
   return {
     ...state,
     tasks: {
-      ...state.tasks,
-      ...tasks,
+      idList: Array.from(new Set([...state.tasks.idList, ...idList])),
+      entities: {
+        ...state.tasks.entities,
+        ...entities,
+      },
     },
     isFetching: false,
     isError: false,

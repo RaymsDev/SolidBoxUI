@@ -36,9 +36,9 @@ export class ProjectSelector extends React.Component<IPRojectSelectorProps> {
   ): Array<IDictionaryItem<number>> {
     return clients.map(c => {
       return {
-        id: c.id,
-        value: c.name,
-        object: c,
+        key: c.id,
+        text: c.name,
+        value: c,
       };
     });
   }

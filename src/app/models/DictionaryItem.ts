@@ -1,5 +1,5 @@
-export interface IDictionaryItem<TKey = string, TValue = string, T=any> {
-  id: TKey;
+export interface IDictionaryItem<TKey = string, TText = string, TValue = any> {
+  key: TKey;
+  text: TText;
   value: TValue;
-  object: T;
 }

@@ -39,7 +39,7 @@ class ProjectFakeService implements ITaskService {
   public list(): Promise<ITask[]> {
     return tasksPromise;
   }
-  public get(link: ILink[], relation: LinkRelations): Promise<ITask[]> {
+  public get(link: ILink[]): Promise<ITask[]> {
     return tasksPromise;
   }
 }

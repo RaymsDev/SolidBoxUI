@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 export interface IBranch {
   id: number;
   name: string;
   agencyId: number;
   links: Link[];
+  projectIdList: number[];
+  teamIdList: number[];
 }
 
 export class Branch {
@@ -11,6 +13,8 @@ export class Branch {
   public name: string;
   public agencyId: number;
   public links: Link[];
+  public projectIdList: number[];
+  public teamIdList: number[];
 
   constructor(data?: Partial<IBranch>) {
     if (data) {
@@ -18,6 +22,8 @@ export class Branch {
       this.name = data.name;
       this.agencyId = data.agencyId;
       this.links = data.links;
+      this.projectIdList = data.projectIdList ? data.projectIdList : [];
+      this.teamIdList = data.teamIdList ? data.teamIdList : [];
     }
   }
 

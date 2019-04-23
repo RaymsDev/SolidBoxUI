@@ -24,7 +24,7 @@ export class TaskSelector extends React.Component<ITaskSelectorProps> {
             <ul>
               {p.name}
               {p.taskIdList
-                .filter(id => taskList.hasOwnProperty(id))
+                .filter(id => taskList.entities.hasOwnProperty(id))
                 .map(id => this.createNestedTask(id))}
             </ul>
           </li>
@@ -33,9 +33,9 @@ export class TaskSelector extends React.Component<ITaskSelectorProps> {
     );
   }
 
-  private createNestedTask(taskId: string): JSX.Element {
+  private createNestedTask(taskId: number): JSX.Element {
     const { taskList } = this.props;
-    const task = taskList[taskId];
+    const task = taskList.entities[taskId];
     return (
       <li
         className={`${styles.item} ${styles.subItem}`}

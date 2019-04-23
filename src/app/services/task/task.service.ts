@@ -7,9 +7,9 @@ import { ITaskService } from './ITask.service';
 const url = `${apiUrl}/API/Tasks`;
 
 class TaskService implements ITaskService {
-  public get(links: ILink[], relation: LinkRelations): Promise<ITask[]> {
+  public get(links: ILink[]): Promise<ITask[]> {
     const link = links.find(l => {
-      return l.rel === relation;
+      return l.rel === LinkRelations.tasks;
     });
 
     if (!link) {

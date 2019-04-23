@@ -1,6 +1,5 @@
 import { Action, Dispatch, Store } from 'redux';
 import { ILink } from '../../models/Link';
-import { LinkRelations } from '../../models/LinkRelations';
 import { ITask } from '../../models/Task';
 import { ITaskService } from '../../services/task/ITask.service';
 
@@ -85,7 +84,7 @@ export default class TaskActions {
   public fetchByLinkAsync(links: ILink[]) {
     return (dispatch: Dispatch<Action>) => {
       return this.taskService
-        .get(links, LinkRelations.tasks)
+        .get(links)
         .then(tasks => {
           dispatch(this.receive(tasks));
         })
