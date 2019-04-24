@@ -5,13 +5,12 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import { RouteList } from '../config/RouteList';
-import { HomePage } from './components/pages/homePage/HomePage';
-import { LogoutPage } from './components/pages/logoutPage/LogoutPage';
 import { NotFoundPage } from './components/pages/notFoundPage/NotFoundPage';
 import { ProjectPage } from './components/pages/projectPage/ProjectPage';
 import CallbackPageContainer from './containers/CallbackPageContainer';
 import EditProjectPageContainer from './containers/EditProjectPageContainer';
 import LoginPageContainer from './containers/LoginPageContainer';
+import LogoutPageContainer from './containers/LogoutPageContainer';
 import PlanningPageContainer from './containers/PlanningPageContainer';
 import PrivateRouteContainer from './containers/PrivateRouteContainer';
 import authService from './services/auth/auth.service';
@@ -28,7 +27,7 @@ const Root = () => (
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route path={RouteList.home} exact={true} component={HomePage} />
+        <Route path={RouteList.home} exact={true} component={ProjectPage} />
         <Route
           path={RouteList.authCallback}
           exact={true}
@@ -46,7 +45,11 @@ const Root = () => (
           exact={true}
           component={LoginPageContainer}
         />
-        <Route path={RouteList.logout} exact={true} component={LogoutPage} />
+        <Route
+          path={RouteList.logout}
+          exact={true}
+          component={LogoutPageContainer}
+        />
         <Route
           path={RouteList.edit}
           exact={true}
