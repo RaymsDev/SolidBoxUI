@@ -8,11 +8,11 @@ export class TextArea extends React.Component<ITextAreaProps> {
     return (
       <Form.Field>
         <Form.TextArea
-          fluid
+          fluid={true}
           label={label}
           disabled={!enabled}
           placeholder={label}
-          value={value}
+          value={value || ''}
           onChange={onChange}
         />
       </Form.Field>

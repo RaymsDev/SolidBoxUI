@@ -48,17 +48,17 @@ const Root = () => (
         />
         <Route path={RouteList.logout} exact={true} component={LogoutPage} />
         <Route
-          path={RouteList.edit}
+          path={RouteList.createProject}
           exact={true}
           component={EditProjectPageContainer}
         />
         <Route
-          path={RouteList.create}
+          path={RouteList.editProject}
           exact={true}
           component={EditProjectPageContainer}
         />
         <Route
-          path={RouteList.edit}
+          path={RouteList.viewProject}
           exact={true}
           component={EditProjectPageContainer}
         />

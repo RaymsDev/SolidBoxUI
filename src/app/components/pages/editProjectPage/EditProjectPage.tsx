@@ -8,6 +8,7 @@ import {
   Loader,
   TextAreaProps,
 } from 'semantic-ui-react';
+import { RouteList } from '../../../../config/RouteList';
 import { Project } from '../../../models/Project';
 import { DatePicker } from '../../atoms/form/datePicker/DatePicker';
 import { Input } from '../../atoms/form/input/Input';
@@ -24,11 +25,21 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
   constructor(props: IEditProjectPageProps) {
     super(props);
     this.createEdited();
+    this.setMode();
+  }
+
+  public setMode() {
+    if (this.props.match.path === RouteList.editProject) {
+      this.mode = Mode.Edit;
+    } else if (this.props.match.path === RouteList.viewProject) {
+      this.mode = Mode.View;
+    } else if (this.props.match.path === RouteList.createProject) {
+      this.mode = Mode.Create;
+    }
   }
 
   public createEdited() {
     if (this.props.match.params.id) {
-      this.mode = Mode.Edit;
       this.edited = this.props.listProject.find(
         p => p.id === +this.props.match.params.id,
       );
@@ -36,7 +47,6 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         this.edited = this.edited.clone();
       }
     } else {
-      this.mode = Mode.View;
       this.edited = new Project();
     }
   }
@@ -46,7 +56,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       listProjectMode,
       listProjectStatus,
       listUser,
-      agenciesNormalized: angenciesNormalized,
+      agenciesNormalized,
       listBranch,
       listTeam,
       listClient,
@@ -57,6 +67,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       isFetching,
       isFetchingMessage,
     } = this.props;
+    this.setMode();
 
     if (isFetching) {
       return (
@@ -87,10 +98,12 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         text: v.firstName + ' ' + v.lastName,
         value: v.id,
       }));
-    const itemAgency = angenciesNormalized.idList.map(id => ({
-      text: angenciesNormalized.entities[id].name,
-      value: angenciesNormalized.entities[id].id,
+
+    const itemAgency = agenciesNormalized.idList.map(id => ({
+      text: agenciesNormalized.entities[id].name,
+      value: agenciesNormalized.entities[id].id,
     }));
+
     const itemBranch = listBranch.idList
       .map(id => listBranch.entities[id])
       .filter(b => b.agencyId === this.edited.agencyId)
@@ -98,6 +111,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         text: v.name,
         value: v.id,
       }));
+
     const itemTeam = listTeam.idList
       .map(id => listTeam.entities[id])
       .filter(t => t.branchId === this.edited.branchId)
@@ -105,10 +119,12 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         text: v.name,
         value: v.id,
       }));
+
     const itemClient = listClient.map(v => ({
       text: v.name,
       value: v.id,
     }));
+
     const itemProject = listProject
       .filter(p => p.clientId === this.edited.clientId)
       .map(v => ({
@@ -119,9 +135,9 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
     return (
       <EditTemplate
         mode={this.mode}
-        onDelete={onDelete}
-        onSave={onSave}
-        onCreate={onCreate}
+        onDelete={this.onDelete(onDelete)}
+        onSave={this.onSave(onSave)}
+        onCreate={this.onCreate(onCreate)}
       >
         <Form.Field>
           <Input
@@ -153,18 +169,14 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
             value={this.edited.projectStatutId}
             list={itemProjectStatus}
             label="Status"
-            onChange={this.onChangeSelect(
-              this.onChangeProperty('projectStatutId'),
-            )}
+            onChange={this.onChangeSelect(this.onChangeProperty('projectStatutId'))}
           />
           <Select
             enabled={this.enabled()}
             value={this.edited.projectModeId}
             list={itemProjectMode}
             label="Mode"
-            onChange={this.onChangeSelect(
-              this.onChangeProperty('projectModeId'),
-            )}
+            onChange={this.onChangeSelect(this.onChangeProperty('projectModeId'))}
           />
         </Form.Group>
         <Divider />
@@ -211,21 +223,39 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
           value={this.edited.parentProjectId}
           list={itemProject}
           label="Parent"
-          onChange={this.onChangeSelect(
-            this.onChangeProperty('parentProjectId'),
-          )}
+          onChange={this.onChangeSelect(this.onChangeProperty('parentProjectId'))}
         />
         <Divider />
         <TextArea
-          onChange={(e: React.FormEvent, { value }: TextAreaProps) =>
-            this.onChangeProperty('comment')(value)
-          }
+          onChange={this.onChangeTextArea(this.onChangeProperty('comment'))}
           label="Comment"
           enabled={this.enabled()}
           value={this.edited.comment}
         />
       </EditTemplate>
     );
+  }
+
+  private onDelete(onDelete: (project: Project) => void): () => void {
+    return () => onDelete(this.edited);
+  }
+
+  private onSave(onSave: (project: Project) => void): () => void {
+    return () => onSave(this.edited);
+
+  }
+
+  private onCreate(onCreate: (project: Project) => void): () => void {
+    return () => onCreate(this.edited);
+  }
+
+  private onChangeTextArea(
+    onChange: (
+      newValue: boolean | number | string | Array<boolean | number | string>,
+    ) => void
+  ): (e: React.FormEvent, { value }: TextAreaProps) => void {
+    return (e: React.FormEvent, { value }: TextAreaProps) =>
+      onChange(value);
   }
 
   private onChangeProperty(attribut: keyof Project): (newValue: any) => void {
@@ -246,6 +276,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       if (attribut === 'clientId') {
         this.edited.parentProjectId = null;
       }
+      this.forceUpdate();
     };
   }
 

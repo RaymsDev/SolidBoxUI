@@ -13,6 +13,7 @@ export const projectReducer = (
   state: IProjectsState = initialState,
   action: ProjectsActionTypes,
 ): IProjectsState => {
+  const p = [];
   switch (action.type) {
     case ProjectTypes.FETCH_PROJECTS:
     case ProjectTypes.FETCH_CLIENT_PROJECTS:
@@ -23,9 +24,8 @@ export const projectReducer = (
         errorMessage: '',
       };
     case ProjectTypes.RECEIVE_PROJECTS:
-      const p = [];
-      for (let i = 0; i < action.projects.length; i++) {
-        p.push(new Project(action.projects[i]));
+      for (const project of action.projects) {
+        p.push(new Project(project));
       }
       return {
         ...state,
@@ -40,6 +40,20 @@ export const projectReducer = (
         isFetching: false,
         isError: true,
         errorMessage: action.errorMessage,
+      };
+    case ProjectTypes.ADD:
+      for (const project of action.projects) {
+        p.push(new Project(project));
+      }
+      for (const project of state.projects) {
+        p.push(new Project(project));
+      }
+      return {
+        ...state,
+        projects: p,
+        isFetching: false,
+        isError: false,
+        errorMessage: '',
       };
     default:
       return state;

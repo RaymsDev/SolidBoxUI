@@ -16,7 +16,6 @@ export const fakeAuthResult: AuthResult = {
     scopes: ["scopes"],
     session_state: "session_state",
     toStorageString: () => "toString",
-    refresh_token: "plop"
   },
   isAuthenticated: true
 };

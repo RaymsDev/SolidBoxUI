@@ -53,8 +53,8 @@ export class Project implements IProject {
     if (data) {
       this.id = data.id;
       this.name = data.name;
-      this.startDate = data.startDate;
-      this.endDate = data.endDate;
+      this.startDate = new Date(data.startDate);
+      this.endDate = new Date(data.endDate);
       this.projectStatutId = data.projectStatutId;
       this.projectModeId = data.projectModeId;
       this.clientId = data.clientId;
@@ -62,7 +62,7 @@ export class Project implements IProject {
       this.sortOrder = data.sortOrder;
       this.comment = data.comment;
       this.enableOverRun = data.enableOverRun;
-      this.updateDate = data.updateDate;
+      this.updateDate = new Date(data.updateDate);
       this.amount = data.amount;
       this.teamId = data.teamId;
       this.branchId = data.branchId;

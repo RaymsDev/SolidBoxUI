@@ -8,10 +8,10 @@ export class Input extends React.Component<IInputProps> {
     return (
       <Form.Input
         disabled={!enabled}
-        fluid
+        fluid={true}
         label={label}
         placeholder={label}
-        value={value}
+        value={value || ''}
         onChange={onChange}
       />
     );

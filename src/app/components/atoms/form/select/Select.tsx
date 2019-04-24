@@ -8,7 +8,7 @@ export class Select extends React.Component<ISelectProps> {
     return (
       <Form.Field>
         <Form.Select
-          fluid
+          fluid={true}
           disabled={!enabled}
           label={label}
           options={list}

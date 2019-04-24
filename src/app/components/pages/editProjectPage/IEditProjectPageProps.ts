@@ -21,9 +21,9 @@ export interface IEditProjectPageProps
   listProject: Project[];
   isFetching: boolean;
   isFetchingMessage: string;
-  onDelete: () => void;
-  onSave: () => void;
-  onCreate: () => void;
+  onDelete: (project: Project) => void;
+  onSave: (project: Project) => void;
+  onCreate: (project: Project) => void;
 }
 
 interface IEditProjectPagePropsParams {

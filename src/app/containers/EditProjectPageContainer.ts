@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { EditProjectPage } from '../components/pages/editProjectPage/EditProjectPage';
 import { IEditProjectPageProps } from '../components/pages/editProjectPage/IEditProjectPageProps';
+import { Project } from '../models/Project';
 import agencyService from '../services/agency/agency.service';
 import branchService from '../services/branch/branch.service';
 import clientService from '../services/client/client.service';
@@ -33,24 +34,12 @@ const branchActions = new BranchActions(store, branchService);
 const agencyActions = new AgencyActions(store, agencyService);
 
 const mapStateToProps = (state: IRootState): Partial<IEditProjectPageProps> => {
-  const {
-    projectModes,
-    isFetching: isFetchingProjectMode,
-  } = state.projectModesState;
-  const {
-    projectStatusList,
-    isFetching: isFetchingProjectStatus,
-  } = state.projectStatusListState;
+  const { projectModes, isFetching: isFetchingProjectMode } = state.projectModesState;
+  const { projectStatusList, isFetching: isFetchingProjectStatus } = state.projectStatusListState;
   const { projects, isFetching: isFetchingProject } = state.projectsState;
   const { users, isFetching: isFetchingUser } = state.usersState;
-  const {
-    agencies: agenciesNormalized,
-    isFetching: isFetchingAgency,
-  } = state.agenciesState;
-  const {
-    branches: branchs,
-    isFetching: isFetchingBranch,
-  } = state.branchesState;
+  const { agencies: agenciesNormalized, isFetching: isFetchingAgency } = state.agenciesState;
+  const { branches: branchs, isFetching: isFetchingBranch } = state.branchesState;
   const { teams, isFetching: isFetchingTeam } = state.teamsState;
   const { clients, isFetching: isFetchingClient } = state.clientsState;
   return {
@@ -116,14 +105,14 @@ const mapDispatchToProps = (
   dispatch: Dispatch<any>,
 ): Partial<IEditProjectPageProps> => {
   return {
-    onDelete: (): void => {
+    onDelete: (project: Project): void => {
       alert('You cannot delete a project');
     },
-    onSave: (): void => {
-      dispatch(projectActions.saveEdited());
+    onSave: (project: Project): void => {
+      dispatch(projectActions.saveEdited(project));
     },
-    onCreate: (): void => {
-      dispatch(projectActions.createEdited());
+    onCreate: (project: Project): void => {
+      dispatch(projectActions.createEdited(project));
     },
   };
 };

@@ -12,6 +12,7 @@ export enum ProjectTypes {
   RECEIVE_ERROR = 'RECEIVE_ERROR',
   CREATE_EDITED = 'CREATE_EDITED_PROJECT',
   SAVE_EDITED = 'SAVE_EDITED_PROJECT',
+  ADD = "ADD_PROJECTS",
 }
 
 export interface IFetchProjectsAction extends Action {
@@ -23,6 +24,11 @@ export interface IFetchClientProjectsAction extends Action {
 
 export interface IReceiveProjectsAction extends Action {
   type: ProjectTypes.RECEIVE_PROJECTS;
+  projects: Project[];
+}
+
+export interface IAddProjectsAction extends Action {
+  type: ProjectTypes.ADD;
   projects: Project[];
 }
 
@@ -42,7 +48,8 @@ export type ProjectsActionTypes =
   | IFetchProjectsAction
   | IFetchClientProjectsAction
   | IReceiveProjectsAction
-  | IReceiveErrorAction;
+  | IReceiveErrorAction
+  | IAddProjectsAction;
 
 export default class ProjectActions {
   private store: Store;
@@ -58,6 +65,7 @@ export default class ProjectActions {
       type: ProjectTypes.FETCH_PROJECTS,
     };
   }
+
   public fetchClientProjects(links: ILink[]): IFetchClientProjectsAction {
     this.store.dispatch<any>(this.fetchClientProjectsAsync(links));
     return {
@@ -105,23 +113,30 @@ export default class ProjectActions {
     };
   }
 
-  public createEdited() {
-    this.store.dispatch<any>(this.createEditedAsync());
+  public createEdited(project: Project) {
+    this.store.dispatch<any>(this.createEditedAsync(project));
     return {
       type: ProjectTypes.CREATE_EDITED,
     };
   }
 
-  public createEditedAsync() {
+  public createEditedAsync(project: Project) {
     return (dispatch: Dispatch<Action>) => {
       return this.projectService
-        .create(new Project())
-        .then(project => {})
+        .create(project)
+        .then(p => this.addProjects([p]))
         .catch(error => {
           dispatch(this.receiveError(error));
         });
     };
   }
 
-  public saveEdited() {}
+  public addProjects(projects: Project[]) {
+    return {
+      type: ProjectTypes.ADD,
+      projects,
+    };
+  }
+
+  public saveEdited(project: Project) { }
 }
