@@ -10,9 +10,10 @@ export enum ProjectTypes {
   FETCH_CLIENT_PROJECTS = 'FETCH_CLIENT_PROJECTS',
   RECEIVE_PROJECTS = 'RECEIVE_PROJECTS',
   RECEIVE_ERROR = 'RECEIVE_ERROR',
-  CREATE_EDITED = 'CREATE_EDITED_PROJECT',
-  SAVE_EDITED = 'SAVE_EDITED_PROJECT',
+  CREATE = 'CREATE_PROJECT',
+  SAVE = 'SAVE_PROJECT',
   ADD = "ADD_PROJECTS",
+  EDIT = "EDIT_PROJECT",
 }
 
 export interface IFetchProjectsAction extends Action {
@@ -29,6 +30,11 @@ export interface IReceiveProjectsAction extends Action {
 
 export interface IAddProjectsAction extends Action {
   type: ProjectTypes.ADD;
+  projects: Project[];
+}
+
+export interface IEditProjectsAction extends Action {
+  type: ProjectTypes.EDIT;
   projects: Project[];
 }
 
@@ -49,7 +55,8 @@ export type ProjectsActionTypes =
   | IFetchClientProjectsAction
   | IReceiveProjectsAction
   | IReceiveErrorAction
-  | IAddProjectsAction;
+  | IAddProjectsAction
+  | IEditProjectsAction;
 
 export default class ProjectActions {
   private store: Store;
@@ -113,14 +120,14 @@ export default class ProjectActions {
     };
   }
 
-  public createEdited(project: Project) {
-    this.store.dispatch<any>(this.createEditedAsync(project));
+  public create(project: Project) {
+    this.store.dispatch<any>(this.createAsync(project));
     return {
-      type: ProjectTypes.CREATE_EDITED,
+      type: ProjectTypes.CREATE,
     };
   }
 
-  public createEditedAsync(project: Project) {
+  public createAsync(project: Project) {
     return (dispatch: Dispatch<Action>) => {
       return this.projectService
         .create(project)
@@ -138,5 +145,28 @@ export default class ProjectActions {
     };
   }
 
-  public saveEdited(project: Project) { }
+  public save(project: Project) {
+    this.store.dispatch<any>(this.saveAsync(project));
+    return {
+      type: ProjectTypes.SAVE,
+    };
+  }
+
+  public saveAsync(project: Project) {
+    return (dispatch: Dispatch<Action>) => {
+      return this.projectService
+        .save(project)
+        .then(p => this.editProjects([p]))
+        .catch(error => {
+          dispatch(this.receiveError(error));
+        });
+    };
+  }
+
+  public editProjects(projects: Project[]) {
+    return {
+      type: ProjectTypes.EDIT,
+      projects,
+    };
+  }
 }

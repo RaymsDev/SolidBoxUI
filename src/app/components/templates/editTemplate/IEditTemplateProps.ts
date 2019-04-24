@@ -9,4 +9,7 @@ export interface IEditTemplateProps {
   onSave: () => void;
   onDelete: () => void;
   onCreate: () => void;
+  canSave: boolean;
+  canDelete: boolean;
+  canCreate: boolean;
 }

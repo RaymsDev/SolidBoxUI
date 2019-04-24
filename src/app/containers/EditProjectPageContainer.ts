@@ -60,34 +60,32 @@ const mapStateToProps = (state: IRootState): Partial<IEditProjectPageProps> => {
       isFetchingBranch ||
       isFetchingTeam ||
       isFetchingClient,
-    isFetchingMessage:
-      'Waiting for the ' +
-      (() => {
-        if (isFetchingAgency) {
-          return 'agency';
-        }
-        if (isFetchingProject) {
-          return 'project';
-        }
-        if (isFetchingUser) {
-          return 'user';
-        }
-        if (isFetchingProjectMode) {
-          return 'project mode';
-        }
-        if (isFetchingProjectStatus) {
-          return 'project status';
-        }
-        if (isFetchingBranch) {
-          return 'branch';
-        }
-        if (isFetchingTeam) {
-          return 'team';
-        }
-        if (isFetchingClient) {
-          return 'client';
-        }
-      })(),
+    isFetchingMessage: (() => {
+      if (isFetchingAgency) {
+        return 'Gathering the agency';
+      }
+      if (isFetchingProject) {
+        return 'Creating the project';
+      }
+      if (isFetchingUser) {
+        return 'Waiting for the user to drink their coffees';
+      }
+      if (isFetchingProjectMode) {
+        return 'Bowing to the get the best project mode';
+      }
+      if (isFetchingProjectStatus) {
+        return 'Asking the projects for their status';
+      }
+      if (isFetchingBranch) {
+        return 'Planting tree to get the branchs';
+      }
+      if (isFetchingTeam) {
+        return 'Assembling a team of super heros';
+      }
+      if (isFetchingClient) {
+        return 'Catching the client for the meeting';
+      }
+    })(),
   };
 };
 
@@ -109,10 +107,10 @@ const mapDispatchToProps = (
       alert('You cannot delete a project');
     },
     onSave: (project: Project): void => {
-      dispatch(projectActions.saveEdited(project));
+      dispatch(projectActions.save(project));
     },
     onCreate: (project: Project): void => {
-      dispatch(projectActions.createEdited(project));
+      dispatch(projectActions.create(project));
     },
   };
 };

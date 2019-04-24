@@ -4,11 +4,11 @@ import { ITextAreaProps } from './ITextAreaProps';
 
 export class TextArea extends React.Component<ITextAreaProps> {
   public render(): JSX.Element {
-    const { enabled, label, onChange, value } = this.props;
+    const { enabled, label, onChange, value, mandatory } = this.props;
     return (
       <Form.Field>
         <Form.TextArea
-          fluid={true}
+          required={mandatory}
           label={label}
           disabled={!enabled}
           placeholder={label}

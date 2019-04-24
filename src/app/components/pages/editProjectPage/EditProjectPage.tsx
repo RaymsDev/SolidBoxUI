@@ -138,9 +138,13 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         onDelete={this.onDelete(onDelete)}
         onSave={this.onSave(onSave)}
         onCreate={this.onCreate(onCreate)}
+        canDelete={true}
+        canSave={this.canSave()}
+        canCreate={this.canCreate()}
       >
         <Form.Field>
           <Input
+            mandatory={true}
             enabled={this.enabled()}
             value={this.edited.name}
             label="Name"
@@ -165,6 +169,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         </Form.Group>
         <Form.Group widths="equal">
           <Select
+            mandatory={true}
             enabled={this.enabled()}
             value={this.edited.projectStatutId}
             list={itemProjectStatus}
@@ -182,6 +187,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         <Divider />
         <Form.Group widths="equal">
           <Select
+            mandatory={true}
             enabled={this.enabled()}
             value={this.edited.agencyId}
             list={itemAgency}
@@ -212,6 +218,7 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         />
         <Divider />
         <Select
+          mandatory={true}
           enabled={this.enabled()}
           value={this.edited.clientId}
           list={itemClient}
@@ -234,6 +241,17 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
         />
       </EditTemplate>
     );
+  }
+
+  private canSave(): boolean {
+    return this.canCreate() && !!this.edited.id;
+  }
+
+  private canCreate(): boolean {
+    return !!this.edited.name &&
+      !!this.edited.clientId &&
+      !!this.edited.agencyId &&
+      !!this.edited.projectStatutId;
   }
 
   private onDelete(onDelete: (project: Project) => void): () => void {

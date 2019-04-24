@@ -47,17 +47,20 @@ const Root = () => (
           component={LoginPageContainer}
         />
         <Route path={RouteList.logout} exact={true} component={LogoutPage} />
-        <Route
+        <PrivateRouteContainer
+          isAuthenticated={isAuthenticated}
           path={RouteList.createProject}
           exact={true}
           component={EditProjectPageContainer}
         />
-        <Route
+        <PrivateRouteContainer
+          isAuthenticated={isAuthenticated}
           path={RouteList.editProject}
           exact={true}
           component={EditProjectPageContainer}
         />
-        <Route
+        <PrivateRouteContainer
+          isAuthenticated={isAuthenticated}
           path={RouteList.viewProject}
           exact={true}
           component={EditProjectPageContainer}

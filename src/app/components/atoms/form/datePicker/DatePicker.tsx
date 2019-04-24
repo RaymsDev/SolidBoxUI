@@ -6,16 +6,18 @@ import { IDatePickerProps } from './IDatePickerProps';
 export class DatePicker extends React.Component<IDatePickerProps> {
 
   public render(): JSX.Element {
-    const { enabled, label, onChange, value, dateFormat } = this.props;
+    const { enabled, label, onChange, value, dateFormat, mandatory } = this.props;
     return (
       <Form.Field>
-        <label>{label}</label>
-        <RDatePicker
-          disabled={!enabled}
-          dateFormat={dateFormat}
-          selected={value}
-          onChange={onChange}
-        />
+        <div className={(enabled ? "" : "disabled ") + (mandatory ? "required " : "") + "field"}>
+          <label>{label}</label>
+          <RDatePicker
+            disabled={!enabled}
+            dateFormat={dateFormat}
+            selected={value}
+            onChange={onChange}
+          />
+        </div>
       </Form.Field>
     );
   }

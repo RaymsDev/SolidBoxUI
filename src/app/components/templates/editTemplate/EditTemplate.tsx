@@ -6,13 +6,13 @@ import { IEditTemplateProps, Mode } from './IEditTemplateProps';
 
 export class EditTemplate extends React.Component<IEditTemplateProps> {
   public render(): JSX.Element {
-    const { children, mode, onSave, onDelete, onCreate } = this.props;
+    const { children, mode, onSave, onDelete, onCreate, canSave, canDelete, canCreate } = this.props;
     return (
       <PageTemplateContainer>
         <Container className={s.container}>
           <Form>{children}</Form>
           <div className={s.validation}>
-            {this.getValidButton(mode, onSave, onDelete, onCreate)}
+            {this.getValidButton(mode, onSave, onDelete, onCreate, canSave, canDelete, canCreate)}
           </div>
         </Container>
       </PageTemplateContainer>
@@ -24,22 +24,25 @@ export class EditTemplate extends React.Component<IEditTemplateProps> {
     onSave: () => void,
     onDelete: () => void,
     onCreate: () => void,
+    canSave: boolean,
+    canDelete: boolean,
+    canCreate: boolean,
   ): JSX.Element {
     if (mode === Mode.View) {
       return <></>;
     } else if (mode === Mode.Edit) {
       return (
         <Button.Group>
-          <Button onClick={onDelete}>Delete</Button>
+          <Button onClick={onDelete} disabled={!canDelete}>Delete</Button>
           <Button.Or />
-          <Button positive={true} onClick={onSave}>
+          <Button positive={true} onClick={onSave} disabled={!canSave}>
             Save
           </Button>
         </Button.Group>
       );
     } else if (mode === Mode.Create) {
       return (
-        <Button primary={true} onClick={onCreate}>
+        <Button primary={true} onClick={onCreate} disabled={!canCreate}>
           Create
         </Button>
       );

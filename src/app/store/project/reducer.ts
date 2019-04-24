@@ -55,6 +55,22 @@ export const projectReducer = (
         isError: false,
         errorMessage: '',
       };
+    case ProjectTypes.EDIT:
+      for (const project of state.projects) {
+        const edited = action.projects.find(ap => ap.id === project.id);
+        if (!edited) {
+          p.push(new Project(project));
+        } else {
+          p.push(new Project(edited));
+        }
+      }
+      return {
+        ...state,
+        projects: p,
+        isFetching: false,
+        isError: false,
+        errorMessage: '',
+      };
     default:
       return state;
   }
