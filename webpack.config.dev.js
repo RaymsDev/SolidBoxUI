@@ -2,7 +2,7 @@ const path = require('path'),
   webpack = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin');
 const sourcePath = path.resolve(__dirname, 'src');
-
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const port = 3000;
 module.exports = {
   context: sourcePath,
