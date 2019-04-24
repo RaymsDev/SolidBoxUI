@@ -1,5 +1,7 @@
+import { ILink } from '../../models/Link';
 import { User } from '../../models/User';
 
 export interface IUserService {
-  getUsers(): Promise<User[]>;
+  get(links: ILink[]): Promise<User[]>;
+  list(): Promise<User[]>;
 }

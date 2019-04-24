@@ -57,6 +57,7 @@ export const userReducer = (
 ): IUsersState => {
   switch (action.type) {
     case UserTypes.FETCH:
+    case UserTypes.FETCH_BY_LINK:
       return {
         ...state,
         isFetching: true,

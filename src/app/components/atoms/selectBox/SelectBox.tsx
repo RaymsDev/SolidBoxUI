@@ -47,7 +47,7 @@ export class SelectBox extends React.Component<
   }
 
   public componentDidUpdate(prevProps: ISelectBoxProps) {
-    if (
+    /*if (
       this.state.selected === undefined &&
       prevProps.isFetching &&
       this.props.list.length > 0
@@ -57,7 +57,7 @@ export class SelectBox extends React.Component<
 
     if (prevProps.isFetching) {
       return this.selectItem(undefined);
-    }
+    }*/
   }
   private dictionnaryToOptions(
     list: Array<IDictionaryItem<number, string, any>>,

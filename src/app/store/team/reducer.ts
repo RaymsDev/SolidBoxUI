@@ -57,6 +57,7 @@ export const teamReducer = (
 ): ITeamsState => {
   switch (action.type) {
     case TeamTypes.FETCH:
+    case TeamTypes.FETCH_TEAM_BY_LINK:
       return {
         ...state,
         isFetching: true,

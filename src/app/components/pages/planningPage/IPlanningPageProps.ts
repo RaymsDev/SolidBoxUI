@@ -40,5 +40,5 @@ export interface IPlanningPageProps {
   // User
   userList: IListNormalized<IUser>;
   usersIsFetching: boolean;
-  onUsersSelected: (userIdList: number[]) => void;
+  onUsersSelected: (users: IUser[]) => void;
 }

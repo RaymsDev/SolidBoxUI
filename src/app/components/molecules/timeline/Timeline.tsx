@@ -1,8 +1,6 @@
 import * as moment from 'moment';
 import 'moment/locale/fr';
 import * as React from 'react';
-import CalendarTimeline from 'react-calendar-timeline';
-import 'react-calendar-timeline/lib/Timeline.css';
 import { ITimelineProps } from './ITimelineProps';
 import { ITimelineState } from './ITimelineState';
 
@@ -45,16 +43,6 @@ export class Timeline extends React.Component<ITimelineProps, ITimelineState> {
   }
 
   public render(): JSX.Element {
-    return (
-      <div>
-        <CalendarTimeline
-          groups={groups}
-          items={items}
-          dragSnap={60 * 60 * 1000 * 24}
-          defaultTimeStart={moment().add(-1, 'day')}
-          defaultTimeEnd={moment().add(1, 'month')}
-        />
-      </div>
-    );
+    return <div />;
   }
 }
