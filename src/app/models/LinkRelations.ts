@@ -5,4 +5,6 @@ export enum LinkRelations {
   tasks = 'tasks',
   branches = 'branches',
   agencies = 'agencies',
+  teams = 'teams',
+  users = 'users',
 }

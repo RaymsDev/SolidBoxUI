@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Redirect } from 'react-router';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
+import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
 import { RouteList } from '../../../../config/RouteList';
 import PageTemplateContainer from '../../../containers/PageTemplateContainer';
 import { ILoginPageProps } from './ILoginPageProps';
@@ -16,7 +18,9 @@ export class LoginPage extends React.Component<ILoginPageProps> {
       login();
       return (
         <PageTemplateContainer>
-          <div>Login...</div>
+          <Dimmer active={true}>
+            <Loader>Login...</Loader>
+          </Dimmer>
         </PageTemplateContainer>
       );
     }

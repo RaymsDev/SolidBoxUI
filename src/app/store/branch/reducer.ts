@@ -56,6 +56,7 @@ export const branchReducer = (
 ): IBranchesState => {
   switch (action.type) {
     case BranchTypes.FETCH_BRANCH:
+    case BranchTypes.FETCH_BRANCH_BY_LINK:
       return {
         ...state,
         isFetching: true,

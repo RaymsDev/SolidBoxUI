@@ -1,18 +1,19 @@
-import { Team } from "../../models/Team";
-import { ITeamService } from "./ITeam.service";
+import { ILink } from '../../models/Link';
+import { Team } from '../../models/Team';
+import { ITeamService } from './ITeam.service';
 
 export const TeamListMock: Team[] = [
   new Team({
     id: 1,
-    name: "Alpha",
+    name: 'Alpha',
   }),
   new Team({
     id: 2,
-    name: "Bravo",
+    name: 'Bravo',
   }),
   new Team({
     id: 3,
-    name: "Tango",
+    name: 'Tango',
   }),
 ];
 
@@ -23,6 +24,9 @@ const TeamsPromise = new Promise<Team[]>((resolve, reject) => {
 });
 
 class TeamFakeService implements ITeamService {
+  public get(links: ILink[]): Promise<Team[]> {
+    return TeamsPromise;
+  }
   public list(): Promise<Team[]> {
     return TeamsPromise;
   }

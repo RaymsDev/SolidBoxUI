@@ -20,5 +20,5 @@ export interface IUserSelectorProps {
   // User
   userList: IListNormalized<IUser>;
   userIsFetching: boolean;
-  onUsersSelected: (userIdList: number[]) => void;
+  onUsersSelected: (users: IUser[]) => void;
 }

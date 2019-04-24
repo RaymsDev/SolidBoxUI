@@ -4,6 +4,8 @@ import { IBranch } from '../../../models/Branch';
 import { IDictionaryItem } from '../../../models/DictionaryItem';
 import { IListNormalized } from '../../../models/IListNormalized';
 import { ITeam } from '../../../models/Team';
+import { IUser } from '../../../models/User';
+import { MultipleSelector } from '../../atoms/multipleSelector/MultipleSelector';
 import { SelectBox } from '../../atoms/selectBox/SelectBox';
 import { IUserSelectorProps } from './IUserSelectorProps';
 import { IUserSelectorState } from './IUserSelectorState';
@@ -21,6 +23,7 @@ export class UserSelector extends React.Component<
     const { agencyList, onAgencySelected, agencyIsFetching } = this.props;
     const { branchList, onBranchSelected, branchIsFetching } = this.props;
     const { teamList, onTeamSelected, teamIsFetching } = this.props;
+    const { userList, onUsersSelected, userIsFetching } = this.props;
     return (
       <div>
         <SelectBox
@@ -43,6 +46,14 @@ export class UserSelector extends React.Component<
           label="Teams :"
           name="team"
           onChangeHandler={onTeamSelected}
+        />
+        <MultipleSelector
+          list={this.usersToDictionary(userList)}
+          isFetching={userIsFetching}
+          label="Users :"
+          name="user"
+          placeholder=""
+          onChangeHandler={onUsersSelected}
         />
       </div>
     );
@@ -83,6 +94,19 @@ export class UserSelector extends React.Component<
         key: team.id,
         text: team.name,
         value: team,
+      };
+    });
+  }
+
+  private usersToDictionary(
+    users: IListNormalized<IUser>,
+  ): Array<IDictionaryItem<number>> {
+    return users.idList.map(id => {
+      const user = users.entities[id];
+      return {
+        key: user.id,
+        text: `${user.firstName} ${user.lastName}`,
+        value: user,
       };
     });
   }

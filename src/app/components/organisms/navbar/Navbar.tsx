@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-
 import { RouteList } from '../../../../config/RouteList';
 import { INavbarProps } from './INavbarProps';
 import * as s from './Navbar.scss';
+
 export class Navbar extends React.Component<INavbarProps> {
   constructor(props: INavbarProps) {
     super(props);
@@ -33,9 +33,9 @@ export class Navbar extends React.Component<INavbarProps> {
           <li className={s.linkItem}>
             <Link
               className={s.link}
-              to={!isAuthenticated ? RouteList.login : RouteList.logout}
+              to={isAuthenticated ? RouteList.logout : RouteList.login}
             >
-              {!isAuthenticated ? 'Login' : 'Logout'}
+              {isAuthenticated ? 'Logout' : 'Login'}
             </Link>
           </li>
         </ul>

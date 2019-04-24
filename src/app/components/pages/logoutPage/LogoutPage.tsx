@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Redirect } from 'react-router';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
+import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
 import { RouteList } from '../../../../config/RouteList';
 import PageTemplateContainer from '../../../containers/PageTemplateContainer';
 import { ILogoutPageProps } from './ILogoutPageProps';
@@ -16,7 +18,9 @@ export class LogoutPage extends React.Component<ILogoutPageProps> {
       logout();
       return (
         <PageTemplateContainer>
-          <div>Logout...</div>
+          <Dimmer active={true}>
+            <Loader>Logout...</Loader>
+          </Dimmer>
         </PageTemplateContainer>
       );
     }
