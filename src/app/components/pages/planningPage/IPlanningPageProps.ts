@@ -39,6 +39,7 @@ export interface IPlanningPageProps {
   onTeamSelected: (team: ITeam) => void;
   // User
   userList: IListNormalized<IUser>;
+  userSelectedList: IListNormalized<IUser>;
   usersIsFetching: boolean;
   onUsersSelected: (users: IUser[]) => void;
 }

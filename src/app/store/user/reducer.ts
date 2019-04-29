@@ -9,6 +9,10 @@ const initialState: IUsersState = {
     idList: [],
     entities: {},
   },
+  selectedList: {
+    idList: [],
+    entities: {},
+  },
   isFetching: false,
   isError: false,
   errorMessage: '',
@@ -51,6 +55,25 @@ const receiveUsers = (
   }
 };
 
+const selectUsers = (
+  state: IUsersState = initialState,
+  action: UsersActionTypes,
+): IUsersState => {
+  switch (action.type) {
+    case UserTypes.SELECT:
+      const { entities, idList } = normalizeUsers(action.selectedUsers);
+      return {
+        ...state,
+        selectedList: {
+          idList,
+          entities,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 export const userReducer = (
   state: IUsersState = initialState,
   action: UsersActionTypes,
@@ -66,6 +89,8 @@ export const userReducer = (
       };
     case UserTypes.RECEIVE:
       return receiveUsers(state, action);
+    case UserTypes.SELECT:
+      return selectUsers(state, action);
     case UserTypes.RECEIVE_ERROR:
       return {
         ...state,

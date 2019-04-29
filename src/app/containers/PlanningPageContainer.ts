@@ -70,7 +70,7 @@ const onTeamSelected = (dispatch: Dispatch<any>, team: ITeam) => {
 };
 
 const onUsersSelected = (dispatch: Dispatch<any>, users: IUser[]) => {
-  console.error('Not Implemented');
+  dispatch(userActions.selectList(users));
 };
 
 const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
@@ -96,7 +96,11 @@ const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
     isFetching: branchesIsFetching,
   } = state.branchesState;
   const { teams: teamList, isFetching: teamsIsFetching } = state.teamsState;
-  const { users: userList, isFetching: usersIsFetching } = state.usersState;
+  const {
+    users: userList,
+    selectedList: userSelectedList,
+    isFetching: usersIsFetching,
+  } = state.usersState;
 
   return {
     clientList,
@@ -118,6 +122,7 @@ const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
     teamsIsFetching,
 
     userList,
+    userSelectedList,
     usersIsFetching,
   };
 };

@@ -1,0 +1,28 @@
+
+@mixin columnRight {
+  border-right-color: black;
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+
+.row{
+  height: 50px;
+  border-bottom-color:black;
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
+
+  .user{
+    min-width:50px;
+    vertical-align: middle;
+   @include columnRight();
+  }
+
+  .day{
+    margin: 0;
+
+  }
+  .lastOfWeek{
+    @include columnRight();
+  }
+
+}
