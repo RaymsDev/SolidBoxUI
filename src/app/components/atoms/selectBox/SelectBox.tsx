@@ -13,7 +13,7 @@ export class SelectBox extends React.Component<
 
     const { list } = props;
     this.state = {
-      selected: list.length > 0 ? list[0].key : undefined,
+      selected: list.length > 0 ? list[0].key : 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,23 +41,18 @@ export class SelectBox extends React.Component<
   public componentDidMount() {
     const { isFetching } = this.props;
     const { selected } = this.state;
-    if (!isFetching && selected) {
-      this.selectItem(selected);
+    if (!isFetching) {
+      this.selectItem(selected, true);
     }
   }
-
   public componentDidUpdate(prevProps: ISelectBoxProps) {
-    /*if (
-      this.state.selected === undefined &&
-      prevProps.isFetching &&
-      this.props.list.length > 0
-    ) {
+    if (prevProps.isFetching && this.props.list.length > 0) {
       return this.selectItem(this.props.list[0].key);
     }
 
     if (prevProps.isFetching) {
-      return this.selectItem(undefined);
-    }*/
+      return this.selectItem(0);
+    }
   }
   private dictionnaryToOptions(
     list: Array<IDictionaryItem<number, string, any>>,
@@ -69,18 +64,22 @@ export class SelectBox extends React.Component<
     }));
   }
 
-  private selectItem(value: number) {
-    this.setState({
-      selected: value,
-    });
+  private selectItem(value: number, isFirst: boolean = false) {
+    const { selected } = this.state;
+    if (!isFirst && selected === value) {
+      return;
+    }
 
     const { onChangeHandler, list } = this.props;
-
     const selectedItem = this.getSelectedObject(list, value);
 
     if (selectedItem) {
       onChangeHandler(selectedItem.value);
     }
+
+    this.setState({
+      selected: value,
+    });
   }
 
   private handleChange(event: React.SyntheticEvent, data: any): void {

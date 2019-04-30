@@ -28,16 +28,18 @@ it('View Update', () => {
 
   expect(selectBox.exists('option')).toBe(false);
 
-  selectBox.setProps({
+  const updatedProps: ISelectBoxProps = {
+    ...props,
     isFetching: false,
     list: [
       {
-        id: 1,
-        object: {},
-        value: 'test',
+        key: 1,
+        text: 'fake item',
+        value: 1,
       },
     ],
-  });
+  };
+  selectBox.setProps(updatedProps);
 });
 
 it('Fire event on change after fetch', () => {
@@ -50,20 +52,22 @@ it('Fire event on change after fetch', () => {
   };
   const selectBox = shallow(<SelectBox {...props} />);
 
-  selectBox.setProps({
+  const updatedProps: ISelectBoxProps = {
+    ...props,
     isFetching: false,
     list: [
       {
-        id: 1,
-        object: {
-          name: 'fake item',
-        },
-        value: 'test',
+        key: 1,
+        text: 'fake item',
+        value: 1,
       },
     ],
-  });
+  };
+  selectBox.setProps(updatedProps);
 
   expect(props.onChangeHandler).toBeCalled();
+  const selected = selectBox.state('selected');
+  expect(selected).toEqual(1);
 });
 
 it('Fire event at mount if not fetching', () => {

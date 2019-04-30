@@ -7,4 +7,5 @@ export enum LinkRelations {
   agencies = 'agencies',
   teams = 'teams',
   users = 'users',
+  userTasks = 'userTasks',
 }

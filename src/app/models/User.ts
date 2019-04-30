@@ -47,7 +47,3 @@ export class User {
     return new User({ ...this });
   }
 }
-
-export interface IUsersNormalized {
-  [userId: string]: IUser;
-}
