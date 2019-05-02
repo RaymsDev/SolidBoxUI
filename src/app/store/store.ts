@@ -31,6 +31,9 @@ import { ITeamsState } from './team/type';
 import { UsersActionTypes } from './user/action';
 import { userReducer } from './user/reducer';
 import { IUsersState } from './user/type';
+import { UserTasksActionTypes } from './userTask/action';
+import userTaskReducer from './userTask/reducer';
+import { IUserTasksState } from './userTask/type';
 
 export interface IRootState {
   clientsState: IClientsState;
@@ -43,6 +46,7 @@ export interface IRootState {
   teamsState: ITeamsState;
   branchesState: IBranchesState;
   agenciesState: IAgenciesState;
+  userTasksState: IUserTasksState;
 }
 
 export type IRootAction =
@@ -54,6 +58,7 @@ export type IRootAction =
   | UsersActionTypes
   | TeamsActionTypes
   | BranchesActionTypes
+  | UserTasksActionTypes
   | AgencysActionTypes;
 
 const reducers = combineReducers<IRootState>({
@@ -67,6 +72,7 @@ const reducers = combineReducers<IRootState>({
   teamsState: teamReducer,
   branchesState: branchReducer,
   agenciesState: agencyReducer,
+  userTasksState: userTaskReducer,
 });
 
 const store = createStore(

@@ -2,6 +2,7 @@ import * as React from 'react';
 import PageTemplateContainer from '../../../containers/PageTemplateContainer';
 import { ITaskSelectorProps } from '../../atoms/taskSelector/ITaskSelectorProps';
 import { TaskSelector } from '../../atoms/taskSelector/TaskSelector';
+import { ITimelineProps } from '../../molecules/timeline/ITimelineProps';
 import { Timeline } from '../../molecules/timeline/Timeline';
 import { IUserSelectorProps } from '../../molecules/userSelector/IUserSelectorProps';
 import { UserSelector } from '../../molecules/userSelector/UserSelector';
@@ -49,13 +50,19 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
       onUsersSelected: this.props.onUsersSelected,
     };
 
+    const timelineProps: ITimelineProps = {
+      userTaskList: this.props.userTaskList,
+      userList: this.props.userSelectedList,
+      taskList: this.props.taskList,
+    };
+
     return (
       <PageTemplateContainer>
         <h1>Planning</h1>
         <ProjectSelector {...projectSelectProps} />
         <TaskSelector {...taskSelectorProps} />
         <UserSelector {...userSelectorProps} />
-        <Timeline name="planning" />
+        <Timeline {...timelineProps} />
       </PageTemplateContainer>
     );
   }

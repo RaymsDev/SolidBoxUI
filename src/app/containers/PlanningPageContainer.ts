@@ -17,6 +17,7 @@ import projectStatusService from '../services/projectStatus/projectStatus.servic
 import taskService from '../services/task/task.service';
 import teamService from '../services/team/team.service';
 import userService from '../services/user/user.service';
+import userTaskService from '../services/userTask/userTask.service';
 import BranchActions from '../store/branch/action';
 import { ClientActions } from '../store/client/action';
 import ProjectActions from '../store/project/action';
@@ -25,6 +26,7 @@ import store, { IRootState } from '../store/store';
 import TaskActions from '../store/task/action';
 import TeamActions from '../store/team/action';
 import UserActions from '../store/user/action';
+import UserTaskActions from '../store/userTask/action';
 
 const projectStatusActions = new ProjectStatusActions(
   store,
@@ -36,6 +38,7 @@ const taskActions = new TaskActions(store, taskService);
 const branchActions = new BranchActions(store, branchService);
 const teamActions = new TeamActions(store, teamService);
 const userActions = new UserActions(store, userService);
+const userTaskActions = new UserTaskActions(store, userTaskService);
 
 const onClientSelected = (dispatch: Dispatch<any>, client: IClient) => {
   dispatch(projectActions.fetchClientProjects(client.links));
@@ -70,7 +73,8 @@ const onTeamSelected = (dispatch: Dispatch<any>, team: ITeam) => {
 };
 
 const onUsersSelected = (dispatch: Dispatch<any>, users: IUser[]) => {
-  console.error('Not Implemented');
+  dispatch(userActions.selectList(users));
+  users.forEach(u => dispatch(userTaskActions.FetchByLink(u.links)));
 };
 
 const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
@@ -96,7 +100,16 @@ const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
     isFetching: branchesIsFetching,
   } = state.branchesState;
   const { teams: teamList, isFetching: teamsIsFetching } = state.teamsState;
-  const { users: userList, isFetching: usersIsFetching } = state.usersState;
+  const {
+    users: userList,
+    selectedList: userSelectedList,
+    isFetching: usersIsFetching,
+  } = state.usersState;
+
+  const {
+    userTasks: userTaskList,
+    isFetching: userTasksIsFetching,
+  } = state.userTasksState;
 
   return {
     clientList,
@@ -118,7 +131,11 @@ const mapStateToProps = (state: IRootState): Partial<IPlanningPageProps> => {
     teamsIsFetching,
 
     userList,
+    userSelectedList,
     usersIsFetching,
+
+    userTaskList,
+    userTasksIsFetching,
   };
 };
 

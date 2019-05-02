@@ -42,5 +42,10 @@ class ProjectFakeService implements ITaskService {
   public get(link: ILink[]): Promise<ITask[]> {
     return tasksPromise;
   }
+  public getUnique(link: ILink[]): Promise<ITask> {
+    return new Promise<ITask>((resolve, reject) => {
+      setTimeout(() => resolve(taskListMock[0]), asyncDelay);
+    });
+  }
 }
 export default new ProjectFakeService();

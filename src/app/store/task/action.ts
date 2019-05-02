@@ -54,6 +54,13 @@ export default class TaskActions {
     };
   }
 
+  public fetchByUniqueLink(links: ILink[]): IFetchTaskByLinkAction {
+    this.store.dispatch<any>(this.fetchUniqueByLinkAsync(links));
+    return {
+      type: TaskTypes.FETCH_TASKS_BY_LINK,
+    };
+  }
+
   public receive(tasks: ITask[]): IReceiveTasksAction {
     return {
       type: TaskTypes.RECEIVE_TASKS,
@@ -87,6 +94,19 @@ export default class TaskActions {
         .get(links)
         .then(tasks => {
           dispatch(this.receive(tasks));
+        })
+        .catch(error => {
+          dispatch(this.receiveError(error));
+        });
+    };
+  }
+
+  public fetchUniqueByLinkAsync(links: ILink[]) {
+    return (dispatch: Dispatch<Action>) => {
+      return this.taskService
+        .getUnique(links)
+        .then(task => {
+          dispatch(this.receive([task]));
         })
         .catch(error => {
           dispatch(this.receiveError(error));

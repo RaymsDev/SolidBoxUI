@@ -1,0 +1,35 @@
+$day-width:50px;
+
+@mixin columnRight {
+  border-right-color: black;
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+
+.timeline {
+  margin: 0;
+  overflow-x: hidden;
+  .firstColumn {
+    text-transform: uppercase;
+    height: 26px;
+    line-height: 26px;
+    min-width: 125px;
+    @include columnRight();
+  }
+
+  .column{
+    min-width: $day-width;
+    vertical-align: middle;
+  }
+
+  .row {
+
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-bottom-width: 1px;
+    .lastOfWeek{
+      @include columnRight();
+    }
+  }
+
+}

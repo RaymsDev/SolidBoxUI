@@ -7,6 +7,7 @@ import { IProjectStatus, ProjectStatus } from '../../../models/ProjectStatus';
 import { ITask } from '../../../models/Task';
 import { ITeam } from '../../../models/Team';
 import { IUser } from '../../../models/User';
+import { IUserTask } from '../../../models/UserTask';
 
 export interface IPlanningPageProps {
   // Client
@@ -39,6 +40,10 @@ export interface IPlanningPageProps {
   onTeamSelected: (team: ITeam) => void;
   // User
   userList: IListNormalized<IUser>;
+  userSelectedList: IListNormalized<IUser>;
   usersIsFetching: boolean;
   onUsersSelected: (users: IUser[]) => void;
+
+  userTaskList: IListNormalized<IUserTask>;
+  userTasksIsFetching: boolean;
 }
