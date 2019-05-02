@@ -51,8 +51,9 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
     };
 
     const timelineProps: ITimelineProps = {
-      userTaskList: null,
+      userTaskList: this.props.userTaskList,
       userList: this.props.userSelectedList,
+      taskList: this.props.taskList,
     };
 
     return (

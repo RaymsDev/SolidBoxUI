@@ -1,7 +1,9 @@
 import { Action, Dispatch, Store } from 'redux';
 import { ILink } from '../../models/Link';
 import { IUserTask } from '../../models/UserTask';
+import taskService from '../../services/task/task.service';
 import { IUserTaskService } from '../../services/userTask/IUserTask.service';
+import TaskActions from '../task/action';
 
 export enum UserTaskTypes {
   FETCH = 'FETCH_USERTASKS',
@@ -33,7 +35,7 @@ export type UserTasksActionTypes =
   | IReceiveAction
   | IReceiveErrorAction;
 
-export default class TaskActions {
+export default class UserTaskActions {
   private store: Store;
   private userTaskService: IUserTaskService;
   constructor(store: Store, userTaskService: IUserTaskService) {
@@ -41,55 +43,62 @@ export default class TaskActions {
     this.userTaskService = userTaskService;
   }
 
-  public fetch(): IFetchAction {
+  public Fetch(): IFetchAction {
     this.store.dispatch<any>(this.fetchAsync());
     return {
       type: UserTaskTypes.FETCH,
     };
   }
-  public fetchByLink(links: ILink[]): IFetchByLinkAction {
+  public FetchByLink(links: ILink[]): IFetchByLinkAction {
     this.store.dispatch<any>(this.fetchByLinkAsync(links));
     return {
       type: UserTaskTypes.FETCH_BY_LINK,
     };
   }
 
-  public receive(userTasks: IUserTask[]): IReceiveAction {
+  public Receive(userTasks: IUserTask[]): IReceiveAction {
+    const taskActions = new TaskActions(this.store, taskService);
+
+    // TODO : improve perfs
+    userTasks.forEach(ut =>
+      this.store.dispatch<any>(taskActions.fetchByUniqueLink(ut.links)),
+    );
+
     return {
       type: UserTaskTypes.RECEIVE,
       userTasks,
     };
   }
 
-  public receiveError(errorMessage: string): IReceiveErrorAction {
+  public ReceiveError(errorMessage: string): IReceiveErrorAction {
     return {
       type: UserTaskTypes.RECEIVE_ERROR,
       errorMessage,
     };
   }
 
-  public fetchAsync() {
+  private fetchAsync() {
     return (dispatch: Dispatch<Action>) => {
       return this.userTaskService
         .List()
         .then(userTasks => {
-          dispatch(this.receive(userTasks));
+          dispatch(this.Receive(userTasks));
         })
         .catch(error => {
-          dispatch(this.receiveError(error));
+          dispatch(this.ReceiveError(error));
         });
     };
   }
 
-  public fetchByLinkAsync(links: ILink[]) {
+  private fetchByLinkAsync(links: ILink[]) {
     return (dispatch: Dispatch<Action>) => {
       return this.userTaskService
         .Get(links)
         .then(userTasks => {
-          dispatch(this.receive(userTasks));
+          dispatch(this.Receive(userTasks));
         })
         .catch(error => {
-          dispatch(this.receiveError(error));
+          dispatch(this.ReceiveError(error));
         });
     };
   }

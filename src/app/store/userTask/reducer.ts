@@ -37,8 +37,11 @@ const receiveUserTasks = (
   return {
     ...state,
     userTasks: {
-      idList,
-      entities,
+      idList: Array.from(new Set([...state.userTasks.idList, ...idList])),
+      entities: {
+        ...state.userTasks.entities,
+        ...entities,
+      },
     },
     isFetching: false,
     isError: false,

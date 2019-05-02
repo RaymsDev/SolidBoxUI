@@ -43,4 +43,8 @@ export class DateHelper {
   public static IsFirstDayOfWeek(day: moment.Moment): boolean {
     return day.isoWeekday() === weekDays.monday;
   }
+
+  public static IsSameDay(expected: moment.Moment, day: Date | moment.Moment) {
+    return expected.isSame(day);
+  }
 }

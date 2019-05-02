@@ -3,7 +3,9 @@ import 'moment/locale/fr';
 import * as React from 'react';
 import { DateHelper } from '../../../helpers/date.helper';
 import { IListNormalized } from '../../../models/IListNormalized';
+import { ITask } from '../../../models/Task';
 import { IUser } from '../../../models/User';
+import { IUserTask } from '../../../models/UserTask';
 import { TimelineRow } from '../../atoms/timelineRow/TimelineRow';
 import { ITimelineProps } from './ITimelineProps';
 import { ITimelineState } from './ITimelineState';
@@ -18,7 +20,7 @@ export class Timeline extends React.Component<ITimelineProps, ITimelineState> {
   }
 
   public render(): JSX.Element {
-    const { userList } = this.props;
+    const { userList, userTaskList, taskList } = this.props;
     const now = moment();
     const days = DateHelper.GetMonthDays();
     return (
@@ -29,7 +31,7 @@ export class Timeline extends React.Component<ITimelineProps, ITimelineState> {
             {days.map((d, i) => this.createDay(i, d))}
           </tr>
         </thead>
-        <tbody>{this.createRows(days, userList)}</tbody>
+        <tbody>{this.createRows(days, userList, taskList, userTaskList)}</tbody>
       </table>
     );
   }
@@ -50,14 +52,27 @@ export class Timeline extends React.Component<ITimelineProps, ITimelineState> {
   private createRows(
     days: moment.Moment[],
     userList: IListNormalized<IUser>,
+    taskList: IListNormalized<ITask>,
+    userTaskList: IListNormalized<IUserTask>,
   ): JSX.Element {
     const { entities, idList } = userList;
     const users = idList.map(id => entities[id]);
     return (
       <>
-        {users.map(u => (
-          <TimelineRow key={u.id} days={days} user={u} userTaskList={null} />
-        ))}
+        {users.map(u => {
+          const userTasks = u.userTaskIdList
+            .filter(id => userTaskList.entities.hasOwnProperty(id))
+            .map(id => userTaskList.entities[id]);
+          return (
+            <TimelineRow
+              key={u.id}
+              days={days}
+              user={u}
+              userTaskList={userTasks}
+              taskList={taskList}
+            />
+          );
+        })}
       </>
     );
   }

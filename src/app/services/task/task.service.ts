@@ -30,6 +30,29 @@ class TaskService implements ITaskService {
     return promise;
   }
 
+  public getUnique(links: ILink[]): Promise<ITask> {
+    const link = links.find(l => {
+      return l.rel === LinkRelations.task;
+    });
+
+    if (!link) {
+      return Promise.resolve(null);
+    }
+
+    const linkUrl = `${apiUrl}${link.url}`;
+    const promise = new Promise<ITask>((resolve, reject) => {
+      axios
+        .get<ITask>(linkUrl)
+        .then(response => {
+          resolve(response.data);
+        })
+        .catch(response => {
+          reject(response);
+        });
+    });
+    return promise;
+  }
+
   public list(): Promise<ITask[]> {
     const promise = new Promise<ITask[]>((resolve, reject) => {
       axios

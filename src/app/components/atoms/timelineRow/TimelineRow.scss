@@ -13,14 +13,31 @@
 
   .user{
     min-width:50px;
+    max-width: 100px;
     vertical-align: middle;
    @include columnRight();
   }
 
   .day{
     margin: 0;
-
+    vertical-align: middle;
   }
+
+  .userTaskContainer{
+    display: flex;
+    flex-direction: column;
+    .userTask{
+      font-size: 12px;
+      overflow-wrap: break-word;
+      height: 50px;
+      width: 50px;
+      padding: 0;
+      background-color: red;
+      text-align: center;
+      display: block;
+    }
+  }
+
   .lastOfWeek{
     @include columnRight();
   }

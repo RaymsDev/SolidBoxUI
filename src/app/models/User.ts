@@ -12,6 +12,7 @@ export interface IUser {
   userRoleId: number;
   isActive: boolean;
   links: ILink[];
+  userTaskIdList: number[];
 }
 
 export class User {
@@ -26,6 +27,7 @@ export class User {
   public userRoleId: number;
   public isActive: boolean;
   public links: ILink[];
+  public userTaskIdList: number[];
 
   constructor(data?: Partial<IUser>) {
     if (data) {
@@ -40,6 +42,7 @@ export class User {
       this.userRoleId = data.userRoleId;
       this.isActive = data.isActive;
       this.links = data.links;
+      this.userTaskIdList = data.userTaskIdList ? data.userTaskIdList : [];
     }
   }
 
