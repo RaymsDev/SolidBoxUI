@@ -31,32 +31,11 @@ steps:
     reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
     failIfCoverageEmpty: true
 
-#- script: |
-#    docker build -t $(dockerId).azurecr.io/$(imageName):$(Build.BuildId) .
-#    docker login -u $(acrServicePrincipalId) -p $(acrServicePrincipalPassword) $(dockerId).azurecr.io
-#    docker push $(dockerId).azurecr.io/:$(Build.BuildId)
+- script: |
+    docker build -t $(dockerId).azurecr.io/$(imageName):$(Build.BuildId) .
+    docker login -u $(acrServicePrincipalId) -p $(acrServicePrincipalPassword) $(dockerId).azurecr.io
+    docker push $(dockerId).azurecr.io/:$(Build.BuildId)
     
-
-- task: Docker@2
-  inputs:
-    containerRegistry: 'RaymsImageHub'
-    repository: '$(imageName)'
-    command: 'build'
-    Dockerfile: '**/Dockerfile'
-    tags: $(Build.BuildId)
-
-- task: Docker@2
-  inputs:
-    containerRegistry: 'RaymsImageHub'
-    command: 'login'
-    arguments: -u $(acrServicePrincipalId) -p $(acrServicePrincipalPassword) $(dockerId).azurecr.io
-
-- task: Docker@2
-  inputs:
-    containerRegistry: 'RaymsImageHub'
-    repository: '$(imageName)'
-    command: 'push'
-    tags: $(Build.BuildId)
 
   displayName: 'Build Docker image and publish on ACR'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
