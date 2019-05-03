@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { withAITracking } from 'react-appinsights';
 import PageTemplateContainer from '../../../containers/PageTemplateContainer';
 import { ITaskSelectorProps } from '../../atoms/taskSelector/ITaskSelectorProps';
 import { TaskSelector } from '../../atoms/taskSelector/TaskSelector';
@@ -10,7 +11,7 @@ import { IPRojectSelectorProps } from '../../organisms/projectSelector/IProjectS
 import { ProjectSelector } from '../../organisms/projectSelector/ProjectSelector';
 import { IPlanningPageProps } from './IPlanningPageProps';
 
-export class PlanningPage extends React.Component<IPlanningPageProps> {
+class PlanningPage extends React.Component<IPlanningPageProps> {
   constructor(props: IPlanningPageProps) {
     super(props);
   }
@@ -67,3 +68,4 @@ export class PlanningPage extends React.Component<IPlanningPageProps> {
     );
   }
 }
+export default withAITracking(PlanningPage, 'PlanningPage');

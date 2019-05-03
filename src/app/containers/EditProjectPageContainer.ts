@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { EditProjectPage } from '../components/pages/editProjectPage/EditProjectPage';
+import EditProjectPage from '../components/pages/editProjectPage/EditProjectPage';
 import { IEditProjectPageProps } from '../components/pages/editProjectPage/IEditProjectPageProps';
 import agencyService from '../services/agency/agency.service';
 import branchService from '../services/branch/branch.service';

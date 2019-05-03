@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { withAITracking } from 'react-appinsights';
 import {
   Dimmer,
   Divider,
@@ -16,8 +17,7 @@ import { TextArea } from '../../atoms/form/textArea/TextArea';
 import { EditTemplate } from '../../templates/editTemplate/EditTemplate';
 import { Mode } from '../../templates/editTemplate/IEditTemplateProps';
 import { IEditProjectPageProps } from './IEditProjectPageProps';
-
-export class EditProjectPage extends React.Component<IEditProjectPageProps> {
+class EditProjectPage extends React.Component<IEditProjectPageProps> {
   private edited: Project;
   private mode: Mode;
 
@@ -269,3 +269,5 @@ export class EditProjectPage extends React.Component<IEditProjectPageProps> {
       onChange(value);
   }
 }
+
+export default withAITracking(EditProjectPage);

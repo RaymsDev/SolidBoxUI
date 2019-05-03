@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { IPlanningPageProps } from '../components/pages/planningPage/IPlanningPageProps';
-import { PlanningPage } from '../components/pages/planningPage/PlanningPage';
+import PlanningPage from '../components/pages/planningPage/PlanningPage';
 import { IAgency } from '../models/Agency';
 import { IBranch } from '../models/Branch';
 import { IClient } from '../models/Client';
